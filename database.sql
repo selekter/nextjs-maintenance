@@ -15,32 +15,59 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for truck_repair_db
-CREATE DATABASE IF NOT EXISTS `truck_repair_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `truck_repair_db`;
+-- Dumping database structure for maintenance
+CREATE DATABASE IF NOT EXISTS `maintenance` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+USE `maintenance`;
 
--- Dumping structure for table truck_repair_db.drivers
+-- Dumping structure for table maintenance.drivers
 CREATE TABLE IF NOT EXISTS `drivers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `license_plate` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Data exporting was unselected.
 
--- Dumping structure for table truck_repair_db.reports
-CREATE TABLE IF NOT EXISTS `reports` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `truck_id` int(11) DEFAULT NULL,
-  `repair` text DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `is_completed` int(11) DEFAULT 0,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+-- Dumping structure for table maintenance.license_plates
+CREATE TABLE IF NOT EXISTS `license_plates` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `number_plate` varchar(255) NOT NULL,
+  `driver_id` bigint(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table maintenance.report_repairs
+CREATE TABLE IF NOT EXISTS `report_repairs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `license_plate_id` bigint(20) NOT NULL,
+  `repair` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table maintenance.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Data exporting was unselected.
