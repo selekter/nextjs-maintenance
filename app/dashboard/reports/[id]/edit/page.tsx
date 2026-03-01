@@ -1,5 +1,5 @@
 import { getReportsById } from "@/actions/ReportAction";
-import ReportEditForm from "@/ui/reports/ReportEditForm";
+import ReportEditForm from "@/ui/reports/Edit/ReportEditForm";
 import { redirect } from "next/navigation";
 
 export default async function EditReportPage({

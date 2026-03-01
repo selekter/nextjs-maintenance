@@ -9,11 +9,11 @@ export default function Navbar() {
     { name: "dashboard", path: "/dashboard" },
     { name: "พนักงานขับรถ", path: "/dashboard/drivers" },
     { name: "แจ้งซ่อม", path: "/dashboard/reports" },
-    { name: "บันทึกการซ่อมบำรุง", path: "" },
+    { name: "บันทึกการซ่อมบำรุง", path: "/dashboard/repair-history" },
   ];
   return (
     <nav className="bg-neutral-900 text-white sm:min-h-screen sm:w-xs">
-      <ul className="flex flex-col gap-1 my-2">
+      <ul className="flex flex-col gap-1 my-2 sticky top-0">
         {NavLink.map((link) => (
           <li key={link.name}>
             <Link

@@ -18,18 +18,18 @@ export default async function ReportTable() {
         </thead>
         <tbody className="divide-y divide-gray-100">
           {/* เปลี่ยนจาก reports เป็น groupedRepairs */}
-          {groupedRepairs.map((report) => (
-            <tr key={report.id} className="hover:bg-gray-200 transition-colors">
+          {groupedRepairs.map((report, index) => (
+            <tr key={index} className="hover:bg-gray-200 transition-colors">
               <td className="px-6 py-4 font-medium">{report.license_plate}</td>
               <td className="px-6 py-4">
                 {/* แสดงรายการซ่อมที่รวมกลุ่มแล้ว แยกด้วยจุลภาค หรือทำเป็น Label */}
                 <span className="flex flex-col gap-2">
-                  {report.items.map((item: string, index: number) => (
+                  {report.repairs.map((item, index) => (
                     <span
                       key={index}
                       className="bg-blue-100 text-blue-700 w-fit px-3 py-1 rounded-md"
                     >
-                      {item}
+                      {item.repair}
                     </span>
                   ))}
                 </span>

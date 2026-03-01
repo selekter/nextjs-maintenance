@@ -1,11 +1,7 @@
 "use client";
 import { createReport } from "@/actions/ReportAction";
+import { TruckProps } from "@/types";
 import { useActionState } from "react";
-
-interface TruckProps {
-  id: number;
-  license_plate: string;
-}
 
 const initialState = {
   message: "",
@@ -33,7 +29,7 @@ export default function RepairForm({ trucks }: { trucks: TruckProps[] }) {
             </option>
             {trucks.map((truck) => (
               <option key={truck.id} value={truck.id}>
-                {truck.license_plate}
+                {truck.number_plate} - {truck.name}
               </option>
             ))}
           </select>

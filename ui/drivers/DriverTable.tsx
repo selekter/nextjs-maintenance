@@ -3,7 +3,7 @@ import { getDrivers } from "@/actions/DriverAction";
 interface DriverProp {
   id: number;
   name: string;
-  license_plate: string;
+  number_plate: string;
 }
 
 export default async function DriverTable() {
@@ -21,9 +21,9 @@ export default async function DriverTable() {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {drivers.map((driver) => (
-            <tr key={driver.id} className="transition hover:bg-blue-100">
-              <td className="px-6 py-4 font-medium">{driver.license_plate}</td>
+          {drivers.map((driver, index) => (
+            <tr key={index} className="transition hover:bg-blue-100">
+              <td className="px-6 py-4 font-medium">{driver.number_plate}</td>
               <td className="px-6 py-4 font-medium">
                 <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-md">
                   {driver.name}

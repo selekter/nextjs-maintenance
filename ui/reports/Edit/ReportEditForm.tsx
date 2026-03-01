@@ -18,7 +18,7 @@ export default function ReportEditForm({ report }: { report: any }) {
   };
 
   return (
-    <div className="rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-y-hidden overflow-x-auto">
+    <div className="rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow overflow-y-hidden overflow-x-auto">
       <form action={formAction}>
         <div className="mb-4">
           <label className="block font-bold mb-2 bg-blue-200 p-4">

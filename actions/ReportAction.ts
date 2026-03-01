@@ -1,73 +1,135 @@
 "use server";
 
 import { db } from "@/libs/db";
+import { GroupedReport, ReportProps, TruckProps } from "@/types";
 import { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-interface ReportProps extends RowDataPacket {
-  id: number;
-  license_plate: string;
-  repairs: string;
-}
-
-interface GroupedReport {
-  id: number;
-  license_plate: string;
-  items: string[];
-}
-
+//! --- ดึง Report ที่แจ้งซ่อมมาแสดง ---
 export async function getReports() {
   const [reports] = await db.query<ReportProps[]>(
     `SELECT
-    reports.id, reports.truck_id, reports.repair, drivers.license_plate
-    FROM reports
-    INNER JOIN drivers
-    ON reports.truck_id = drivers.id
-    WHERE is_completed = 0
-    ORDER BY drivers.license_plate`,
+    license_plates.id,
+    license_plates.number_plate,
+    report_repairs.repair
+    FROM report_repairs
+    INNER JOIN license_plates
+    ON report_repairs.license_plate_id = license_plates.id
+    WHERE status = 0
+    ORDER BY number_plate
+    `,
   );
 
-  const groupedRepairs = reports.reduce<GroupedReport[]>((acc, current) => {
-    // หาว่ามีข้อมูล ป้ายทะเบียน นี้อยู่ในหมวดหมู่ที่จัดไว้หรือยัง
-    const existingRepair = acc.find(
-      (item) => item.license_plate === current.license_plate,
+  const groupedRepairs = reports.reduce<Record<number, GroupedReport>>(
+    (acc, item) => {
+      if (!acc[item.id]) {
+        acc[item.id] = {
+          id: item.id,
+          license_plate: item.number_plate,
+          repairs: [],
+        };
+      }
+
+      acc[item.id].repairs.push({ repair: item.repair });
+
+      return acc;
+    },
+    {},
+  );
+
+  return Object.values(groupedRepairs);
+}
+
+//! --- ดึง Report ที่ทำการซ่อมเสร็จแล้วมาแสดง ---
+export async function getGroupedRepairHistory(
+  page: number = 1,
+  limit: number = 10,
+  query: string = "",
+) {
+  // คำนวณ Offset (จุดเริ่มต้น)
+  const offset = (page - 1) * limit;
+  const searchTerm = `%${query}%`; // เตรียมคำค้นหาสำหรับ LIKE
+
+  const connection = await db.getConnection();
+
+  try {
+    const [rows]: any = await connection.execute<ReportProps[]>(
+      `
+    SELECT 
+      report_repairs.license_plate_id,
+      report_repairs.updated_at,
+      report_repairs.repair,
+      report_repairs.description,
+      license_plates.number_plate
+    FROM report_repairs
+    INNER JOIN license_plates
+    ON report_repairs.license_plate_id = license_plates.id
+    WHERE status = 1
+    AND (license_plates.number_plate LIKE ? OR report_repairs.repair LIKE ?)
+    ORDER BY updated_at DESC, license_plate_id
+    LIMIT ? OFFSET ?
+  `,
+      [searchTerm, searchTerm, limit, offset],
     );
 
-    if (existingRepair) {
-      // ถ้ามีแล้ว ให้ตรวจสอบก่อนว่ามี current.repair ส่งมาจริงไหม แล้วค่อย push
-      if (current.repair) {
-        existingRepair.items.push(current.repair);
+    // 2. นับจำนวนรายการทั้งหมดเพื่อหาจำนวนหน้าทั้งหมด (Total Pages)
+    const [countResult]: any = await connection.execute(
+      `
+      SELECT COUNT(*) as total
+      FROM report_repairs
+      INNER JOIN license_plates ON report_repairs.license_plate_id = license_plates.id
+      WHERE status = 1
+      AND (license_plates.number_plate LIKE ? OR report_repairs.repair LIKE ?)
+      `,
+      [searchTerm, searchTerm],
+    );
+
+    const totalPages = Math.ceil(countResult[0].total / limit);
+
+    const grouped = rows.reduce((acc: any, item: any) => {
+      const dateKey = new Date(item.updated_at).toISOString().split("T")[0];
+
+      const groupKey = `${dateKey}_${item.license_plate_id}`;
+
+      if (!acc[groupKey]) {
+        acc[groupKey] = {
+          date: dateKey,
+          license_plate_id: item.license_plate_id,
+          number_plate: item.number_plate,
+          repairs: [],
+        };
       }
-    } else {
-      // ถ้ายังไม่มี ให้สร้าง Object ใหม่ที่มีโครงสร้าง items เป็น Array เสมอ
-      acc.push({
-        id: current.truck_id,
-        license_plate: current.license_plate,
-        // ถ้า current.repair เป็น null/undefined ให้เป็น Array ว่างไว้ก่อนเพื่อป้องกัน map พัง
-        items: current.repair ? [current.repair] : [],
+
+      acc[groupKey].repairs.push({
+        repair: item.repair,
+        description: item.description,
       });
-    }
 
-    return acc; // สำคัญมาก: ต้อง return acc กลับไปทุกรอบ
-  }, []);
+      return acc;
+    }, {});
 
-  return groupedRepairs;
+    return { data: Object.values(grouped), totalPages: totalPages };
+  } finally {
+    connection.release();
+  }
 }
 
-export async function getReportsById(id: string) {
-  const [rows] = await db.execute<RowDataPacket[]>(
-    "SELECT * FROM reports WHERE truck_id = ? AND is_completed = 0",
-    [id],
+//! --- ดึงป้ายทะเบียนและชื่อคนขับมา ---
+export async function getLicensePlate() {
+  const [trucks] = await db.query<TruckProps[]>(
+    `SELECT
+    license_plates.id, license_plates.number_plate, drivers.name
+    FROM license_plates
+    INNER JOIN drivers
+    ON license_plates.driver_id = drivers.id
+    ORDER BY number_plate`,
   );
 
-  if (rows.length === 0) {
-    return null;
-  }
-
-  return rows;
+  return trucks;
 }
 
+//! สร้าง Report
 export async function createReport(prevState: any, formData: FormData) {
   const truckId = formData.get("truckId");
 
@@ -90,7 +152,7 @@ export async function createReport(prevState: any, formData: FormData) {
 
     for (const item of maintenaces) {
       await connection.execute(
-        "INSERT INTO reports (truck_id, repair, created_at, updated_at) VALUES(?, ?, NOW(), NOW())",
+        "INSERT INTO report_repairs (license_plate_id, repair, created_at, updated_at) VALUES(?, ?, NOW(), NOW())",
         [truckId, item],
       );
     }
@@ -107,6 +169,19 @@ export async function createReport(prevState: any, formData: FormData) {
   redirect("/dashboard/reports");
 }
 
+export async function getReportsById(id: string) {
+  const [rows] = await db.execute<RowDataPacket[]>(
+    "SELECT * FROM report_repairs WHERE license_plate_id = ? AND status = 0",
+    [id],
+  );
+
+  if (rows.length === 0) {
+    return null;
+  }
+
+  return rows;
+}
+
 export async function updateReport(prevState: any, formData: FormData) {
   const selectedRepairIds = formData.getAll("repair");
 
@@ -121,7 +196,7 @@ export async function updateReport(prevState: any, formData: FormData) {
 
     for (const id of selectedRepairIds) {
       await connection.execute(
-        "UPDATE reports SET is_completed = 1 WHERE id=?",
+        "UPDATE report_repairs SET status = 1, updated_at = NOW() WHERE id=?",
         [id],
       );
     }

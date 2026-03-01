@@ -2,6 +2,7 @@
 
 import { db } from "@/libs/db";
 import { RowDataPacket } from "mysql2";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 interface CreateDriverState {
@@ -10,13 +11,22 @@ interface CreateDriverState {
   driver_name: string | null;
 }
 
+//! --- ดึงพนักงานขับรถ ---
 export async function getDrivers() {
   const [rows] = await db.query<RowDataPacket[]>(
-    "SELECT id, name, license_plate FROM drivers ORDER BY license_plate ASC",
+    `SELECT
+    *
+    FROM license_plates
+    INNER JOIN drivers
+    ON driver_id = drivers.id
+    ORDER BY number_plate
+    `,
   );
 
   return rows;
 }
+
+//! --- เพิ่มพนักงานขับรถ ---
 export async function CreateDriver(
   prevState: CreateDriverState,
   formData: FormData,
@@ -32,19 +42,35 @@ export async function CreateDriver(
     };
   }
 
+  const connection = await db.getConnection();
+
   try {
-    await db.execute(
-      "INSERT INTO drivers(name,license_plate,created_at,updated_at) VALUES(?,?,NOW(),NOW())",
-      [driver_name, license_plate],
+    await connection.beginTransaction();
+
+    const [result]: any = await connection.execute(
+      "INSERT INTO drivers(name,created_at,updated_at) VALUES(?,NOW(),NOW())",
+      [driver_name],
     );
+    const driver_id = result.insertId;
+
+    await connection.execute(
+      "INSERT INTO license_plates(number_plate, driver_id, created_at, updated_at) VALUES(?,?,NOW(),NOW())",
+      [license_plate, driver_id],
+    );
+
+    await connection.commit();
   } catch (error) {
     console.error(error);
+    connection.rollback();
     return {
       message: "เกิดข้อผิดพลาดในการบันทึกข้อมูล",
       license_plate,
       driver_name,
     };
+  } finally {
+    connection.release();
   }
 
+  revalidatePath("/dashboard/drivers");
   redirect("/dashboard/drivers");
 }
