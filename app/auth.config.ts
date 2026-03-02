@@ -1,10 +1,13 @@
-import NextAuthConfig from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 
-export const authConfig = {
+export const authConfig: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {},
+    async signIn({ user, account, profile, email, credentials }: any) {
+      return true;
+    },
   },
+  providers: [],
 };

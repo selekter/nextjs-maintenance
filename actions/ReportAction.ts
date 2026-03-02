@@ -38,7 +38,9 @@ export async function getReports() {
     {},
   );
 
-  return Object.values(groupedRepairs);
+  return Object.values(groupedRepairs).sort((a, b) =>
+    a.license_plate.localeCompare(b.license_plate, "th"),
+  );
 }
 
 //! --- ดึง Report ที่ทำการซ่อมเสร็จแล้วมาแสดง ---
@@ -182,6 +184,7 @@ export async function getReportsById(id: string) {
   return rows;
 }
 
+//! --- อัพเดทการซ่อม ---
 export async function updateReport(prevState: any, formData: FormData) {
   const selectedRepairIds = formData.getAll("repair");
 
