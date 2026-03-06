@@ -51,16 +51,12 @@ export const authOptions: NextAuthOptions = {
         token.id = Number(user.id);
       }
 
-      console.log("TOKEN", token);
-
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as number;
       }
-
-      console.log("SESSION TOEKN", token);
 
       return session;
     },

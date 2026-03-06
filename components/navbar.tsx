@@ -4,7 +4,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Navbar() {
+export default function Navbar({ session }: { session: any }) {
   const pathname = usePathname();
   const NavLink = [
     { name: "dashboard", path: "/dashboard" },
@@ -28,7 +28,15 @@ export default function Navbar() {
           </li>
         ))}
       </ul>
-      <button onClick={() => signOut()}>ออกจากระบบ</button>
+
+      {session && (
+        <button
+          className="py-1 bg-red-500 hover:bg-red-700 transition w-full md:rounded-md cursor-pointer"
+          onClick={() => signOut()}
+        >
+          ออกจากระบบ
+        </button>
+      )}
     </nav>
   );
 }
