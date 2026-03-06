@@ -1,4 +1,6 @@
 import { getDrivers } from "@/actions/DriverAction";
+import { authOptions } from "@/auth";
+import { getServerSession } from "next-auth";
 
 interface DriverProp {
   id: number;
@@ -8,6 +10,7 @@ interface DriverProp {
 
 export default async function DriverTable() {
   const drivers = (await getDrivers()) as DriverProp[];
+  const session = await getServerSession(authOptions);
   return (
     <div className="rounded-xl overflow-x-auto overflow-y-hidden shadow-md">
       <table className="w-full text-left bg-white table-auto">
@@ -17,7 +20,7 @@ export default async function DriverTable() {
             <th className="px-6 py-4 font-semibold text-gray-700">
               พนักงานขับรถ
             </th>
-            <th className="px-6 py-4 text-right">จัดการ</th>
+            {session && <th className="px-6 py-4 text-right">จัดการ</th>}
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
@@ -29,14 +32,16 @@ export default async function DriverTable() {
                   {driver.name}
                 </span>
               </td>
-              <td className="flex gap-3 justify-end px-6 py-4">
-                <button className="text-blue-500 hover:text-blue-800 cursor-pointer">
-                  แก้ไข
-                </button>
-                <button className="text-red-500 hover:text-red-800 cursor-pointer">
-                  ลบ
-                </button>
-              </td>
+              {session && (
+                <td className="flex gap-3 justify-end px-6 py-4">
+                  <button className="text-blue-500 hover:text-blue-800 cursor-pointer">
+                    แก้ไข
+                  </button>
+                  <button className="text-red-500 hover:text-red-800 cursor-pointer">
+                    ลบ
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      bcryptjs:
+        specifier: ^3.0.3
+        version: 3.0.3
       dotenv:
         specifier: ^17.3.1
         version: 17.3.1
@@ -16,16 +19,16 @@ importers:
         version: 3.18.2(@types/node@25.3.3)
       next:
         specifier: ^16.1.6
-        version: 16.1.6(react-dom@19.1.0(react@19.2.4))(react@19.2.4)
+        version: 16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-auth:
         specifier: ^4.24.13
-        version: 4.24.13(next@16.1.6(react-dom@19.1.0(react@19.2.4))(react@19.2.4))(react-dom@19.1.0(react@19.2.4))(react@19.2.4)
+        version: 4.24.13(next@16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
         specifier: 19.2.4
         version: 19.2.4
       react-dom:
-        specifier: 19.1.0
-        version: 19.1.0(react@19.2.4)
+        specifier: ^19.2.4
+        version: 19.2.4(react@19.2.4)
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.2.1
@@ -560,6 +563,10 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
+  bcryptjs@3.0.3:
+    resolution: {integrity: sha512-GlF5wPWnSa/X5LKM1o0wz0suXIINz1iHRLvTS+sLyi7XPbe5ycmYI3DlZqVGZZtDgl4DmasFg7gOB3JYbphV5g==}
+    hasBin: true
+
   caniuse-lite@1.0.30001775:
     resolution: {integrity: sha512-s3Qv7Lht9zbVKE9XoTyRG6wVDCKdtOFIjBGg3+Yhn6JaytuNKPIjBMTMIY1AnOH3seL5mvF+x33oGAyK3hVt3A==}
 
@@ -796,10 +803,10 @@ packages:
   pretty-format@3.8.0:
     resolution: {integrity: sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==}
 
-  react-dom@19.1.0:
-    resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
+  react-dom@19.2.4:
+    resolution: {integrity: sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==}
     peerDependencies:
-      react: ^19.1.0
+      react: ^19.2.4
 
   react@19.2.4:
     resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
@@ -811,8 +818,8 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  scheduler@0.26.0:
-    resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
+  scheduler@0.27.0:
+    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
 
   semver@7.7.4:
     resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
@@ -1196,6 +1203,8 @@ snapshots:
 
   baseline-browser-mapping@2.10.0: {}
 
+  bcryptjs@3.0.3: {}
+
   caniuse-lite@1.0.30001775: {}
 
   client-only@0.0.1: {}
@@ -1346,22 +1355,22 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  next-auth@4.24.13(next@16.1.6(react-dom@19.1.0(react@19.2.4))(react@19.2.4))(react-dom@19.1.0(react@19.2.4))(react@19.2.4):
+  next-auth@4.24.13(next@16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@babel/runtime': 7.28.6
       '@panva/hkdf': 1.2.1
       cookie: 0.7.2
       jose: 4.15.9
-      next: 16.1.6(react-dom@19.1.0(react@19.2.4))(react@19.2.4)
+      next: 16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       oauth: 0.9.15
       openid-client: 5.7.1
       preact: 10.28.4
       preact-render-to-string: 5.2.6(preact@10.28.4)
       react: 19.2.4
-      react-dom: 19.1.0(react@19.2.4)
+      react-dom: 19.2.4(react@19.2.4)
       uuid: 8.3.2
 
-  next@16.1.6(react-dom@19.1.0(react@19.2.4))(react@19.2.4):
+  next@16.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@next/env': 16.1.6
       '@swc/helpers': 0.5.15
@@ -1369,7 +1378,7 @@ snapshots:
       caniuse-lite: 1.0.30001775
       postcss: 8.4.31
       react: 19.2.4
-      react-dom: 19.1.0(react@19.2.4)
+      react-dom: 19.2.4(react@19.2.4)
       styled-jsx: 5.1.6(react@19.2.4)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.1.6
@@ -1421,10 +1430,10 @@ snapshots:
 
   pretty-format@3.8.0: {}
 
-  react-dom@19.1.0(react@19.2.4):
+  react-dom@19.2.4(react@19.2.4):
     dependencies:
       react: 19.2.4
-      scheduler: 0.26.0
+      scheduler: 0.27.0
 
   react@19.2.4: {}
 
@@ -1432,7 +1441,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  scheduler@0.26.0: {}
+  scheduler@0.27.0: {}
 
   semver@7.7.4:
     optional: true

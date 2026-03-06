@@ -1,6 +1,7 @@
 "use client";
 
 import { CreateDriver } from "@/actions/DriverAction";
+import { TruckProps } from "@/types";
 import { useActionState } from "react";
 
 const initialState = {
@@ -9,7 +10,11 @@ const initialState = {
   driver_name: "",
 };
 
-export default function CreateDriverForm() {
+export default function CreateDriverForm({
+  plateNumber,
+}: {
+  plateNumber: TruckProps[];
+}) {
   const [state, formAction, isPending] = useActionState(
     CreateDriver,
     initialState,
@@ -20,13 +25,20 @@ export default function CreateDriverForm() {
         <div className="flex flex-col gap-3">
           <label className="space-x-1 flex items-center">
             <span>ทะเบียน</span>
-            <input
-              type="text"
-              className="px-3 py-1 border border-neutral-300 rounded-sm w-full md:w-96"
+            <select
               name="licensePlate"
-              key={`plate-${state?.license_plate}`}
-              defaultValue={state?.license_plate ?? ""}
-            />
+              defaultValue=""
+              className="bg-white px-3 py-1 rounded-md border cursor-pointer"
+            >
+              <option value="" disabled>
+                กรุณาเลือกทะเบียน
+              </option>
+              {plateNumber.map((plate) => (
+                <option key={plate.id} value={plate.number_plate}>
+                  {plate.number_plate}
+                </option>
+              ))}
+            </select>
           </label>
           <label className="space-x-1 flex items-center">
             <span>ชื่อ พขร</span>

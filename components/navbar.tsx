@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -27,6 +28,7 @@ export default function Navbar() {
           </li>
         ))}
       </ul>
+      <button onClick={() => signOut()}>ออกจากระบบ</button>
     </nav>
   );
 }
