@@ -14,3 +14,12 @@ export const truckSchema = z.object({
       "รูปแบบทะเบียนต้องเป็น 00-0000 เท่านั้น เช่น (70-5857)",
     ),
 });
+
+export const reportSchema = z.object({
+  truckId: z.string().min(1, "กรุณาเลือกทะเบียนรถ"),
+  maintenaces: z
+    .array(z.string())
+    .refine((val) => val.length > 0 && val.some((v) => v.trim() !== ""), {
+      message: "กรุณาเลือกรายการซ่อมอย่างน้อย 1 รายการ",
+    }),
+});

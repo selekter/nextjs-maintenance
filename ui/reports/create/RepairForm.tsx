@@ -4,7 +4,7 @@ import { TruckProps } from "@/types";
 import { useActionState } from "react";
 
 const initialState = {
-  message: "",
+  errors: {},
 };
 
 export default function RepairForm({ trucks }: { trucks: TruckProps[] }) {
@@ -21,7 +21,7 @@ export default function RepairForm({ trucks }: { trucks: TruckProps[] }) {
           <select
             id="license_plate"
             name="truckId"
-            className="bg-white px-3 py-1 rounded-md border cursor-pointer"
+            className={`bg-white px-3 py-1 rounded-md border cursor-pointer ${state.errors?.truckId ? "border-red-500" : ""}`}
             defaultValue=""
           >
             <option value="" disabled>
@@ -33,6 +33,9 @@ export default function RepairForm({ trucks }: { trucks: TruckProps[] }) {
               </option>
             ))}
           </select>
+          {state?.errors?.truckId && (
+            <p className="text-red-500 text-sm">{state.errors.truckId}</p>
+          )}
         </div>
         <div className="space-y-0.5">
           <label className="flex items-center gap-1">
@@ -70,8 +73,8 @@ export default function RepairForm({ trucks }: { trucks: TruckProps[] }) {
           />
         </div>
         {/* แสดง Error ถ้ามี */}
-        {state?.message && (
-          <p className="text-red-500 text-sm">{state.message}</p>
+        {state?.errors?.maintenaces && (
+          <p className="text-red-500 text-sm">{state.errors.maintenaces}</p>
         )}
         <button
           className="bg-blue-500 hover:shadow-md shadow-blue-500 hover:bg-blue-800 transition px-3 py-1 rounded-md text-white cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"

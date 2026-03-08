@@ -1,10 +1,12 @@
 "use server";
 
 import { db } from "@/libs/db";
+import { reportSchema } from "@/libs/zod";
 import { GroupedReport, ReportProps, TruckProps } from "@/types";
 import { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import z from "zod";
 
 //! --- ดึง Report ที่แจ้งซ่อมมาแสดง ---
 export async function getReports() {
@@ -133,31 +135,34 @@ export async function getLicensePlate() {
 
 //! สร้าง Report
 export async function createReport(prevState: any, formData: FormData) {
-  const truckId = formData.get("truckId");
-
-  if (!truckId) {
-    return { message: "คุณไม่ได้เลือกทะเบียน" };
+  const rawData = {
+    truckId: String(formData.get("truckId") ?? ""),
+    maintenaces: formData.getAll("maintenance"),
+  };
+  const validated = reportSchema.safeParse(rawData);
+  if (!validated.success) {
+    return {
+      errors: z.flattenError(validated.error).fieldErrors,
+    };
   }
 
-  const maintenaces = formData
-    .getAll("maintenance")
-    .map((item) => item.toString().trim())
+  const { truckId, maintenaces } = validated.data;
+
+  const repairs = maintenaces
+    .map((item) => String(item.trim()))
     .filter((item) => item !== "");
-
-  if (maintenaces.length === 0) {
-    return { message: "กรุณาเลือกอย่างน้อย 1 รายการ" };
-  }
 
   const connection = await db.getConnection();
   try {
     await connection.beginTransaction();
 
-    for (const item of maintenaces) {
-      await connection.execute(
-        "INSERT INTO report_repairs (license_plate_id, repair, created_at, updated_at) VALUES(?, ?, NOW(), NOW())",
-        [truckId, item],
-      );
-    }
+    const values = repairs.map((repair) => [truckId, repair]);
+    await connection.execute(
+      `INSERT INTO report_repairs
+      (license_plate_id, repair, created_at, updated_at)
+      VALUES ${values.map(() => "(?, ?, NOW(), NOW())").join(",")}`,
+      values.flat(),
+    );
 
     await connection.commit();
   } catch (error) {
