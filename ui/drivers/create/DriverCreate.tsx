@@ -5,7 +5,7 @@ import { TruckProps } from "@/types";
 import { useActionState } from "react";
 
 const initialState = {
-  message: "",
+  messages: {},
   license_plate: "",
   driver_name: "",
 };
@@ -19,6 +19,7 @@ export default function CreateDriverForm({
     CreateDriver,
     initialState,
   );
+
   return (
     <div className="bg-white p-3 md:p-5 rounded-md shadow-md space-y-2">
       <form action={formAction}>
@@ -26,8 +27,9 @@ export default function CreateDriverForm({
           <label className="space-x-1 flex items-center">
             <span>ทะเบียน</span>
             <select
-              name="licensePlate"
-              defaultValue=""
+              key={state.license_plate}
+              name="license_plate"
+              defaultValue={state.license_plate ?? ""}
               className="bg-white px-3 py-1 rounded-md border cursor-pointer"
             >
               <option value="" disabled>
@@ -40,20 +42,28 @@ export default function CreateDriverForm({
               ))}
             </select>
           </label>
+          {state?.messages?.license_plate && (
+            <p className="bg-red-100 text-red-500 py-2 px-3 rounded-md border border-red-300 border-l-4 border-l-red-500 text-sm">
+              {state.messages.license_plate}
+            </p>
+          )}
           <label className="space-x-1 flex items-center">
             <span>ชื่อ พขร</span>
             <input
               type="text"
-              className="px-3 py-1 border border-neutral-300 rounded-sm w-full md:w-96"
-              name="driverName"
+              className={`px-3 py-1 border border-neutral-300 rounded-sm w-full md:w-96 ${state?.messages?.driver_name ? "border-red-500" : ""}`}
+              name="driver_name"
               key={`name-${state?.driver_name}`}
               defaultValue={state?.driver_name ?? ""}
             />
           </label>
-          {state?.message && (
+          {state?.messages?.driver_name && (
             <p className="bg-red-100 text-red-500 py-2 px-3 rounded-md border border-red-300 border-l-4 border-l-red-500 text-sm">
-              {state.message}
+              {state.messages.driver_name}
             </p>
+          )}
+          {state?.formError && (
+            <p className="text-red-500">{state.formError}</p>
           )}
           <button
             className="sm:w-fit bg-blue-500 hover:shadow-md shadow-blue-500 hover:bg-blue-800 transition px-3 py-1 rounded-md text-white cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"

@@ -1,14 +1,20 @@
 "use server";
 
 import { db } from "@/libs/db";
+import { driverSchema } from "@/libs/zod";
 import { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import z from "zod";
 
 interface CreateDriverState {
-  message: string;
-  license_plate: string | null;
-  driver_name: string | null;
+  messages?: {
+    license_plate?: string[];
+    driver_name?: string[];
+  };
+  formError?: string;
+  license_plate?: string | null;
+  driver_name?: string | null;
 }
 
 //! --- ดึงพนักงานขับรถ ---
@@ -31,16 +37,21 @@ export async function CreateDriver(
   prevState: CreateDriverState,
   formData: FormData,
 ): Promise<CreateDriverState> {
-  const license_plate = formData.get("licensePlate") as string;
-  const driver_name = formData.get("driverName") as string;
+  const rawData = {
+    license_plate: String(formData.get("license_plate") ?? ""),
+    driver_name: String(formData.get("driver_name") ?? ""),
+  };
 
-  if (!license_plate || !driver_name) {
+  const validationFields = driverSchema.safeParse(rawData);
+
+  if (!validationFields.success) {
     return {
-      message: "กรุณากรองข้อมูลให้ครบถ้วยด้วยครับ",
-      license_plate,
-      driver_name,
+      messages: z.flattenError(validationFields.error).fieldErrors,
+      license_plate: rawData.license_plate,
+      driver_name: rawData.driver_name,
     };
   }
+  const { driver_name, license_plate } = validationFields.data;
 
   const connection = await db.getConnection();
 
@@ -61,9 +72,9 @@ export async function CreateDriver(
     await connection.commit();
   } catch (error) {
     console.error(error);
-    connection.rollback();
+    await connection.rollback();
     return {
-      message: "เกิดข้อผิดพลาดในการบันทึกข้อมูล",
+      formError: "เกิดข้อผิดพลาดในการบันทึกข้อมูล",
       license_plate,
       driver_name,
     };

@@ -1,8 +1,10 @@
 "use server";
 
 import { db } from "@/libs/db";
+import { truckSchema } from "@/libs/zod";
 import { TruckProps } from "@/types";
 import { RowDataPacket } from "mysql2";
+import z from "zod";
 
 //! --- ดึงทะเบียนทั้งหมด ---
 export async function getTrucks() {
@@ -13,19 +15,16 @@ export async function getTrucks() {
   return trucks;
 }
 
-export async function createTruck(
-  prevState: any,
-  formData: FormData,
-): Promise<{ message: string }> {
-  const truck = formData.get("numberPlate");
+export async function createTruck(prevState: any, formData: FormData) {
+  const rawData = {
+    license_plate: formData.get("license_plate"),
+  };
 
-  if (!truck) {
-    return { message: "error" };
+  const validationFields = truckSchema.safeParse(rawData);
+
+  if (!validationFields.success) {
+    return { messages: z.flattenError(validationFields.error).fieldErrors };
   }
-
-  // try {
-  //   await db.execute("INSERT INTO ")
-  // }
 
   return { message: "success" };
 }
