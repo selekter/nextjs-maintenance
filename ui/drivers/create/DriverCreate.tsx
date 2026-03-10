@@ -1,6 +1,7 @@
 "use client";
 
 import { CreateDriver } from "@/actions/DriverAction";
+import Alert from "@/components/alert";
 import { TruckProps } from "@/types";
 import { useActionState } from "react";
 
@@ -43,9 +44,7 @@ export default function CreateDriverForm({
             </select>
           </label>
           {state?.messages?.license_plate && (
-            <p className="bg-red-100 text-red-500 py-2 px-3 rounded-md border border-red-300 border-l-4 border-l-red-500 text-sm">
-              {state.messages.license_plate}
-            </p>
+            <Alert>{state.messages.license_plate}</Alert>
           )}
           <label className="space-x-1 flex items-center">
             <span>ชื่อ พขร</span>
@@ -58,9 +57,7 @@ export default function CreateDriverForm({
             />
           </label>
           {state?.messages?.driver_name && (
-            <p className="bg-red-100 text-red-500 py-2 px-3 rounded-md border border-red-300 border-l-4 border-l-red-500 text-sm">
-              {state.messages.driver_name}
-            </p>
+            <Alert>{state.messages.driver_name}</Alert>
           )}
           {state?.formError && (
             <p className="text-red-500">{state.formError}</p>

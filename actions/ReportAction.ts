@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/libs/db";
-import { reportSchema } from "@/libs/zod";
+import { reportEditSchema, reportSchema } from "@/libs/zod";
 import { GroupedReport, ReportProps, TruckProps } from "@/types";
 import { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
@@ -139,6 +139,7 @@ export async function createReport(prevState: any, formData: FormData) {
     truckId: String(formData.get("truckId") ?? ""),
     maintenaces: formData.getAll("maintenance"),
   };
+
   const validated = reportSchema.safeParse(rawData);
   if (!validated.success) {
     return {
@@ -191,13 +192,24 @@ export async function getReportsById(id: string) {
 
 //! --- อัพเดทการซ่อม ---
 export async function updateReport(prevState: any, formData: FormData) {
-  const selectedRepairIds = formData.getAll("repair");
+  const rawData = { selectedRepairIds: formData.getAll("repair") };
 
-  if (!selectedRepairIds || selectedRepairIds.length === 0) {
-    return { message: "กรุณาเลือก 1 รายการ" };
+  const validated = reportEditSchema.safeParse(rawData);
+
+  if (!validated.success) {
+    // ส่ง Mapper function (issue) => issue.message เข้าไป
+    // เพื่อบอก Zod ว่าเราต้องการดึงแค่ข้อความ string ออกมา
+    const { fieldErrors } = validated.error.flatten((issue) => issue.message);
+
+    return {
+      // เข้าถึง fieldErrors.selectedRepairIds ได้แบบ Type-safe
+      message: fieldErrors.selectedRepairIds?.[0] || "ข้อมูลไม่ถูกต้อง",
+    };
   }
 
   const connection = await db.getConnection();
+
+  const { selectedRepairIds } = validated.data;
 
   try {
     await connection.beginTransaction();

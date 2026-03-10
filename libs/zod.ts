@@ -23,3 +23,11 @@ export const reportSchema = z.object({
       message: "กรุณาเลือกรายการซ่อมอย่างน้อย 1 รายการ",
     }),
 });
+
+export const reportEditSchema = z.object({
+  selectedRepairIds: z
+    .array(z.string())
+    .refine((val) => val.length > 0 && val.some((v) => v.trim() !== ""), {
+      message: "กรุณาเลือกรายการซ่อมอย่างน้อย 1 รายการ",
+    }),
+});

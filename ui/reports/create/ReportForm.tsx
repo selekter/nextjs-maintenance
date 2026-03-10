@@ -1,5 +1,6 @@
 "use client";
 import { createReport } from "@/actions/ReportAction";
+import Alert from "@/components/alert";
 import { TruckProps } from "@/types";
 import { useActionState } from "react";
 
@@ -7,7 +8,7 @@ const initialState = {
   errors: {},
 };
 
-export default function RepairForm({ trucks }: { trucks: TruckProps[] }) {
+export default function ReportForm({ trucks }: { trucks: TruckProps[] }) {
   const [state, formAction, isPending] = useActionState(
     createReport,
     initialState,
@@ -74,7 +75,7 @@ export default function RepairForm({ trucks }: { trucks: TruckProps[] }) {
         </div>
         {/* แสดง Error ถ้ามี */}
         {state?.errors?.maintenaces && (
-          <p className="text-red-500 text-sm">{state.errors.maintenaces}</p>
+          <Alert>{state.errors.maintenaces}</Alert>
         )}
         <button
           className="bg-blue-500 hover:shadow-md shadow-blue-500 hover:bg-blue-800 transition px-3 py-1 rounded-md text-white cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"

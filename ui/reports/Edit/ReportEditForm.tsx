@@ -1,10 +1,18 @@
 "use client";
 
 import { updateReport } from "@/actions/ReportAction";
+import Alert from "@/components/alert";
 import { useActionState, useState } from "react";
 
+const initialState = {
+  message: "",
+};
+
 export default function ReportEditForm({ report }: { report: any }) {
-  const [state, formAction, isPending] = useActionState(updateReport, null);
+  const [state, formAction, isPending] = useActionState(
+    updateReport,
+    initialState,
+  );
 
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
@@ -20,12 +28,12 @@ export default function ReportEditForm({ report }: { report: any }) {
   return (
     <div className="rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow overflow-y-hidden overflow-x-auto">
       <form action={formAction}>
-        <div className="mb-4">
+        <div className="space-y-2 mb-2">
           <label className="block font-bold mb-2 bg-blue-200 p-4">
             รายการแจ้งซ่อม
           </label>
           {report.map((item: any) => (
-            <div key={item.id} className="flex items-center gap-2 mb-2 px-4">
+            <div key={item.id} className="flex items-center gap-2 px-4">
               <input
                 type="checkbox"
                 id={`repair-${item.id}`}
@@ -39,6 +47,11 @@ export default function ReportEditForm({ report }: { report: any }) {
               </label>
             </div>
           ))}
+          {state?.message && (
+            <div className="px-4">
+              <Alert>{state.message}</Alert>
+            </div>
+          )}
         </div>
         <div className="px-4 mb-4">
           <button
