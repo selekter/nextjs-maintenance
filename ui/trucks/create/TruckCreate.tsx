@@ -1,10 +1,12 @@
 "use client";
 
 import { createTruck } from "@/actions/TruckAction";
+import Alert from "@/components/alert";
 import { useActionState, useEffect, useRef } from "react";
 
 const initialState = {
-  messages: {},
+  errors: {},
+  message: "",
 };
 
 export default function CreateTruckForm() {
@@ -16,10 +18,10 @@ export default function CreateTruckForm() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (state?.messages?.license_plate) {
+    if (state?.errors?.license_plate) {
       inputRef.current?.focus();
     }
-  }, [state.messages]);
+  }, [state.errors]);
 
   return (
     <>
@@ -33,14 +35,13 @@ export default function CreateTruckForm() {
             defaultValue=""
             autoFocus
             ref={inputRef}
-            className={`bg-white px-2 py-1 rounded-md shadow-sm md:w-80 border border-gray-300 ${state.messages?.license_plate ? "border-red-500" : ""}`}
+            className={`bg-white px-2 py-1 rounded-md shadow-sm md:w-80 border border-gray-300 ${state.errors?.license_plate ? "border-red-500" : ""}`}
             placeholder="เลขป้ายทะเบียน ตัวอย่างเช่น 10-1234"
           />
-          {state?.messages?.license_plate && (
-            <p className="bg-red-100 text-red-500 py-2 px-3 rounded-md border border-red-300 border-l-4 border-l-red-500 text-sm">
-              {state.messages.license_plate}
-            </p>
+          {state?.errors?.license_plate && (
+            <Alert>{state.errors.license_plate[0]}</Alert>
           )}
+          {state.messages && <Alert>{state.messages}</Alert>}
           <button
             disabled={isPending}
             className={`bg-blue-300 hover:bg-blue-500 transition px-3 py-1 rounded-md cursor-pointer md:w-fit disabled:bg-gray-200 disabled:cursor-not-allowed`}

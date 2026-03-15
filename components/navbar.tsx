@@ -14,29 +14,31 @@ export default function Navbar({ session }: { session: any }) {
   ];
   return (
     <nav className="bg-neutral-900 text-white sm:min-h-screen sm:w-xs">
-      <ul className="flex flex-col gap-1 my-2 sticky top-0">
-        {NavLink.map((link) => (
-          <li key={link.name}>
-            <Link
-              href={link.path}
-              className={`
+      <div className="sticky top-0">
+        <ul className="flex flex-col gap-1 my-2">
+          {NavLink.map((link) => (
+            <li key={link.name}>
+              <Link
+                href={link.path}
+                className={`
                 ${pathname === link.path ? "bg-neutral-600" : ""}
                 block transition hover:bg-neutral-700 p-2 mx-2 rounded-md`}
-            >
-              {link.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-      {session && (
-        <button
-          className="py-1 bg-red-500 hover:bg-red-700 transition w-full md:rounded-md cursor-pointer"
-          onClick={() => signOut()}
-        >
-          ออกจากระบบ
-        </button>
-      )}
+        {session && (
+          <button
+            className="py-1 bg-red-500 hover:bg-red-700 transition w-full md:rounded-md cursor-pointer"
+            onClick={() => signOut()}
+          >
+            ออกจากระบบ
+          </button>
+        )}
+      </div>
     </nav>
   );
 }

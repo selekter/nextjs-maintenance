@@ -23,7 +23,7 @@ export async function getDrivers() {
     `SELECT
     *
     FROM license_plates
-    INNER JOIN drivers
+    LEFT JOIN drivers
     ON driver_id = drivers.id
     ORDER BY number_plate
     `,
@@ -41,6 +41,8 @@ export async function CreateDriver(
     license_plate: String(formData.get("license_plate") ?? ""),
     driver_name: String(formData.get("driver_name") ?? ""),
   };
+
+  console.log(formData.get("license_plate"));
 
   const validationFields = driverSchema.safeParse(rawData);
 
@@ -65,8 +67,10 @@ export async function CreateDriver(
     const driver_id = result.insertId;
 
     await connection.execute(
-      "INSERT INTO license_plates(number_plate, driver_id, created_at, updated_at) VALUES(?,?,NOW(),NOW())",
-      [license_plate, driver_id],
+      `UPDATE license_plates
+      SET driver_id = ?
+      WHERE id = ?`,
+      [driver_id, license_plate],
     );
 
     await connection.commit();

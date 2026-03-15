@@ -37,7 +37,7 @@ export default function CreateDriverForm({
                 กรุณาเลือกทะเบียน
               </option>
               {plateNumber.map((plate) => (
-                <option key={plate.id} value={plate.number_plate}>
+                <option key={plate.id} value={plate.id}>
                   {plate.number_plate}
                 </option>
               ))}

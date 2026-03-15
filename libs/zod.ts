@@ -1,5 +1,14 @@
 import z from "zod";
 
+// ✅ Login validation schema
+export const loginSchema = z.object({
+  email: z.email({ message: "รูปแบบอีเมลไม่ถูกต้อง" }).min(1, "กรุณากรองอีเมล"),
+  password: z
+    .string()
+    .min(6, "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร")
+    .max(128, "รหัสผ่านต้องไม่เกิน 128 ตัวอักษร"),
+});
+
 export const driverSchema = z.object({
   driver_name: z.string().min(1, "กรุณากรองชื่อ พขร ด้วยครับ"),
   license_plate: z.string().min(1, "กรุณาเลือกทะเบียนด้วยครับ"),
@@ -9,10 +18,9 @@ export const truckSchema = z.object({
   license_plate: z
     .string()
     .min(1, "กรุณากรองเลขทะเบียน")
-    .regex(
-      /^\d{2}-\d{4}$/,
-      "รูปแบบทะเบียนต้องเป็น 00-0000 เท่านั้น เช่น (70-5857)",
-    ),
+    .regex(/^\d{2}-\d{4}$/, {
+      message: "รูปแบบทะเบียนต้องเป็น 00-0000 เท่านั้น เช่น (70-5857)",
+    }),
 });
 
 export const reportSchema = z.object({

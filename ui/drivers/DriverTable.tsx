@@ -24,13 +24,19 @@ export default async function DriverTable() {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {drivers.map((driver, index) => (
+          {drivers.map((truck, index) => (
             <tr key={index} className="transition hover:bg-blue-100">
-              <td className="px-6 py-4 font-medium">{driver.number_plate}</td>
+              <td className="px-6 py-4 font-medium">{truck.number_plate}</td>
               <td className="px-6 py-4 font-medium">
-                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-md">
-                  {driver.name}
-                </span>
+                {truck.name ? (
+                  <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-md">
+                    {truck.name}
+                  </span>
+                ) : (
+                  <span className="bg-blue-100 text-red-500 px-3 py-1 rounded-md">
+                    ยังไม่มี พขร
+                  </span>
+                )}
               </td>
               {session && (
                 <td className="flex gap-3 justify-end px-6 py-4">

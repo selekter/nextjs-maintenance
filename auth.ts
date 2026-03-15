@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { db } from "./libs/db"; // ดึงการเชื่อมต่อ DB ของคุณมา
 import NextAuth from "next-auth";
+import { authConfig } from "./app/auth.config";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -46,6 +47,8 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login", // กำหนดหน้า Login ของเราเอง
   },
   callbacks: {
+    // ✅ เพิ่ม signIn callback จาก authConfig
+    signIn: authConfig.callbacks?.signIn,
     async jwt({ token, user }) {
       if (user) {
         token.id = Number(user.id);
