@@ -37,16 +37,18 @@ export default async function ReportTable() {
                 </span>
               </td>
               {session && (
-                <td className="px-6 py-4 flex md:justify-end">
-                  <Link
-                    className="text-blue-600 hover:text-blue-800 mr-3 cursor-pointer"
-                    href={`/dashboard/reports/${report.id}/edit`}
-                  >
-                    แก้ไข
-                  </Link>
-                  <button className="text-red-500 hover:text-red-700 cursor-pointer">
-                    ลบ
-                  </button>
+                <td className="px-6 py-4">
+                  <div className="flex items-center gap-3 md:justify-end">
+                    <Link
+                      className="text-blue-600 hover:text-blue-800 cursor-pointer"
+                      href={`/dashboard/reports/${report.id}/edit`}
+                    >
+                      แก้ไข
+                    </Link>
+                    <button className="text-red-500 hover:text-red-700 cursor-pointer">
+                      ลบ
+                    </button>
+                  </div>
                 </td>
               )}
             </tr>

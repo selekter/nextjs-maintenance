@@ -125,7 +125,7 @@ export async function getLicensePlate() {
     `SELECT
     license_plates.id, license_plates.number_plate, drivers.name
     FROM license_plates
-    INNER JOIN drivers
+    LEFT JOIN drivers
     ON license_plates.driver_id = drivers.id
     ORDER BY number_plate`,
   );

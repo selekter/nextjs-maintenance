@@ -30,7 +30,7 @@ export default function ReportForm({ trucks }: { trucks: TruckProps[] }) {
             </option>
             {trucks.map((truck) => (
               <option key={truck.id} value={truck.id}>
-                {truck.number_plate} - {truck.name}
+                {truck.number_plate} - {truck.name ? truck.name : "ไม่มีคนขับ"}
               </option>
             ))}
           </select>
