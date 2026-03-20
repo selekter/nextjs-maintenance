@@ -231,3 +231,23 @@ export async function updateReport(prevState: any, formData: FormData) {
   revalidatePath("/dashboard/reports");
   redirect("/dashboard/reports");
 }
+
+export async function deleteReport(ids: string[]) {
+  if (!ids || ids.length === 0) return { message: "กรุณาเลือกรายการที่จะลบ" };
+
+  try {
+    const placeholders = ids.map(() => "?").join(",");
+    await db.execute(
+      `DELETE FROM report_repairs WHERE id IN (${placeholders})`,
+      [ids],
+    );
+
+    return { message: "ลบรายการสำเร็จ" };
+  } catch (error) {
+    console.error(error);
+    return { message: "เกิดข้อผิดพลาดในการบันทึก" };
+  }
+
+  revalidatePath("/dashboard/reports");
+  redirect("/dashboard/reports");
+}

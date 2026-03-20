@@ -1,8 +1,9 @@
 "use client";
 
-import { updateReport } from "@/actions/ReportAction";
-import Alert from "@/components/alert";
-import { useActionState, useState } from "react";
+import { deleteReport, updateReport } from "@/actions/ReportAction";
+import Alert from "@/components/Alert";
+import Button from "@/components/Button";
+import { useActionState, useState, useTransition } from "react";
 
 const initialState = {
   message: "",
@@ -15,6 +16,7 @@ export default function ReportEditForm({ report }: { report: any }) {
   );
 
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [isDeleting, startTransition] = useTransition();
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -22,6 +24,20 @@ export default function ReportEditForm({ report }: { report: any }) {
       setSelectedItems((prev) => [...prev, value]);
     } else {
       setSelectedItems((prev) => prev.filter((id) => id !== value));
+    }
+  };
+
+  const handleDelete = async () => {
+    if (selectedItems.length === 0) return;
+
+    if (confirm(`ยืนยันการลบ ${selectedItems.length} รายการที่เลือก`)) {
+      startTransition(async () => {
+        const result = await deleteReport(selectedItems);
+        if (result.message === "ลบรายการสำเร็จ") {
+          setSelectedItems([]);
+        }
+        alert(result.message);
+      });
     }
   };
 
@@ -53,14 +69,22 @@ export default function ReportEditForm({ report }: { report: any }) {
             </div>
           )}
         </div>
-        <div className="px-4 mb-4">
-          <button
+        <div className="flex m-4 gap-2">
+          <Button
             type="submit"
+            variant="primary"
             disabled={isPending || selectedItems.length === 0}
-            className="bg-blue-300 hover:bg-blue-500 not-disabled:hover:shadow-md transition px-4 py-1 rounded-md cursor-pointer disabled:cursor-auto disabled:bg-gray-300"
           >
             {isPending ? "กำลังบันทึก..." : "บันทึกรายการที่เลือก"}
-          </button>
+          </Button>
+          <Button
+            type="button"
+            variant="danger"
+            onClick={handleDelete}
+            disabled={isDeleting || isPending || selectedItems.length === 0}
+          >
+            ลบ
+          </Button>
         </div>
       </form>
     </div>

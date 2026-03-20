@@ -1,5 +1,5 @@
 import { authOptions } from "@/auth";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/Navbar";
 import { getServerSession } from "next-auth";
 
 export default async function DashboardLayout({

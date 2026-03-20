@@ -1,6 +1,6 @@
 "use client";
 import { createReport } from "@/actions/ReportAction";
-import Alert from "@/components/alert";
+import Alert from "@/components/Alert";
 import { TruckProps } from "@/types";
 import { useActionState } from "react";
 

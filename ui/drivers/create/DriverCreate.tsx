@@ -1,7 +1,7 @@
 "use client";
 
 import { CreateDriver } from "@/actions/DriverAction";
-import Alert from "@/components/alert";
+import Alert from "@/components/Alert";
 import { TruckProps } from "@/types";
 import { useActionState } from "react";
 

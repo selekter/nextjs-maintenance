@@ -1,7 +1,7 @@
 "use client";
 
 import { createTruck } from "@/actions/TruckAction";
-import Alert from "@/components/alert";
+import Alert from "@/components/Alert";
 import { useActionState, useEffect, useRef } from "react";
 
 const initialState = {
