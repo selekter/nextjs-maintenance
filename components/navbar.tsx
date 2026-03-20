@@ -14,7 +14,7 @@ export default function Navbar({ session }: { session: any }) {
   ];
   return (
     <nav className="bg-neutral-900 text-white sm:min-h-screen sm:w-xs">
-      <div className="sticky top-0">
+      <div className="sticky top-0 flex flex-col justify-between md:h-screen p-2">
         <ul className="flex flex-col gap-1 my-2">
           {NavLink.map((link) => (
             <li key={link.name}>
@@ -22,7 +22,7 @@ export default function Navbar({ session }: { session: any }) {
                 href={link.path}
                 className={`
                 ${pathname === link.path ? "bg-neutral-600" : ""}
-                block transition hover:bg-neutral-700 p-2 mx-2 rounded-md`}
+                block transition hover:bg-neutral-700 p-2 rounded-md`}
               >
                 {link.name}
               </Link>
