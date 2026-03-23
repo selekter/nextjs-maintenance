@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/libs/db";
+import { prisma } from "@/libs/prisma";
 import { driverSchema } from "@/libs/zod";
 import { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
@@ -19,17 +20,33 @@ interface CreateDriverState {
 
 //! --- ดึงพนักงานขับรถ ---
 export async function getDrivers() {
-  const [rows] = await db.query<RowDataPacket[]>(
-    `SELECT
-    *
-    FROM license_plates
-    LEFT JOIN drivers
-    ON driver_id = drivers.id
-    ORDER BY number_plate
-    `,
-  );
+  // const [rows] = await db.query<RowDataPacket[]>(
+  //   `SELECT
+  //   *
+  //   FROM license_plates
+  //   LEFT JOIN drivers
+  //   ON driver_id = drivers.id
+  //   ORDER BY number_plate
+  //   `,
+  // );
 
-  return rows;
+  // return rows;
+
+  try {
+    const rows = await prisma.truck.findMany({
+      include: {
+        drivers: true,
+      },
+      orderBy: {
+        number_plate: "asc",
+      },
+    });
+
+    return rows;
+  } catch (error) {
+    console.error("Error feching trucks with drivers:", error);
+    return [];
+  }
 }
 
 //! --- เพิ่มพนักงานขับรถ ---
