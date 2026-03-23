@@ -11,32 +11,34 @@ model Truck {
   id           BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
   number_plate String    @db.VarChar(255)
   driver_id    BigInt?   @db.UnsignedBigInt
-  created_at   DateTime? @db.Timestamp(0)
+  created_at   DateTime? @default(now()) @db.Timestamp(0)
   updated_at   DateTime? @updatedAt @db.Timestamp(0)
   drivers      Driver?   @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_license_plates_drivers")
+  reports      Report[]
 
   @@index([driver_id], map: "FK_license_plates_drivers")
   @@map("license_plates")
 }
 
 model Driver {
-  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
-  name           String    @db.VarChar(255)
-  created_at     DateTime? @db.Timestamp(0)
-  updated_at     DateTime? @updatedAt @db.Timestamp(0)
-  license_plates Truck[]
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  name       String    @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @updatedAt @db.Timestamp(0)
+  trucks     Truck[]
 
   @@map("drivers")
 }
 
 model Report {
   id               BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
-  license_plate_id BigInt
+  license_plate_id BigInt    @unique
   repair           String    @db.VarChar(255)
   status           Int       @default(0)
   description      String?   @db.Text
-  created_at       DateTime? @db.Timestamp(0)
+  created_at       DateTime? @default(now()) @db.Timestamp(0)
   updated_at       DateTime? @updatedAt @db.Timestamp(0)
+  trucks           Truck     @relation(fields: [license_plate_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_report_repairs_truck")
 
   @@map("report_repairs")
 }

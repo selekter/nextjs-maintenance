@@ -63,6 +63,13 @@ export default function ReportEditForm({ report }: { report: any }) {
               </label>
             </div>
           ))}
+          <div className="px-4">
+            <textarea
+              name="description"
+              placeholder="รายละเอียด (ถ้ามี)"
+              className="border border-gray-200 rounded-md w-80 h-28 p-2"
+            ></textarea>
+          </div>
           {state?.message && (
             <div className="px-4">
               <Alert>{state.message}</Alert>

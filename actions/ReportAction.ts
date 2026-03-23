@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/libs/db";
+import { prisma } from "@/libs/prisma";
 import { reportEditSchema, reportSchema } from "@/libs/zod";
 import { GroupedReport, ReportProps, TruckProps } from "@/types";
 import { RowDataPacket } from "mysql2";
@@ -10,39 +11,36 @@ import z from "zod";
 
 //! --- ดึง Report ที่แจ้งซ่อมมาแสดง ---
 export async function getReports() {
-  const [reports] = await db.query<ReportProps[]>(
-    `SELECT
-    license_plates.id,
-    license_plates.number_plate,
-    report_repairs.repair
-    FROM report_repairs
-    INNER JOIN license_plates
-    ON report_repairs.license_plate_id = license_plates.id
-    WHERE status = 0
-    ORDER BY number_plate
-    `,
-  );
+  try {
+    const reports = await prisma.truck.findMany({
+      where: {
+        reports: {
+          some: { status: 0 },
+        },
+      },
+      select: {
+        id: true,
+        number_plate: true,
+        reports: {
+          where: { status: 0 },
+          select: {
+            repair: true,
+          },
+        },
+      },
+      orderBy: { number_plate: "asc" },
+    });
 
-  const groupedRepairs = reports.reduce<Record<number, GroupedReport>>(
-    (acc, item) => {
-      if (!acc[item.id]) {
-        acc[item.id] = {
-          id: item.id,
-          license_plate: item.number_plate,
-          repairs: [],
-        };
-      }
-
-      acc[item.id].repairs.push({ repair: item.repair });
-
-      return acc;
-    },
-    {},
-  );
-
-  return Object.values(groupedRepairs).sort((a, b) =>
-    a.license_plate.localeCompare(b.license_plate, "th"),
-  );
+    return reports.map((truck) => ({
+      id: truck.id.toString(),
+      license_plate: truck.number_plate,
+      repairs: truck.reports.map((r) => ({
+        repair: r.repair,
+      })),
+    }));
+  } catch (error) {
+    console.error("Error feching trucks with reports:", error);
+  }
 }
 
 //! --- ดึง Report ที่ทำการซ่อมเสร็จแล้วมาแสดง ---
@@ -119,20 +117,6 @@ export async function getGroupedRepairHistory(
   }
 }
 
-//! --- ดึงป้ายทะเบียนและชื่อคนขับมา ---
-export async function getLicensePlate() {
-  const [trucks] = await db.query<TruckProps[]>(
-    `SELECT
-    license_plates.id, license_plates.number_plate, drivers.name
-    FROM license_plates
-    LEFT JOIN drivers
-    ON license_plates.driver_id = drivers.id
-    ORDER BY number_plate`,
-  );
-
-  return trucks;
-}
-
 //! สร้าง Report
 export async function createReport(prevState: any, formData: FormData) {
   const rawData = {
@@ -153,46 +137,44 @@ export async function createReport(prevState: any, formData: FormData) {
     .map((item) => String(item.trim()))
     .filter((item) => item !== "");
 
-  const connection = await db.getConnection();
   try {
-    await connection.beginTransaction();
-
-    const values = repairs.map((repair) => [truckId, repair]);
-    await connection.execute(
-      `INSERT INTO report_repairs
-      (license_plate_id, repair, created_at, updated_at)
-      VALUES ${values.map(() => "(?, ?, NOW(), NOW())").join(",")}`,
-      values.flat(),
-    );
-
-    await connection.commit();
+    await prisma.report.createMany({
+      data: repairs.map((repair) => ({
+        license_plate_id: BigInt(truckId),
+        repair: repair,
+        status: 0,
+      })),
+    });
   } catch (error) {
-    await connection.rollback();
     console.error("Database Error:", error);
     return { message: "เกิดข้อผิดพลาดในการบันทึกข้อมูล" };
-  } finally {
-    connection.release();
   }
+
   revalidatePath("/dashboard/reports");
   redirect("/dashboard/reports");
 }
 
 export async function getReportsById(id: string) {
-  const [rows] = await db.execute<RowDataPacket[]>(
-    "SELECT * FROM report_repairs WHERE license_plate_id = ? AND status = 0",
-    [id],
-  );
+  const report = await prisma.report.findMany({
+    where: {
+      license_plate_id: BigInt(id),
+      status: 0,
+    },
+  });
 
-  if (rows.length === 0) {
+  if (report.length === 0) {
     return null;
   }
 
-  return rows;
+  return report;
 }
 
 //! --- อัพเดทการซ่อม ---
 export async function updateReport(prevState: any, formData: FormData) {
+  console.log(formData);
+
   const rawData = { selectedRepairIds: formData.getAll("repair") };
+  const description = formData.get("description") as string;
 
   const validated = reportEditSchema.safeParse(rawData);
 
@@ -207,27 +189,25 @@ export async function updateReport(prevState: any, formData: FormData) {
     };
   }
 
-  const connection = await db.getConnection();
-
   const { selectedRepairIds } = validated.data;
 
   try {
-    await connection.beginTransaction();
-
-    for (const id of selectedRepairIds) {
-      await connection.execute(
-        "UPDATE report_repairs SET status = 1, updated_at = NOW() WHERE id=?",
-        [id],
-      );
-    }
-    await connection.commit();
+    await prisma.report.updateMany({
+      where: {
+        id: {
+          in: selectedRepairIds.map((id) => BigInt(id)),
+        },
+      },
+      data: {
+        status: 1,
+        description: description,
+      },
+    });
   } catch (error) {
-    await connection.rollback();
     console.error(error);
     return { message: "เกิดข้อผิดพลาดในการบันทึก" };
-  } finally {
-    connection.release();
   }
+
   revalidatePath("/dashboard/reports");
   redirect("/dashboard/reports");
 }

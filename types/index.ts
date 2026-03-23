@@ -6,9 +6,10 @@ export interface ReportProps extends RowDataPacket {
   repairs: string;
 }
 
-export interface TruckProps extends RowDataPacket {
+export interface TruckProps {
   id: number;
   number_plate: string;
+  drivers_name: string;
 }
 
 type RepairItem = {

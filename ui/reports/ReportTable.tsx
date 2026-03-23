@@ -3,7 +3,8 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 
 export default async function ReportTable() {
-  const groupedRepairs = await getReports();
+  const reports = await getReports();
+
   const session = await getServerSession();
 
   return (
@@ -19,12 +20,10 @@ export default async function ReportTable() {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {/* เปลี่ยนจาก reports เป็น groupedRepairs */}
-          {groupedRepairs.map((report, index) => (
+          {reports?.map((report, index) => (
             <tr key={index} className="hover:bg-gray-200 transition-colors">
               <td className="px-6 py-4 font-medium">{report.license_plate}</td>
               <td className="px-6 py-4">
-                {/* แสดงรายการซ่อมที่รวมกลุ่มแล้ว แยกด้วยจุลภาค หรือทำเป็น Label */}
                 <span className="flex flex-col gap-2">
                   {report.repairs.map((item, index) => (
                     <span

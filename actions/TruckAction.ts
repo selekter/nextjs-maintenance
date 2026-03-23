@@ -1,20 +1,29 @@
 "use server";
 
 import { db } from "@/libs/db";
+import { prisma } from "@/libs/prisma";
 import { truckSchema } from "@/libs/zod";
-import { TruckProps } from "@/types";
-import { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import z from "zod";
 
 //! --- ดึงทะเบียนทั้งหมด ---
 export async function getTrucks() {
-  const [trucks] = await db.query<TruckProps[] & RowDataPacket[]>(
-    "SELECT * FROM license_plates ORDER BY number_plate",
-  );
+  const trucks = await prisma.truck.findMany({
+    select: {
+      id: true,
+      number_plate: true,
+      drivers: { select: { name: true } },
+    },
 
-  return trucks;
+    orderBy: { number_plate: "asc" },
+  });
+
+  return trucks.map((truck) => ({
+    ...truck,
+    id: Number(truck.id),
+    drivers_name: truck.drivers?.name || "ไม่มีคนขับ",
+  }));
 }
 
 //! --- เพิ่มทะเบียนรถ ---

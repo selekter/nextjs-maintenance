@@ -4,12 +4,14 @@ import { getServerSession } from "next-auth";
 
 interface DriverProp {
   id: number;
-  name: string;
   number_plate: string;
+  drivers: {
+    name: string;
+  } | null;
 }
 
 export default async function DriverTable() {
-  const drivers = (await getDrivers()) as DriverProp[];
+  const drivers = (await getDrivers()) as unknown as DriverProp[];
   const session = await getServerSession(authOptions);
   return (
     <div className="rounded-xl overflow-x-auto overflow-y-hidden shadow-md">
@@ -28,9 +30,9 @@ export default async function DriverTable() {
             <tr key={index} className="transition hover:bg-blue-100">
               <td className="px-6 py-4 font-medium">{truck.number_plate}</td>
               <td className="px-6 py-4 font-medium">
-                {truck.name ? (
+                {truck.drivers?.name ? (
                   <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-md">
-                    {truck.name}
+                    {truck.drivers.name}
                   </span>
                 ) : (
                   <span className="bg-blue-100 text-red-500 px-3 py-1 rounded-md">

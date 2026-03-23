@@ -38,7 +38,7 @@ export default function CreateDriverForm({
               </option>
               {plateNumber.map((plate) => (
                 <option key={plate.id} value={plate.id}>
-                  {plate.number_plate}
+                  {plate.number_plate} - {plate.drivers_name}
                 </option>
               ))}
             </select>

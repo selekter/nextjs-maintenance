@@ -20,18 +20,6 @@ interface CreateDriverState {
 
 //! --- ดึงพนักงานขับรถ ---
 export async function getDrivers() {
-  // const [rows] = await db.query<RowDataPacket[]>(
-  //   `SELECT
-  //   *
-  //   FROM license_plates
-  //   LEFT JOIN drivers
-  //   ON driver_id = drivers.id
-  //   ORDER BY number_plate
-  //   `,
-  // );
-
-  // return rows;
-
   try {
     const rows = await prisma.truck.findMany({
       include: {

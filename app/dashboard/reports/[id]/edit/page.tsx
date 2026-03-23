@@ -10,6 +10,7 @@ export default async function EditReportPage({
   const { id } = await params;
 
   const report = await getReportsById(id);
+
   if (!report) {
     redirect("/dashboard/reports");
   }
