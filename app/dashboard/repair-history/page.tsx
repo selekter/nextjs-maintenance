@@ -21,6 +21,7 @@ export default async function repairHistoryPage({
     data: GroupedReport[];
     totalPages: number;
   };
+
   return (
     <div className="p-6 space-y-4">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

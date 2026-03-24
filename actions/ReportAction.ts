@@ -51,54 +51,56 @@ export async function getGroupedRepairHistory(
 ) {
   // คำนวณ Offset (จุดเริ่มต้น)
   const offset = (page - 1) * limit;
-  const searchTerm = `%${query}%`; // เตรียมคำค้นหาสำหรับ LIKE
 
-  const connection = await db.getConnection();
+  const searchWords = query.trim().split(/\s+/);
 
   try {
-    const [rows]: any = await connection.execute<ReportProps[]>(
-      `
-    SELECT 
-      report_repairs.license_plate_id,
-      report_repairs.updated_at,
-      report_repairs.repair,
-      report_repairs.description,
-      license_plates.number_plate
-    FROM report_repairs
-    INNER JOIN license_plates
-    ON report_repairs.license_plate_id = license_plates.id
-    WHERE status = 1
-    AND (license_plates.number_plate LIKE ? OR report_repairs.repair LIKE ?)
-    ORDER BY updated_at DESC, license_plate_id
-    LIMIT ? OFFSET ?
-  `,
-      [searchTerm, searchTerm, limit, offset],
-    );
+    const report = await prisma.report.findMany({
+      where: {
+        status: 1,
+        AND: searchWords.map((word) => ({
+          OR: [
+            { trucks: { number_plate: { contains: word } } },
+            { repair: { contains: word } },
+          ],
+        })),
+      },
+      include: {
+        trucks: {
+          select: { number_plate: true },
+        },
+      },
+      orderBy: [{ updated_at: "desc" }],
+      take: limit,
+      skip: offset,
+    });
 
-    // 2. นับจำนวนรายการทั้งหมดเพื่อหาจำนวนหน้าทั้งหมด (Total Pages)
-    const [countResult]: any = await connection.execute(
-      `
-      SELECT COUNT(*) as total
-      FROM report_repairs
-      INNER JOIN license_plates ON report_repairs.license_plate_id = license_plates.id
-      WHERE status = 1
-      AND (license_plates.number_plate LIKE ? OR report_repairs.repair LIKE ?)
-      `,
-      [searchTerm, searchTerm],
-    );
+    const totalCount = await prisma.report.count({
+      where: {
+        status: 1,
+        AND: searchWords.map((word) => ({
+          OR: [
+            { trucks: { number_plate: { contains: word } } },
+            { repair: { contains: word } },
+          ],
+        })),
+      },
+    });
 
-    const totalPages = Math.ceil(countResult[0].total / limit);
+    const totalPages = Math.ceil(totalCount / limit);
 
-    const grouped = rows.reduce((acc: any, item: any) => {
-      const dateKey = new Date(item.updated_at).toISOString().split("T")[0];
+    const grouped = report.reduce((acc: any, item) => {
+      const dateKey = item.updated_at
+        ? new Date(item.updated_at).toLocaleDateString("th-TH")
+        : "ไม่ระบุวันที่";
 
       const groupKey = `${dateKey}_${item.license_plate_id}`;
 
       if (!acc[groupKey]) {
         acc[groupKey] = {
-          date: dateKey,
-          license_plate_id: item.license_plate_id,
-          number_plate: item.number_plate,
+          date: item.updated_at?.toString(),
+          license_plate_id: item.license_plate_id.toString(),
+          number_plate: item.trucks?.number_plate,
           repairs: [],
         };
       }
@@ -111,10 +113,77 @@ export async function getGroupedRepairHistory(
       return acc;
     }, {});
 
-    return { data: Object.values(grouped), totalPages: totalPages };
-  } finally {
-    connection.release();
+    return {
+      data: Object.values(grouped),
+      totalPages: totalPages,
+    };
+  } catch (error) {
+    console.error("Error fetching history:", error);
+    return { data: [], totalPages: 0 };
   }
+
+  // const connection = await db.getConnection();
+
+  // try {
+  //   const [rows]: any = await connection.execute<ReportProps[]>(
+  //     `
+  //   SELECT
+  //     report_repairs.license_plate_id,
+  //     report_repairs.updated_at,
+  //     report_repairs.repair,
+  //     report_repairs.description,
+  //     license_plates.number_plate
+  //   FROM report_repairs
+  //   INNER JOIN license_plates
+  //   ON report_repairs.license_plate_id = license_plates.id
+  //   WHERE status = 1
+  //   AND (license_plates.number_plate LIKE ? OR report_repairs.repair LIKE ?)
+  //   ORDER BY updated_at DESC, license_plate_id
+  //   LIMIT ? OFFSET ?
+  // `,
+  //     [searchTerm, searchTerm, limit, offset],
+  //   );
+
+  //   // 2. นับจำนวนรายการทั้งหมดเพื่อหาจำนวนหน้าทั้งหมด (Total Pages)
+  //   const [countResult]: any = await connection.execute(
+  //     `
+  //     SELECT COUNT(*) as total
+  //     FROM report_repairs
+  //     INNER JOIN license_plates ON report_repairs.license_plate_id = license_plates.id
+  //     WHERE status = 1
+  //     AND (license_plates.number_plate LIKE ? OR report_repairs.repair LIKE ?)
+  //     `,
+  //     [searchTerm, searchTerm],
+  //   );
+
+  //   const totalPages = Math.ceil(countResult[0].total / limit);
+
+  //   const grouped = rows.reduce((acc: any, item: any) => {
+  //     const dateKey = new Date(item.updated_at).toISOString().split("T")[0];
+
+  //     const groupKey = `${dateKey}_${item.license_plate_id}`;
+
+  //     if (!acc[groupKey]) {
+  //       acc[groupKey] = {
+  //         date: dateKey,
+  //         license_plate_id: item.license_plate_id,
+  //         number_plate: item.number_plate,
+  //         repairs: [],
+  //       };
+  //     }
+
+  //     acc[groupKey].repairs.push({
+  //       repair: item.repair,
+  //       description: item.description,
+  //     });
+
+  //     return acc;
+  //   }, {});
+
+  //   return { data: Object.values(grouped), totalPages: totalPages };
+  // } finally {
+  //   connection.release();
+  // }
 }
 
 //! สร้าง Report
@@ -216,13 +285,13 @@ export async function deleteReport(ids: string[]) {
   if (!ids || ids.length === 0) return { message: "กรุณาเลือกรายการที่จะลบ" };
 
   try {
-    const placeholders = ids.map(() => "?").join(",");
-    await db.execute(
-      `DELETE FROM report_repairs WHERE id IN (${placeholders})`,
-      [ids],
-    );
-
-    return { message: "ลบรายการสำเร็จ" };
+    await prisma.report.deleteMany({
+      where: {
+        id: {
+          in: ids.map((id) => BigInt(id)),
+        },
+      },
+    });
   } catch (error) {
     console.error(error);
     return { message: "เกิดข้อผิดพลาดในการบันทึก" };

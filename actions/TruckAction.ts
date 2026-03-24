@@ -42,20 +42,19 @@ export async function createTruck(prevState: any, formData: FormData) {
 
   const { license_plate } = validationFields.data;
 
-  const [existing]: any = await db.execute(
-    "SELECT id FROM license_plates WHERE number_plate = ?",
-    [license_plate],
-  );
-
-  if (existing.length > 0) {
-    return { errors: { license_plate: ["เลขทะเบียนนี้มีในระบบแล้วครับ"] } };
-  }
-
   try {
-    await db.execute(
-      "INSERT INTO license_plates(number_plate, created_at, updated_at) VALUES(?,NOW(),NOW())",
-      [license_plate],
-    );
+    const existing = await prisma.truck.findFirst({
+      where: { number_plate: license_plate },
+    });
+
+    if (existing) {
+      return { errors: { license_plate: ["เลขทะเบียนนี้มีในระบบแล้วครับ"] } };
+    }
+    await prisma.truck.create({
+      data: {
+        number_plate: license_plate,
+      },
+    });
   } catch (error) {
     return { messages: "เกิดข้อผิดพลาดบางประการ" };
   }
