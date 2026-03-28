@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { db } from "./libs/db"; // ดึงการเชื่อมต่อ DB ของคุณมา
 import NextAuth from "next-auth";
 import { authConfig } from "./app/auth.config";
+import { prisma } from "@/libs/prisma";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -22,13 +23,11 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) return null;
 
         // 1. หา User จาก Email ใน DB
-        const [rows]: any = await db.execute(
-          "SELECT * FROM users WHERE email = ?",
-          [credentials.email],
-        );
-        const user = rows[0];
+        const user = await prisma.users.findUnique({
+          where: { email: credentials.email },
+        });
 
-        if (!user) return null;
+        if (!user || !user.password) return null;
 
         // 2. ตรวจสอบรหัสผ่านที่เข้ารหัสไว้
         const isPasswordCorrect = await bcrypt.compare(
@@ -37,7 +36,7 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (isPasswordCorrect) {
-          return { id: user.id, name: user.name, email: user.email };
+          return { id: user.id.toString(), name: user.name, email: user.email };
         }
         return null;
       },
@@ -51,14 +50,14 @@ export const authOptions: NextAuthOptions = {
     signIn: authConfig.callbacks?.signIn,
     async jwt({ token, user }) {
       if (user) {
-        token.id = Number(user.id);
+        token.id = user.id;
       }
 
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as number;
+        session.user.id = token.id as string;
       }
 
       return session;

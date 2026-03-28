@@ -60,13 +60,13 @@ export async function getGroupedRepairHistory(
         status: 1,
         AND: searchWords.map((word) => ({
           OR: [
-            { trucks: { number_plate: { contains: word } } },
+            { truck: { number_plate: { contains: word } } },
             { repair: { contains: word } },
           ],
         })),
       },
       include: {
-        trucks: {
+        truck: {
           select: { number_plate: true },
         },
       },
@@ -80,7 +80,7 @@ export async function getGroupedRepairHistory(
         status: 1,
         AND: searchWords.map((word) => ({
           OR: [
-            { trucks: { number_plate: { contains: word } } },
+            { truck: { number_plate: { contains: word } } },
             { repair: { contains: word } },
           ],
         })),
@@ -100,7 +100,7 @@ export async function getGroupedRepairHistory(
         acc[groupKey] = {
           date: item.updated_at?.toString(),
           license_plate_id: item.license_plate_id.toString(),
-          number_plate: item.trucks?.number_plate,
+          number_plate: item.truck?.number_plate,
           repairs: [],
         };
       }
