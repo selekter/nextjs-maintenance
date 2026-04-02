@@ -195,6 +195,8 @@ exports.Prisma.UsersScalarFieldEnum = {
 exports.Prisma.TiresScalarFieldEnum = {
   id: 'id',
   number: 'number',
+  kilometer: 'kilometer',
+  position: 'position',
   brand: 'brand',
   truckId: 'truckId',
   created_at: 'created_at'

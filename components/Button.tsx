@@ -1,6 +1,6 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "danger" | "success" | "outline";
-  type: "submit" | "reset" | "button";
+  type?: "submit" | "reset" | "button";
   children: React.ReactNode;
 }
 

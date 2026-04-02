@@ -96,6 +96,8 @@ model users {
 model tires {
   id         Int      @id @default(autoincrement())
   number     String   @db.VarChar(50)
+  kilometer  Int
+  position   Int
   brand      String   @db.VarChar(50)
   truckId    BigInt
   created_at DateTime @default(now())

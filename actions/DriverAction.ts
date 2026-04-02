@@ -3,7 +3,6 @@
 import { db } from "@/libs/db";
 import { prisma } from "@/libs/prisma";
 import { driverSchema } from "@/libs/zod";
-import { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import z from "zod";

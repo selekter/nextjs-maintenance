@@ -1,5 +1,6 @@
 import TableSkeleton from "@/components/tableSkeleton";
 import ReportTable from "@/ui/reports/ReportTable";
+import { Plus } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -12,8 +13,9 @@ export default async function ReportPage() {
         <div className="flex justify-end mb-2">
           <Link
             href="/dashboard/reports/create"
-            className="bg-blue-400 transition hover:bg-blue-600 hover:shadow px-3 py-2 rounded"
+            className="bg-blue-400 transition hover:bg-blue-600 hover:shadow px-3 py-2 rounded flex items-center gap-1"
           >
+            <Plus size={18} />
             แจ้งซ่อม
           </Link>
         </div>

@@ -22,3 +22,14 @@ export interface GroupedReport {
   license_plate: string;
   repairs: RepairItem[];
 }
+
+export interface TiresProps {
+  number: string;
+  kilometer: number;
+  brand: string;
+  created_at: Date;
+  position: number;
+  truck: {
+    number_plate: string;
+  };
+}

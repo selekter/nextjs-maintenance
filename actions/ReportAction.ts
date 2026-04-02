@@ -121,69 +121,6 @@ export async function getGroupedRepairHistory(
     console.error("Error fetching history:", error);
     return { data: [], totalPages: 0 };
   }
-
-  // const connection = await db.getConnection();
-
-  // try {
-  //   const [rows]: any = await connection.execute<ReportProps[]>(
-  //     `
-  //   SELECT
-  //     report_repairs.license_plate_id,
-  //     report_repairs.updated_at,
-  //     report_repairs.repair,
-  //     report_repairs.description,
-  //     license_plates.number_plate
-  //   FROM report_repairs
-  //   INNER JOIN license_plates
-  //   ON report_repairs.license_plate_id = license_plates.id
-  //   WHERE status = 1
-  //   AND (license_plates.number_plate LIKE ? OR report_repairs.repair LIKE ?)
-  //   ORDER BY updated_at DESC, license_plate_id
-  //   LIMIT ? OFFSET ?
-  // `,
-  //     [searchTerm, searchTerm, limit, offset],
-  //   );
-
-  //   // 2. นับจำนวนรายการทั้งหมดเพื่อหาจำนวนหน้าทั้งหมด (Total Pages)
-  //   const [countResult]: any = await connection.execute(
-  //     `
-  //     SELECT COUNT(*) as total
-  //     FROM report_repairs
-  //     INNER JOIN license_plates ON report_repairs.license_plate_id = license_plates.id
-  //     WHERE status = 1
-  //     AND (license_plates.number_plate LIKE ? OR report_repairs.repair LIKE ?)
-  //     `,
-  //     [searchTerm, searchTerm],
-  //   );
-
-  //   const totalPages = Math.ceil(countResult[0].total / limit);
-
-  //   const grouped = rows.reduce((acc: any, item: any) => {
-  //     const dateKey = new Date(item.updated_at).toISOString().split("T")[0];
-
-  //     const groupKey = `${dateKey}_${item.license_plate_id}`;
-
-  //     if (!acc[groupKey]) {
-  //       acc[groupKey] = {
-  //         date: dateKey,
-  //         license_plate_id: item.license_plate_id,
-  //         number_plate: item.number_plate,
-  //         repairs: [],
-  //       };
-  //     }
-
-  //     acc[groupKey].repairs.push({
-  //       repair: item.repair,
-  //       description: item.description,
-  //     });
-
-  //     return acc;
-  //   }, {});
-
-  //   return { data: Object.values(grouped), totalPages: totalPages };
-  // } finally {
-  //   connection.release();
-  // }
 }
 
 //! สร้าง Report

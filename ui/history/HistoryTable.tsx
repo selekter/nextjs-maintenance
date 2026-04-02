@@ -8,8 +8,9 @@ export default function HistoryTable({
   const formatThaiDate = (date: any) => {
     const thaiDate = new Date(date).toLocaleDateString("th-TH", {
       year: "numeric",
-      month: "long",
+      month: "short",
       day: "numeric",
+      weekday: "long",
     });
 
     return thaiDate;

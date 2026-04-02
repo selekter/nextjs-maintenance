@@ -9255,17 +9255,23 @@ export namespace Prisma {
 
   export type TiresAvgAggregateOutputType = {
     id: number | null
+    kilometer: number | null
+    position: number | null
     truckId: number | null
   }
 
   export type TiresSumAggregateOutputType = {
     id: number | null
+    kilometer: number | null
+    position: number | null
     truckId: bigint | null
   }
 
   export type TiresMinAggregateOutputType = {
     id: number | null
     number: string | null
+    kilometer: number | null
+    position: number | null
     brand: string | null
     truckId: bigint | null
     created_at: Date | null
@@ -9274,6 +9280,8 @@ export namespace Prisma {
   export type TiresMaxAggregateOutputType = {
     id: number | null
     number: string | null
+    kilometer: number | null
+    position: number | null
     brand: string | null
     truckId: bigint | null
     created_at: Date | null
@@ -9282,6 +9290,8 @@ export namespace Prisma {
   export type TiresCountAggregateOutputType = {
     id: number
     number: number
+    kilometer: number
+    position: number
     brand: number
     truckId: number
     created_at: number
@@ -9291,17 +9301,23 @@ export namespace Prisma {
 
   export type TiresAvgAggregateInputType = {
     id?: true
+    kilometer?: true
+    position?: true
     truckId?: true
   }
 
   export type TiresSumAggregateInputType = {
     id?: true
+    kilometer?: true
+    position?: true
     truckId?: true
   }
 
   export type TiresMinAggregateInputType = {
     id?: true
     number?: true
+    kilometer?: true
+    position?: true
     brand?: true
     truckId?: true
     created_at?: true
@@ -9310,6 +9326,8 @@ export namespace Prisma {
   export type TiresMaxAggregateInputType = {
     id?: true
     number?: true
+    kilometer?: true
+    position?: true
     brand?: true
     truckId?: true
     created_at?: true
@@ -9318,6 +9336,8 @@ export namespace Prisma {
   export type TiresCountAggregateInputType = {
     id?: true
     number?: true
+    kilometer?: true
+    position?: true
     brand?: true
     truckId?: true
     created_at?: true
@@ -9413,6 +9433,8 @@ export namespace Prisma {
   export type TiresGroupByOutputType = {
     id: number
     number: string
+    kilometer: number
+    position: number
     brand: string
     truckId: bigint
     created_at: Date
@@ -9440,6 +9462,8 @@ export namespace Prisma {
   export type tiresSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     number?: boolean
+    kilometer?: boolean
+    position?: boolean
     brand?: boolean
     truckId?: boolean
     created_at?: boolean
@@ -9451,12 +9475,14 @@ export namespace Prisma {
   export type tiresSelectScalar = {
     id?: boolean
     number?: boolean
+    kilometer?: boolean
+    position?: boolean
     brand?: boolean
     truckId?: boolean
     created_at?: boolean
   }
 
-  export type tiresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "brand" | "truckId" | "created_at", ExtArgs["result"]["tires"]>
+  export type tiresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "kilometer" | "position" | "brand" | "truckId" | "created_at", ExtArgs["result"]["tires"]>
   export type tiresInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     truck?: boolean | TruckDefaultArgs<ExtArgs>
   }
@@ -9469,6 +9495,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       number: string
+      kilometer: number
+      position: number
       brand: string
       truckId: bigint
       created_at: Date
@@ -9844,6 +9872,8 @@ export namespace Prisma {
   interface tiresFieldRefs {
     readonly id: FieldRef<"tires", 'Int'>
     readonly number: FieldRef<"tires", 'String'>
+    readonly kilometer: FieldRef<"tires", 'Int'>
+    readonly position: FieldRef<"tires", 'Int'>
     readonly brand: FieldRef<"tires", 'String'>
     readonly truckId: FieldRef<"tires", 'BigInt'>
     readonly created_at: FieldRef<"tires", 'DateTime'>
@@ -10320,6 +10350,8 @@ export namespace Prisma {
   export const TiresScalarFieldEnum: {
     id: 'id',
     number: 'number',
+    kilometer: 'kilometer',
+    position: 'position',
     brand: 'brand',
     truckId: 'truckId',
     created_at: 'created_at'
@@ -10957,6 +10989,8 @@ export namespace Prisma {
     NOT?: tiresWhereInput | tiresWhereInput[]
     id?: IntFilter<"tires"> | number
     number?: StringFilter<"tires"> | string
+    kilometer?: IntFilter<"tires"> | number
+    position?: IntFilter<"tires"> | number
     brand?: StringFilter<"tires"> | string
     truckId?: BigIntFilter<"tires"> | bigint | number
     created_at?: DateTimeFilter<"tires"> | Date | string
@@ -10966,6 +11000,8 @@ export namespace Prisma {
   export type tiresOrderByWithRelationInput = {
     id?: SortOrder
     number?: SortOrder
+    kilometer?: SortOrder
+    position?: SortOrder
     brand?: SortOrder
     truckId?: SortOrder
     created_at?: SortOrder
@@ -10979,6 +11015,8 @@ export namespace Prisma {
     OR?: tiresWhereInput[]
     NOT?: tiresWhereInput | tiresWhereInput[]
     number?: StringFilter<"tires"> | string
+    kilometer?: IntFilter<"tires"> | number
+    position?: IntFilter<"tires"> | number
     brand?: StringFilter<"tires"> | string
     truckId?: BigIntFilter<"tires"> | bigint | number
     created_at?: DateTimeFilter<"tires"> | Date | string
@@ -10988,6 +11026,8 @@ export namespace Prisma {
   export type tiresOrderByWithAggregationInput = {
     id?: SortOrder
     number?: SortOrder
+    kilometer?: SortOrder
+    position?: SortOrder
     brand?: SortOrder
     truckId?: SortOrder
     created_at?: SortOrder
@@ -11004,6 +11044,8 @@ export namespace Prisma {
     NOT?: tiresScalarWhereWithAggregatesInput | tiresScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"tires"> | number
     number?: StringWithAggregatesFilter<"tires"> | string
+    kilometer?: IntWithAggregatesFilter<"tires"> | number
+    position?: IntWithAggregatesFilter<"tires"> | number
     brand?: StringWithAggregatesFilter<"tires"> | string
     truckId?: BigIntWithAggregatesFilter<"tires"> | bigint | number
     created_at?: DateTimeWithAggregatesFilter<"tires"> | Date | string
@@ -11515,6 +11557,8 @@ export namespace Prisma {
 
   export type tiresCreateInput = {
     number: string
+    kilometer: number
+    position: number
     brand: string
     created_at?: Date | string
     truck: TruckCreateNestedOneWithoutTiresInput
@@ -11523,6 +11567,8 @@ export namespace Prisma {
   export type tiresUncheckedCreateInput = {
     id?: number
     number: string
+    kilometer: number
+    position: number
     brand: string
     truckId: bigint | number
     created_at?: Date | string
@@ -11530,6 +11576,8 @@ export namespace Prisma {
 
   export type tiresUpdateInput = {
     number?: StringFieldUpdateOperationsInput | string
+    kilometer?: IntFieldUpdateOperationsInput | number
+    position?: IntFieldUpdateOperationsInput | number
     brand?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     truck?: TruckUpdateOneRequiredWithoutTiresNestedInput
@@ -11538,6 +11586,8 @@ export namespace Prisma {
   export type tiresUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     number?: StringFieldUpdateOperationsInput | string
+    kilometer?: IntFieldUpdateOperationsInput | number
+    position?: IntFieldUpdateOperationsInput | number
     brand?: StringFieldUpdateOperationsInput | string
     truckId?: BigIntFieldUpdateOperationsInput | bigint | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11546,6 +11596,8 @@ export namespace Prisma {
   export type tiresCreateManyInput = {
     id?: number
     number: string
+    kilometer: number
+    position: number
     brand: string
     truckId: bigint | number
     created_at?: Date | string
@@ -11553,6 +11605,8 @@ export namespace Prisma {
 
   export type tiresUpdateManyMutationInput = {
     number?: StringFieldUpdateOperationsInput | string
+    kilometer?: IntFieldUpdateOperationsInput | number
+    position?: IntFieldUpdateOperationsInput | number
     brand?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11560,6 +11614,8 @@ export namespace Prisma {
   export type tiresUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     number?: StringFieldUpdateOperationsInput | string
+    kilometer?: IntFieldUpdateOperationsInput | number
+    position?: IntFieldUpdateOperationsInput | number
     brand?: StringFieldUpdateOperationsInput | string
     truckId?: BigIntFieldUpdateOperationsInput | bigint | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12148,6 +12204,8 @@ export namespace Prisma {
   export type tiresCountOrderByAggregateInput = {
     id?: SortOrder
     number?: SortOrder
+    kilometer?: SortOrder
+    position?: SortOrder
     brand?: SortOrder
     truckId?: SortOrder
     created_at?: SortOrder
@@ -12155,12 +12213,16 @@ export namespace Prisma {
 
   export type tiresAvgOrderByAggregateInput = {
     id?: SortOrder
+    kilometer?: SortOrder
+    position?: SortOrder
     truckId?: SortOrder
   }
 
   export type tiresMaxOrderByAggregateInput = {
     id?: SortOrder
     number?: SortOrder
+    kilometer?: SortOrder
+    position?: SortOrder
     brand?: SortOrder
     truckId?: SortOrder
     created_at?: SortOrder
@@ -12169,6 +12231,8 @@ export namespace Prisma {
   export type tiresMinOrderByAggregateInput = {
     id?: SortOrder
     number?: SortOrder
+    kilometer?: SortOrder
+    position?: SortOrder
     brand?: SortOrder
     truckId?: SortOrder
     created_at?: SortOrder
@@ -12176,6 +12240,8 @@ export namespace Prisma {
 
   export type tiresSumOrderByAggregateInput = {
     id?: SortOrder
+    kilometer?: SortOrder
+    position?: SortOrder
     truckId?: SortOrder
   }
 
@@ -12670,6 +12736,8 @@ export namespace Prisma {
 
   export type tiresCreateWithoutTruckInput = {
     number: string
+    kilometer: number
+    position: number
     brand: string
     created_at?: Date | string
   }
@@ -12677,6 +12745,8 @@ export namespace Prisma {
   export type tiresUncheckedCreateWithoutTruckInput = {
     id?: number
     number: string
+    kilometer: number
+    position: number
     brand: string
     created_at?: Date | string
   }
@@ -12767,6 +12837,8 @@ export namespace Prisma {
     NOT?: tiresScalarWhereInput | tiresScalarWhereInput[]
     id?: IntFilter<"tires"> | number
     number?: StringFilter<"tires"> | string
+    kilometer?: IntFilter<"tires"> | number
+    position?: IntFilter<"tires"> | number
     brand?: StringFilter<"tires"> | string
     truckId?: BigIntFilter<"tires"> | bigint | number
     created_at?: DateTimeFilter<"tires"> | Date | string
@@ -12943,6 +13015,8 @@ export namespace Prisma {
   export type tiresCreateManyTruckInput = {
     id?: number
     number: string
+    kilometer: number
+    position: number
     brand: string
     created_at?: Date | string
   }
@@ -12976,6 +13050,8 @@ export namespace Prisma {
 
   export type tiresUpdateWithoutTruckInput = {
     number?: StringFieldUpdateOperationsInput | string
+    kilometer?: IntFieldUpdateOperationsInput | number
+    position?: IntFieldUpdateOperationsInput | number
     brand?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12983,6 +13059,8 @@ export namespace Prisma {
   export type tiresUncheckedUpdateWithoutTruckInput = {
     id?: IntFieldUpdateOperationsInput | number
     number?: StringFieldUpdateOperationsInput | string
+    kilometer?: IntFieldUpdateOperationsInput | number
+    position?: IntFieldUpdateOperationsInput | number
     brand?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12990,6 +13068,8 @@ export namespace Prisma {
   export type tiresUncheckedUpdateManyWithoutTruckInput = {
     id?: IntFieldUpdateOperationsInput | number
     number?: StringFieldUpdateOperationsInput | string
+    kilometer?: IntFieldUpdateOperationsInput | number
+    position?: IntFieldUpdateOperationsInput | number
     brand?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
