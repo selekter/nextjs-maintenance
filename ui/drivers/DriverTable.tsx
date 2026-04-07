@@ -1,18 +1,28 @@
-import { getDrivers } from "@/actions/DriverAction";
-import { authOptions } from "@/auth";
-import { getServerSession } from "next-auth";
+"use client";
+
+// import { getDrivers } from "@/actions/DriverAction";
+// import { authOptions } from "@/auth";
+import Button from "@/components/Button";
+import Modal from "@/components/Modal";
+import { useModal } from "@/hooks/useModal";
+// import { getServerSession } from "next-auth";
 
 interface DriverProp {
-  id: number;
+  id: bigint;
   number_plate: string;
   drivers: {
     name: string;
   } | null;
 }
 
-export default async function DriverTable() {
-  const drivers = (await getDrivers()) as unknown as DriverProp[];
-  const session = await getServerSession(authOptions);
+export default function DriverTable({
+  drivers,
+  session,
+}: {
+  drivers: DriverProp[];
+  session: any;
+}) {
+  const { isOpen, data, openModal, closeModal } = useModal();
   return (
     <div className="rounded-xl overflow-x-auto overflow-y-hidden shadow-md">
       <table className="w-full text-left bg-white table-auto">
@@ -42,7 +52,10 @@ export default async function DriverTable() {
               </td>
               {session && (
                 <td className="flex gap-3 justify-end px-6 py-4">
-                  <button className="text-blue-500 hover:text-blue-800 cursor-pointer">
+                  <button
+                    className="text-blue-500 hover:text-blue-800 cursor-pointer"
+                    onClick={() => openModal(truck)}
+                  >
                     แก้ไข
                   </button>
                   <button className="text-red-500 hover:text-red-800 cursor-pointer">
@@ -54,6 +67,14 @@ export default async function DriverTable() {
           ))}
         </tbody>
       </table>
+      <Modal
+        isOpen={isOpen}
+        onClose={closeModal}
+        title={`แก้ไขทะเบียน ${data?.number_plate}`}
+      >
+        <p>Modal</p>
+        {data?.number_plate}
+      </Modal>
     </div>
   );
 }

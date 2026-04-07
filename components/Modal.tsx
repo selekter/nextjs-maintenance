@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -23,7 +23,24 @@ const Modal: React.FC<ModalProps> = ({
   cancelText = "ยกเลิก",
   onConfirm,
 }) => {
-  if (!isOpen) return null;
+  const [shouldRender, setShouldRender] = useState(isOpen);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      // เลื่อนการเริ่ม animation เล็กน้อยเพื่อให้ DOM พร้อม
+      const timer = setTimeout(() => setIsAnimating(true), 10);
+      return () => clearTimeout(timer);
+    } else {
+      setIsAnimating(false);
+      // รอให้ animation (300ms) จบก่อนค่อยถอดออกจาก DOM
+      const timer = setTimeout(() => setShouldRender(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  if (!shouldRender) return null;
 
   const sizeClasses = {
     sm: "max-w-sm",
@@ -44,7 +61,7 @@ const Modal: React.FC<ModalProps> = ({
       {/* Backdrop */}
       <div
         className={`fixed inset-0 bg-black transition-opacity duration-300 z-40 ${
-          isOpen ? "opacity-50" : "opacity-0"
+          isAnimating ? "opacity-50" : "opacity-0"
         }`}
         onClick={onClose}
         aria-hidden="true"
@@ -52,19 +69,23 @@ const Modal: React.FC<ModalProps> = ({
 
       {/* Modal */}
       <div
-        className="fixed inset-0 flex items-center justify-center z-50 p-4"
+        className={`fixed inset-0 flex items-center justify-center z-50 p-4 pointer-events-none ${
+          !isAnimating && !isOpen ? "invisible" : "visible"
+        }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
       >
         <div
-          className={`bg-white rounded-2xl shadow-2xl ${sizeClasses[size]} w-full transform transition-all duration-300 ${
-            isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
+          className={`bg-white rounded-2xl shadow-2xl ${
+            sizeClasses[size]
+          } w-full transform transition-all duration-300 pointer-events-auto ${
+            isAnimating ? "scale-100 opacity-100" : "scale-95 opacity-0"
           }`}
           style={{
-            animation: isOpen
-              ? "slideUp 0.3s ease-out"
-              : "slideDown 0.3s ease-in",
+            animation: isAnimating
+              ? "slideUp 0.3s ease-out forwards"
+              : "slideDown 0.3s ease-in forwards",
           }}
         >
           {/* Header */}
@@ -74,7 +95,7 @@ const Modal: React.FC<ModalProps> = ({
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
+              className="text-gray-400 hover:text-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-1 cursor-pointer"
               aria-label="Close modal"
             >
               <svg

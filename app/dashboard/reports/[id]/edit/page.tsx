@@ -16,7 +16,7 @@ export default async function EditReportPage({
   }
   return (
     <>
-      <ReportEditForm report={report} />
+      <ReportEditForm report={report} license_plate_id={id} />
     </>
   );
 }

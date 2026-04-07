@@ -1,3 +1,4 @@
+import { getDrivers } from "@/actions/DriverAction";
 import { authOptions } from "@/auth";
 import TableSkeleton from "@/components/tableSkeleton";
 import DriverTable from "@/ui/drivers/DriverTable";
@@ -7,6 +8,8 @@ import { Suspense } from "react";
 
 export default async function DriverPage() {
   const session = await getServerSession(authOptions);
+  const drivers = await getDrivers();
+
   return (
     <>
       {session && (
@@ -26,7 +29,7 @@ export default async function DriverPage() {
         </div>
       )}
       <Suspense fallback={<TableSkeleton />}>
-        <DriverTable />
+        <DriverTable drivers={drivers} session={session} />
       </Suspense>
     </>
   );

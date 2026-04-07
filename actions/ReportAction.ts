@@ -172,7 +172,11 @@ export async function getReportsById(id: string) {
     return null;
   }
 
-  return report;
+  return report.map((item) => ({
+    ...item,
+    id: item.id.toString(),
+    license_plate_id: item.license_plate_id.toString(),
+  }));
 }
 
 //! --- อัพเดทการซ่อม ---
@@ -216,6 +220,40 @@ export async function updateReport(prevState: any, formData: FormData) {
 
   revalidatePath("/dashboard/reports");
   redirect("/dashboard/reports");
+}
+
+export async function addRepairAction(prevState: any, formData: FormData) {
+  const license_plate_id = formData.get("license_plate_id") as string;
+  const maintenance = formData.getAll("maintenance") as string[];
+  const repair = formData.get("repair") as string;
+
+  const repairsToAdd = maintenance
+    .map((item) => item.trim())
+    .filter((item) => item !== "");
+
+  if (repair && repair.trim() !== "") {
+    repairsToAdd.push(repair.trim());
+  }
+
+  if (repairsToAdd.length === 0) {
+    return { message: "กรุณาเลือกหรือกรอกรายการแจ้งซ่อม" };
+  }
+
+  try {
+    await prisma.report.createMany({
+      data: repairsToAdd.map((r) => ({
+        license_plate_id: BigInt(license_plate_id),
+        repair: r,
+        status: 0,
+      })),
+    });
+  } catch (error) {
+    console.error("Database Error:", error);
+    return { message: "เกิดข้อผิดพลาดในการบันทึกข้อมูล" };
+  }
+
+  revalidatePath(`/dashboard/reports/${license_plate_id}/edit`);
+  return { message: "เพิ่มรายการแจ้งซ่อมสำเร็จ", success: true };
 }
 
 export async function deleteReport(ids: string[]) {
