@@ -13,6 +13,7 @@ import { useActionState, useEffect, useState, useTransition } from "react";
 
 const initialState = {
   message: "",
+  success: false
 };
 
 export default function ReportEditForm({

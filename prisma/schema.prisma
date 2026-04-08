@@ -38,7 +38,7 @@ model Report {
   repair           String    @db.VarChar(255)
   status           Int       @default(0)
   description      String?   @db.Text
-  created_at       DateTime? @db.Timestamp(0)
+  created_at       DateTime? @db.Timestamp(0) @default(now())
   updated_at       DateTime? @updatedAt @db.Timestamp(0)
   truck            Truck?    @relation(fields: [license_plate_id], references: [id])
 
