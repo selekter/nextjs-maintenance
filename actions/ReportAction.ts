@@ -1,13 +1,28 @@
 "use server";
 
-import { db } from "@/libs/db";
 import { prisma } from "@/libs/prisma";
 import { reportEditSchema, reportSchema } from "@/libs/zod";
-import { GroupedReport, ReportProps, TruckProps } from "@/types";
-import { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import z from "zod";
+
+export async function countReports() {
+  try {
+    const countReportPending = await prisma.truck.count({
+      where: {
+        reports: {
+          some: {
+            status: 0,
+          },
+        },
+      },
+    });
+
+    return countReportPending;
+  } catch (error) {
+    console.error("Error feching trucks with reports:", error);
+  }
+}
 
 //! --- ดึง Report ที่แจ้งซ่อมมาแสดง ---
 export async function getReports() {
