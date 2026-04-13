@@ -62,3 +62,58 @@ export async function createTruck(prevState: any, formData: FormData) {
   revalidatePath("/dashboard/drivers");
   redirect("/dashboard/drivers");
 }
+
+export async function updateTruckMileage(formData: FormData) {
+  const truckId = BigInt(formData.get("truckId") as string);
+  const newMileage = parseInt(formData.get("mileage") as string);
+
+  try {
+    await prisma.$transaction(async (tx) => {
+      // 1. อัปเดตเลขไมล์รถปัจจุบัน
+      await tx.truck.update({
+        where: { id: truckId },
+        data: { current_mileage: newMileage },
+      });
+
+      // 2. ดึงรายการบำรุงรักษาล่าสุดของรถคันนี้มาเช็ค
+      // (ดึงเฉพาะรายการที่ยังไม่ได้ซ่อม หรือดึงตัวล่าสุดของแต่ละประเภท)
+      const maintenanceItems = await tx.maintenanceLog.findMany({
+        where: { truck_id: truckId },
+        distinct: ["type"],
+        orderBy: { created_at: "desc" },
+      });
+
+      for (const item of maintenanceItems) {
+        // ถ้าเลขไมล์ใหม่ มากกว่า หรือ เท่ากับ รอบที่ต้องเปลี่ยน
+        if (newMileage >= item.next_service_at) {
+          // ตรวจสอบก่อนว่ามีรายการแจ้งซ่อมนี้ค้างอยู่ในระบบหรือยัง (status: 0 คือยังไม่ซ่อม)
+          // เพื่อป้องกันการสร้างรายการซ้ำซ้อนทุกครั้งที่กดอัปเดตเลขไมล์
+          const existingReport = await tx.report.findFirst({
+            where: {
+              license_plate_id: truckId,
+              repair: { contains: item.type },
+              status: 0,
+            },
+          });
+
+          if (!existingReport) {
+            await tx.report.create({
+              data: {
+                license_plate_id: truckId,
+                repair: `เปลี่ยน${item.type}`,
+                status: 0,
+              },
+            });
+          }
+        }
+      }
+    });
+
+    revalidatePath("/dashboard/reports");
+    revalidatePath("/dashboard/maintenance"); // ปรับ Path ตามหน้าของคุณ
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: "อัปเดตเลขไมล์ไม่สำเร็จ" };
+  }
+}

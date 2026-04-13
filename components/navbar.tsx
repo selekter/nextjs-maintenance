@@ -6,6 +6,7 @@ import {
   IdCard,
   LifeBuoy,
   PowerOff,
+  Truck,
   Wrench,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
@@ -35,6 +36,11 @@ export default function Navbar({ session }: { session: any }) {
       name: "บันทึกการเปลี่ยนยาง",
       path: "/dashboard/tires",
       icon: <LifeBuoy size={20} />,
+    },
+    {
+      name: "บันทึกเลขไมล์",
+      path: "/dashboard/maintenance",
+      icon: <Truck size={20} />,
     },
   ];
   return (

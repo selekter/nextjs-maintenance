@@ -196,10 +196,10 @@ export async function getReportsById(id: string) {
 
 //! --- อัพเดทการซ่อม ---
 export async function updateReport(prevState: any, formData: FormData) {
-  console.log(formData);
-
   const rawData = { selectedRepairIds: formData.getAll("repair") };
   const description = formData.get("description") as string;
+  const currentMileage =
+    parseInt(formData.get("current_mileage") as string) || 0; // รับเลขไมล์จากฟอร์ม
 
   const validated = reportEditSchema.safeParse(rawData);
 
@@ -215,18 +215,56 @@ export async function updateReport(prevState: any, formData: FormData) {
   }
 
   const { selectedRepairIds } = validated.data;
+  const idsAsBigInt = selectedRepairIds.map((id) => BigInt(id));
 
   try {
-    await prisma.report.updateMany({
-      where: {
-        id: {
-          in: selectedRepairIds.map((id) => BigInt(id)),
+    await prisma.$transaction(async (tx) => {
+      // 1. ดึงข้อมูลรายการซ่อมที่กำลังจะปิดงานมาดูว่ามีอะไรบ้าง
+      const reportToUpdate = await tx.report.findMany({
+        where: { id: { in: idsAsBigInt } },
+        select: { id: true, repair: true, license_plate_id: true },
+      });
+
+      // 2. อัปเดตสถานะรายงานทั้งหมดเป็นซ่อมเสร็จ (status: 1)
+      await tx.report.updateMany({
+        where: {
+          id: {
+            in: idsAsBigInt,
+          },
         },
-      },
-      data: {
-        status: 1,
-        description: description,
-      },
+        data: {
+          status: 1,
+          description: description,
+        },
+      });
+
+      // 3. เช็คคำสำคัญ (Keywords) เพื่อลงประวัติ MaintenanceLog
+      const maintenaceRules = [
+        { key: "น้ำมันเครื่อง", interval: 20000 },
+        { key: "น้ำมันเกียร์", interval: 60000 },
+        { key: "น้ำมันเฟืองท้าย", interval: 70000 },
+      ];
+
+      for (const report of reportToUpdate) {
+        for (const rule of maintenaceRules) {
+          if (report.repair.includes(rule.key)) {
+            await tx.maintenanceLog.create({
+              data: {
+                truck_id: report.license_plate_id,
+                type: rule.key,
+                service_mileage: currentMileage,
+                next_service_at: currentMileage + rule.interval,
+              },
+            });
+
+            // อัปเดตเลขไมล์ล่าสุดของรถคันนั้นๆ ด้วย
+            await tx.truck.update({
+              where: { id: report.license_plate_id },
+              data: { current_mileage: currentMileage },
+            });
+          }
+        }
+      }
     });
   } catch (error) {
     console.error(error);

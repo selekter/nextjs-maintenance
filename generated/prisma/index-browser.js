@@ -124,6 +124,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.TruckScalarFieldEnum = {
   id: 'id',
   number_plate: 'number_plate',
+  current_mileage: 'current_mileage',
   driver_id: 'driver_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -202,6 +203,16 @@ exports.Prisma.TiresScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.MaintenanceLogScalarFieldEnum = {
+  id: 'id',
+  truck_id: 'truck_id',
+  type: 'type',
+  service_mileage: 'service_mileage',
+  next_service_at: 'next_service_at',
+  description: 'description',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -261,6 +272,11 @@ exports.Prisma.tiresOrderByRelevanceFieldEnum = {
   brand: 'brand'
 };
 
+exports.Prisma.MaintenanceLogOrderByRelevanceFieldEnum = {
+  type: 'type',
+  description: 'description'
+};
+
 
 exports.Prisma.ModelName = {
   Truck: 'Truck',
@@ -271,7 +287,8 @@ exports.Prisma.ModelName = {
   password_reset_tokens: 'password_reset_tokens',
   personal_access_tokens: 'personal_access_tokens',
   users: 'users',
-  tires: 'tires'
+  tires: 'tires',
+  MaintenanceLog: 'MaintenanceLog'
 };
 
 /**

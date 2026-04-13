@@ -58,6 +58,11 @@ export type users = $Result.DefaultSelection<Prisma.$usersPayload>
  * 
  */
 export type tires = $Result.DefaultSelection<Prisma.$tiresPayload>
+/**
+ * Model MaintenanceLog
+ * 
+ */
+export type MaintenanceLog = $Result.DefaultSelection<Prisma.$MaintenanceLogPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -266,6 +271,16 @@ export class PrismaClient<
     * ```
     */
   get tires(): Prisma.tiresDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.maintenanceLog`: Exposes CRUD operations for the **MaintenanceLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MaintenanceLogs
+    * const maintenanceLogs = await prisma.maintenanceLog.findMany()
+    * ```
+    */
+  get maintenanceLog(): Prisma.MaintenanceLogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -715,7 +730,8 @@ export namespace Prisma {
     password_reset_tokens: 'password_reset_tokens',
     personal_access_tokens: 'personal_access_tokens',
     users: 'users',
-    tires: 'tires'
+    tires: 'tires',
+    MaintenanceLog: 'MaintenanceLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -734,7 +750,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "truck" | "driver" | "report" | "failed_jobs" | "migrations" | "password_reset_tokens" | "personal_access_tokens" | "users" | "tires"
+      modelProps: "truck" | "driver" | "report" | "failed_jobs" | "migrations" | "password_reset_tokens" | "personal_access_tokens" | "users" | "tires" | "maintenanceLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1332,6 +1348,72 @@ export namespace Prisma {
           }
         }
       }
+      MaintenanceLog: {
+        payload: Prisma.$MaintenanceLogPayload<ExtArgs>
+        fields: Prisma.MaintenanceLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaintenanceLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaintenanceLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          findFirst: {
+            args: Prisma.MaintenanceLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaintenanceLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          findMany: {
+            args: Prisma.MaintenanceLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>[]
+          }
+          create: {
+            args: Prisma.MaintenanceLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          createMany: {
+            args: Prisma.MaintenanceLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.MaintenanceLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          update: {
+            args: Prisma.MaintenanceLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.MaintenanceLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaintenanceLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MaintenanceLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          aggregate: {
+            args: Prisma.MaintenanceLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMaintenanceLog>
+          }
+          groupBy: {
+            args: Prisma.MaintenanceLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaintenanceLogCountArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1437,6 +1519,7 @@ export namespace Prisma {
     personal_access_tokens?: personal_access_tokensOmit
     users?: usersOmit
     tires?: tiresOmit
+    maintenanceLog?: MaintenanceLogOmit
   }
 
   /* Types for Logging */
@@ -1519,11 +1602,13 @@ export namespace Prisma {
   export type TruckCountOutputType = {
     reports: number
     tires: number
+    maintenanceLogs: number
   }
 
   export type TruckCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reports?: boolean | TruckCountOutputTypeCountReportsArgs
     tires?: boolean | TruckCountOutputTypeCountTiresArgs
+    maintenanceLogs?: boolean | TruckCountOutputTypeCountMaintenanceLogsArgs
   }
 
   // Custom InputTypes
@@ -1549,6 +1634,13 @@ export namespace Prisma {
    */
   export type TruckCountOutputTypeCountTiresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: tiresWhereInput
+  }
+
+  /**
+   * TruckCountOutputType without action
+   */
+  export type TruckCountOutputTypeCountMaintenanceLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceLogWhereInput
   }
 
 
@@ -1601,17 +1693,20 @@ export namespace Prisma {
 
   export type TruckAvgAggregateOutputType = {
     id: number | null
+    current_mileage: number | null
     driver_id: number | null
   }
 
   export type TruckSumAggregateOutputType = {
     id: bigint | null
+    current_mileage: number | null
     driver_id: bigint | null
   }
 
   export type TruckMinAggregateOutputType = {
     id: bigint | null
     number_plate: string | null
+    current_mileage: number | null
     driver_id: bigint | null
     created_at: Date | null
     updated_at: Date | null
@@ -1620,6 +1715,7 @@ export namespace Prisma {
   export type TruckMaxAggregateOutputType = {
     id: bigint | null
     number_plate: string | null
+    current_mileage: number | null
     driver_id: bigint | null
     created_at: Date | null
     updated_at: Date | null
@@ -1628,6 +1724,7 @@ export namespace Prisma {
   export type TruckCountAggregateOutputType = {
     id: number
     number_plate: number
+    current_mileage: number
     driver_id: number
     created_at: number
     updated_at: number
@@ -1637,17 +1734,20 @@ export namespace Prisma {
 
   export type TruckAvgAggregateInputType = {
     id?: true
+    current_mileage?: true
     driver_id?: true
   }
 
   export type TruckSumAggregateInputType = {
     id?: true
+    current_mileage?: true
     driver_id?: true
   }
 
   export type TruckMinAggregateInputType = {
     id?: true
     number_plate?: true
+    current_mileage?: true
     driver_id?: true
     created_at?: true
     updated_at?: true
@@ -1656,6 +1756,7 @@ export namespace Prisma {
   export type TruckMaxAggregateInputType = {
     id?: true
     number_plate?: true
+    current_mileage?: true
     driver_id?: true
     created_at?: true
     updated_at?: true
@@ -1664,6 +1765,7 @@ export namespace Prisma {
   export type TruckCountAggregateInputType = {
     id?: true
     number_plate?: true
+    current_mileage?: true
     driver_id?: true
     created_at?: true
     updated_at?: true
@@ -1759,6 +1861,7 @@ export namespace Prisma {
   export type TruckGroupByOutputType = {
     id: bigint
     number_plate: string
+    current_mileage: number
     driver_id: bigint | null
     created_at: Date | null
     updated_at: Date | null
@@ -1786,12 +1889,14 @@ export namespace Prisma {
   export type TruckSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     number_plate?: boolean
+    current_mileage?: boolean
     driver_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     drivers?: boolean | Truck$driversArgs<ExtArgs>
     reports?: boolean | Truck$reportsArgs<ExtArgs>
     tires?: boolean | Truck$tiresArgs<ExtArgs>
+    maintenanceLogs?: boolean | Truck$maintenanceLogsArgs<ExtArgs>
     _count?: boolean | TruckCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["truck"]>
 
@@ -1800,16 +1905,18 @@ export namespace Prisma {
   export type TruckSelectScalar = {
     id?: boolean
     number_plate?: boolean
+    current_mileage?: boolean
     driver_id?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type TruckOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number_plate" | "driver_id" | "created_at" | "updated_at", ExtArgs["result"]["truck"]>
+  export type TruckOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number_plate" | "current_mileage" | "driver_id" | "created_at" | "updated_at", ExtArgs["result"]["truck"]>
   export type TruckInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     drivers?: boolean | Truck$driversArgs<ExtArgs>
     reports?: boolean | Truck$reportsArgs<ExtArgs>
     tires?: boolean | Truck$tiresArgs<ExtArgs>
+    maintenanceLogs?: boolean | Truck$maintenanceLogsArgs<ExtArgs>
     _count?: boolean | TruckCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1819,10 +1926,12 @@ export namespace Prisma {
       drivers: Prisma.$DriverPayload<ExtArgs> | null
       reports: Prisma.$ReportPayload<ExtArgs>[]
       tires: Prisma.$tiresPayload<ExtArgs>[]
+      maintenanceLogs: Prisma.$MaintenanceLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
       number_plate: string
+      current_mileage: number
       driver_id: bigint | null
       created_at: Date | null
       updated_at: Date | null
@@ -2169,6 +2278,7 @@ export namespace Prisma {
     drivers<T extends Truck$driversArgs<ExtArgs> = {}>(args?: Subset<T, Truck$driversArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     reports<T extends Truck$reportsArgs<ExtArgs> = {}>(args?: Subset<T, Truck$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tires<T extends Truck$tiresArgs<ExtArgs> = {}>(args?: Subset<T, Truck$tiresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenanceLogs<T extends Truck$maintenanceLogsArgs<ExtArgs> = {}>(args?: Subset<T, Truck$maintenanceLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2200,6 +2310,7 @@ export namespace Prisma {
   interface TruckFieldRefs {
     readonly id: FieldRef<"Truck", 'BigInt'>
     readonly number_plate: FieldRef<"Truck", 'String'>
+    readonly current_mileage: FieldRef<"Truck", 'Int'>
     readonly driver_id: FieldRef<"Truck", 'BigInt'>
     readonly created_at: FieldRef<"Truck", 'DateTime'>
     readonly updated_at: FieldRef<"Truck", 'DateTime'>
@@ -2610,6 +2721,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TiresScalarFieldEnum | TiresScalarFieldEnum[]
+  }
+
+  /**
+   * Truck.maintenanceLogs
+   */
+  export type Truck$maintenanceLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    where?: MaintenanceLogWhereInput
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    cursor?: MaintenanceLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceLogScalarFieldEnum | MaintenanceLogScalarFieldEnum[]
   }
 
   /**
@@ -10239,6 +10374,1003 @@ export namespace Prisma {
 
 
   /**
+   * Model MaintenanceLog
+   */
+
+  export type AggregateMaintenanceLog = {
+    _count: MaintenanceLogCountAggregateOutputType | null
+    _avg: MaintenanceLogAvgAggregateOutputType | null
+    _sum: MaintenanceLogSumAggregateOutputType | null
+    _min: MaintenanceLogMinAggregateOutputType | null
+    _max: MaintenanceLogMaxAggregateOutputType | null
+  }
+
+  export type MaintenanceLogAvgAggregateOutputType = {
+    id: number | null
+    truck_id: number | null
+    service_mileage: number | null
+    next_service_at: number | null
+  }
+
+  export type MaintenanceLogSumAggregateOutputType = {
+    id: bigint | null
+    truck_id: bigint | null
+    service_mileage: number | null
+    next_service_at: number | null
+  }
+
+  export type MaintenanceLogMinAggregateOutputType = {
+    id: bigint | null
+    truck_id: bigint | null
+    type: string | null
+    service_mileage: number | null
+    next_service_at: number | null
+    description: string | null
+    created_at: Date | null
+  }
+
+  export type MaintenanceLogMaxAggregateOutputType = {
+    id: bigint | null
+    truck_id: bigint | null
+    type: string | null
+    service_mileage: number | null
+    next_service_at: number | null
+    description: string | null
+    created_at: Date | null
+  }
+
+  export type MaintenanceLogCountAggregateOutputType = {
+    id: number
+    truck_id: number
+    type: number
+    service_mileage: number
+    next_service_at: number
+    description: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type MaintenanceLogAvgAggregateInputType = {
+    id?: true
+    truck_id?: true
+    service_mileage?: true
+    next_service_at?: true
+  }
+
+  export type MaintenanceLogSumAggregateInputType = {
+    id?: true
+    truck_id?: true
+    service_mileage?: true
+    next_service_at?: true
+  }
+
+  export type MaintenanceLogMinAggregateInputType = {
+    id?: true
+    truck_id?: true
+    type?: true
+    service_mileage?: true
+    next_service_at?: true
+    description?: true
+    created_at?: true
+  }
+
+  export type MaintenanceLogMaxAggregateInputType = {
+    id?: true
+    truck_id?: true
+    type?: true
+    service_mileage?: true
+    next_service_at?: true
+    description?: true
+    created_at?: true
+  }
+
+  export type MaintenanceLogCountAggregateInputType = {
+    id?: true
+    truck_id?: true
+    type?: true
+    service_mileage?: true
+    next_service_at?: true
+    description?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type MaintenanceLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceLog to aggregate.
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceLogs to fetch.
+     */
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MaintenanceLogs
+    **/
+    _count?: true | MaintenanceLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MaintenanceLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MaintenanceLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaintenanceLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaintenanceLogMaxAggregateInputType
+  }
+
+  export type GetMaintenanceLogAggregateType<T extends MaintenanceLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaintenanceLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaintenanceLog[P]>
+      : GetScalarType<T[P], AggregateMaintenanceLog[P]>
+  }
+
+
+
+
+  export type MaintenanceLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceLogWhereInput
+    orderBy?: MaintenanceLogOrderByWithAggregationInput | MaintenanceLogOrderByWithAggregationInput[]
+    by: MaintenanceLogScalarFieldEnum[] | MaintenanceLogScalarFieldEnum
+    having?: MaintenanceLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaintenanceLogCountAggregateInputType | true
+    _avg?: MaintenanceLogAvgAggregateInputType
+    _sum?: MaintenanceLogSumAggregateInputType
+    _min?: MaintenanceLogMinAggregateInputType
+    _max?: MaintenanceLogMaxAggregateInputType
+  }
+
+  export type MaintenanceLogGroupByOutputType = {
+    id: bigint
+    truck_id: bigint
+    type: string
+    service_mileage: number
+    next_service_at: number
+    description: string | null
+    created_at: Date
+    _count: MaintenanceLogCountAggregateOutputType | null
+    _avg: MaintenanceLogAvgAggregateOutputType | null
+    _sum: MaintenanceLogSumAggregateOutputType | null
+    _min: MaintenanceLogMinAggregateOutputType | null
+    _max: MaintenanceLogMaxAggregateOutputType | null
+  }
+
+  type GetMaintenanceLogGroupByPayload<T extends MaintenanceLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaintenanceLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaintenanceLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaintenanceLogGroupByOutputType[P]>
+            : GetScalarType<T[P], MaintenanceLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaintenanceLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    truck_id?: boolean
+    type?: boolean
+    service_mileage?: boolean
+    next_service_at?: boolean
+    description?: boolean
+    created_at?: boolean
+    truck?: boolean | TruckDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceLog"]>
+
+
+
+  export type MaintenanceLogSelectScalar = {
+    id?: boolean
+    truck_id?: boolean
+    type?: boolean
+    service_mileage?: boolean
+    next_service_at?: boolean
+    description?: boolean
+    created_at?: boolean
+  }
+
+  export type MaintenanceLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "truck_id" | "type" | "service_mileage" | "next_service_at" | "description" | "created_at", ExtArgs["result"]["maintenanceLog"]>
+  export type MaintenanceLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    truck?: boolean | TruckDefaultArgs<ExtArgs>
+  }
+
+  export type $MaintenanceLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MaintenanceLog"
+    objects: {
+      truck: Prisma.$TruckPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      truck_id: bigint
+      type: string
+      service_mileage: number
+      next_service_at: number
+      description: string | null
+      created_at: Date
+    }, ExtArgs["result"]["maintenanceLog"]>
+    composites: {}
+  }
+
+  type MaintenanceLogGetPayload<S extends boolean | null | undefined | MaintenanceLogDefaultArgs> = $Result.GetResult<Prisma.$MaintenanceLogPayload, S>
+
+  type MaintenanceLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaintenanceLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaintenanceLogCountAggregateInputType | true
+    }
+
+  export interface MaintenanceLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MaintenanceLog'], meta: { name: 'MaintenanceLog' } }
+    /**
+     * Find zero or one MaintenanceLog that matches the filter.
+     * @param {MaintenanceLogFindUniqueArgs} args - Arguments to find a MaintenanceLog
+     * @example
+     * // Get one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaintenanceLogFindUniqueArgs>(args: SelectSubset<T, MaintenanceLogFindUniqueArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MaintenanceLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaintenanceLogFindUniqueOrThrowArgs} args - Arguments to find a MaintenanceLog
+     * @example
+     * // Get one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaintenanceLogFindUniqueOrThrowArgs>(args: SelectSubset<T, MaintenanceLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogFindFirstArgs} args - Arguments to find a MaintenanceLog
+     * @example
+     * // Get one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaintenanceLogFindFirstArgs>(args?: SelectSubset<T, MaintenanceLogFindFirstArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogFindFirstOrThrowArgs} args - Arguments to find a MaintenanceLog
+     * @example
+     * // Get one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaintenanceLogFindFirstOrThrowArgs>(args?: SelectSubset<T, MaintenanceLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MaintenanceLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MaintenanceLogs
+     * const maintenanceLogs = await prisma.maintenanceLog.findMany()
+     * 
+     * // Get first 10 MaintenanceLogs
+     * const maintenanceLogs = await prisma.maintenanceLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maintenanceLogWithIdOnly = await prisma.maintenanceLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaintenanceLogFindManyArgs>(args?: SelectSubset<T, MaintenanceLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MaintenanceLog.
+     * @param {MaintenanceLogCreateArgs} args - Arguments to create a MaintenanceLog.
+     * @example
+     * // Create one MaintenanceLog
+     * const MaintenanceLog = await prisma.maintenanceLog.create({
+     *   data: {
+     *     // ... data to create a MaintenanceLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaintenanceLogCreateArgs>(args: SelectSubset<T, MaintenanceLogCreateArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MaintenanceLogs.
+     * @param {MaintenanceLogCreateManyArgs} args - Arguments to create many MaintenanceLogs.
+     * @example
+     * // Create many MaintenanceLogs
+     * const maintenanceLog = await prisma.maintenanceLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaintenanceLogCreateManyArgs>(args?: SelectSubset<T, MaintenanceLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a MaintenanceLog.
+     * @param {MaintenanceLogDeleteArgs} args - Arguments to delete one MaintenanceLog.
+     * @example
+     * // Delete one MaintenanceLog
+     * const MaintenanceLog = await prisma.maintenanceLog.delete({
+     *   where: {
+     *     // ... filter to delete one MaintenanceLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaintenanceLogDeleteArgs>(args: SelectSubset<T, MaintenanceLogDeleteArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MaintenanceLog.
+     * @param {MaintenanceLogUpdateArgs} args - Arguments to update one MaintenanceLog.
+     * @example
+     * // Update one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaintenanceLogUpdateArgs>(args: SelectSubset<T, MaintenanceLogUpdateArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MaintenanceLogs.
+     * @param {MaintenanceLogDeleteManyArgs} args - Arguments to filter MaintenanceLogs to delete.
+     * @example
+     * // Delete a few MaintenanceLogs
+     * const { count } = await prisma.maintenanceLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaintenanceLogDeleteManyArgs>(args?: SelectSubset<T, MaintenanceLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MaintenanceLogs
+     * const maintenanceLog = await prisma.maintenanceLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaintenanceLogUpdateManyArgs>(args: SelectSubset<T, MaintenanceLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MaintenanceLog.
+     * @param {MaintenanceLogUpsertArgs} args - Arguments to update or create a MaintenanceLog.
+     * @example
+     * // Update or create a MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.upsert({
+     *   create: {
+     *     // ... data to create a MaintenanceLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MaintenanceLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaintenanceLogUpsertArgs>(args: SelectSubset<T, MaintenanceLogUpsertArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MaintenanceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogCountArgs} args - Arguments to filter MaintenanceLogs to count.
+     * @example
+     * // Count the number of MaintenanceLogs
+     * const count = await prisma.maintenanceLog.count({
+     *   where: {
+     *     // ... the filter for the MaintenanceLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaintenanceLogCountArgs>(
+      args?: Subset<T, MaintenanceLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaintenanceLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MaintenanceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaintenanceLogAggregateArgs>(args: Subset<T, MaintenanceLogAggregateArgs>): Prisma.PrismaPromise<GetMaintenanceLogAggregateType<T>>
+
+    /**
+     * Group by MaintenanceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaintenanceLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaintenanceLogGroupByArgs['orderBy'] }
+        : { orderBy?: MaintenanceLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaintenanceLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenanceLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MaintenanceLog model
+   */
+  readonly fields: MaintenanceLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MaintenanceLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaintenanceLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    truck<T extends TruckDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TruckDefaultArgs<ExtArgs>>): Prisma__TruckClient<$Result.GetResult<Prisma.$TruckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MaintenanceLog model
+   */
+  interface MaintenanceLogFieldRefs {
+    readonly id: FieldRef<"MaintenanceLog", 'BigInt'>
+    readonly truck_id: FieldRef<"MaintenanceLog", 'BigInt'>
+    readonly type: FieldRef<"MaintenanceLog", 'String'>
+    readonly service_mileage: FieldRef<"MaintenanceLog", 'Int'>
+    readonly next_service_at: FieldRef<"MaintenanceLog", 'Int'>
+    readonly description: FieldRef<"MaintenanceLog", 'String'>
+    readonly created_at: FieldRef<"MaintenanceLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MaintenanceLog findUnique
+   */
+  export type MaintenanceLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLog to fetch.
+     */
+    where: MaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceLog findUniqueOrThrow
+   */
+  export type MaintenanceLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLog to fetch.
+     */
+    where: MaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceLog findFirst
+   */
+  export type MaintenanceLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLog to fetch.
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceLogs to fetch.
+     */
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceLogs.
+     */
+    cursor?: MaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceLogs.
+     */
+    distinct?: MaintenanceLogScalarFieldEnum | MaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceLog findFirstOrThrow
+   */
+  export type MaintenanceLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLog to fetch.
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceLogs to fetch.
+     */
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceLogs.
+     */
+    cursor?: MaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceLogs.
+     */
+    distinct?: MaintenanceLogScalarFieldEnum | MaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceLog findMany
+   */
+  export type MaintenanceLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLogs to fetch.
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceLogs to fetch.
+     */
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MaintenanceLogs.
+     */
+    cursor?: MaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceLogs.
+     */
+    skip?: number
+    distinct?: MaintenanceLogScalarFieldEnum | MaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceLog create
+   */
+  export type MaintenanceLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MaintenanceLog.
+     */
+    data: XOR<MaintenanceLogCreateInput, MaintenanceLogUncheckedCreateInput>
+  }
+
+  /**
+   * MaintenanceLog createMany
+   */
+  export type MaintenanceLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MaintenanceLogs.
+     */
+    data: MaintenanceLogCreateManyInput | MaintenanceLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MaintenanceLog update
+   */
+  export type MaintenanceLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MaintenanceLog.
+     */
+    data: XOR<MaintenanceLogUpdateInput, MaintenanceLogUncheckedUpdateInput>
+    /**
+     * Choose, which MaintenanceLog to update.
+     */
+    where: MaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceLog updateMany
+   */
+  export type MaintenanceLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MaintenanceLogs.
+     */
+    data: XOR<MaintenanceLogUpdateManyMutationInput, MaintenanceLogUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceLogs to update
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * Limit how many MaintenanceLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceLog upsert
+   */
+  export type MaintenanceLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MaintenanceLog to update in case it exists.
+     */
+    where: MaintenanceLogWhereUniqueInput
+    /**
+     * In case the MaintenanceLog found by the `where` argument doesn't exist, create a new MaintenanceLog with this data.
+     */
+    create: XOR<MaintenanceLogCreateInput, MaintenanceLogUncheckedCreateInput>
+    /**
+     * In case the MaintenanceLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaintenanceLogUpdateInput, MaintenanceLogUncheckedUpdateInput>
+  }
+
+  /**
+   * MaintenanceLog delete
+   */
+  export type MaintenanceLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter which MaintenanceLog to delete.
+     */
+    where: MaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceLog deleteMany
+   */
+  export type MaintenanceLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceLogs to delete
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * Limit how many MaintenanceLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceLog without action
+   */
+  export type MaintenanceLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10255,6 +11387,7 @@ export namespace Prisma {
   export const TruckScalarFieldEnum: {
     id: 'id',
     number_plate: 'number_plate',
+    current_mileage: 'current_mileage',
     driver_id: 'driver_id',
     created_at: 'created_at',
     updated_at: 'updated_at'
@@ -10360,6 +11493,19 @@ export namespace Prisma {
   export type TiresScalarFieldEnum = (typeof TiresScalarFieldEnum)[keyof typeof TiresScalarFieldEnum]
 
 
+  export const MaintenanceLogScalarFieldEnum: {
+    id: 'id',
+    truck_id: 'truck_id',
+    type: 'type',
+    service_mileage: 'service_mileage',
+    next_service_at: 'next_service_at',
+    description: 'description',
+    created_at: 'created_at'
+  };
+
+  export type MaintenanceLogScalarFieldEnum = (typeof MaintenanceLogScalarFieldEnum)[keyof typeof MaintenanceLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -10452,6 +11598,14 @@ export namespace Prisma {
   export type tiresOrderByRelevanceFieldEnum = (typeof tiresOrderByRelevanceFieldEnum)[keyof typeof tiresOrderByRelevanceFieldEnum]
 
 
+  export const MaintenanceLogOrderByRelevanceFieldEnum: {
+    type: 'type',
+    description: 'description'
+  };
+
+  export type MaintenanceLogOrderByRelevanceFieldEnum = (typeof MaintenanceLogOrderByRelevanceFieldEnum)[keyof typeof MaintenanceLogOrderByRelevanceFieldEnum]
+
+
   /**
    * Field references
    */
@@ -10472,16 +11626,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
+   * Reference to a field of type 'Int'
    */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'DateTime'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
@@ -10501,23 +11655,27 @@ export namespace Prisma {
     NOT?: TruckWhereInput | TruckWhereInput[]
     id?: BigIntFilter<"Truck"> | bigint | number
     number_plate?: StringFilter<"Truck"> | string
+    current_mileage?: IntFilter<"Truck"> | number
     driver_id?: BigIntNullableFilter<"Truck"> | bigint | number | null
     created_at?: DateTimeNullableFilter<"Truck"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"Truck"> | Date | string | null
     drivers?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
     reports?: ReportListRelationFilter
     tires?: TiresListRelationFilter
+    maintenanceLogs?: MaintenanceLogListRelationFilter
   }
 
   export type TruckOrderByWithRelationInput = {
     id?: SortOrder
     number_plate?: SortOrder
+    current_mileage?: SortOrder
     driver_id?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     drivers?: DriverOrderByWithRelationInput
     reports?: ReportOrderByRelationAggregateInput
     tires?: tiresOrderByRelationAggregateInput
+    maintenanceLogs?: MaintenanceLogOrderByRelationAggregateInput
     _relevance?: TruckOrderByRelevanceInput
   }
 
@@ -10527,17 +11685,20 @@ export namespace Prisma {
     OR?: TruckWhereInput[]
     NOT?: TruckWhereInput | TruckWhereInput[]
     number_plate?: StringFilter<"Truck"> | string
+    current_mileage?: IntFilter<"Truck"> | number
     driver_id?: BigIntNullableFilter<"Truck"> | bigint | number | null
     created_at?: DateTimeNullableFilter<"Truck"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"Truck"> | Date | string | null
     drivers?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
     reports?: ReportListRelationFilter
     tires?: TiresListRelationFilter
+    maintenanceLogs?: MaintenanceLogListRelationFilter
   }, "id">
 
   export type TruckOrderByWithAggregationInput = {
     id?: SortOrder
     number_plate?: SortOrder
+    current_mileage?: SortOrder
     driver_id?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
@@ -10554,6 +11715,7 @@ export namespace Prisma {
     NOT?: TruckScalarWhereWithAggregatesInput | TruckScalarWhereWithAggregatesInput[]
     id?: BigIntWithAggregatesFilter<"Truck"> | bigint | number
     number_plate?: StringWithAggregatesFilter<"Truck"> | string
+    current_mileage?: IntWithAggregatesFilter<"Truck"> | number
     driver_id?: BigIntNullableWithAggregatesFilter<"Truck"> | bigint | number | null
     created_at?: DateTimeNullableWithAggregatesFilter<"Truck"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"Truck"> | Date | string | null
@@ -11051,49 +12213,126 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"tires"> | Date | string
   }
 
+  export type MaintenanceLogWhereInput = {
+    AND?: MaintenanceLogWhereInput | MaintenanceLogWhereInput[]
+    OR?: MaintenanceLogWhereInput[]
+    NOT?: MaintenanceLogWhereInput | MaintenanceLogWhereInput[]
+    id?: BigIntFilter<"MaintenanceLog"> | bigint | number
+    truck_id?: BigIntFilter<"MaintenanceLog"> | bigint | number
+    type?: StringFilter<"MaintenanceLog"> | string
+    service_mileage?: IntFilter<"MaintenanceLog"> | number
+    next_service_at?: IntFilter<"MaintenanceLog"> | number
+    description?: StringNullableFilter<"MaintenanceLog"> | string | null
+    created_at?: DateTimeFilter<"MaintenanceLog"> | Date | string
+    truck?: XOR<TruckScalarRelationFilter, TruckWhereInput>
+  }
+
+  export type MaintenanceLogOrderByWithRelationInput = {
+    id?: SortOrder
+    truck_id?: SortOrder
+    type?: SortOrder
+    service_mileage?: SortOrder
+    next_service_at?: SortOrder
+    description?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    truck?: TruckOrderByWithRelationInput
+    _relevance?: MaintenanceLogOrderByRelevanceInput
+  }
+
+  export type MaintenanceLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: MaintenanceLogWhereInput | MaintenanceLogWhereInput[]
+    OR?: MaintenanceLogWhereInput[]
+    NOT?: MaintenanceLogWhereInput | MaintenanceLogWhereInput[]
+    truck_id?: BigIntFilter<"MaintenanceLog"> | bigint | number
+    type?: StringFilter<"MaintenanceLog"> | string
+    service_mileage?: IntFilter<"MaintenanceLog"> | number
+    next_service_at?: IntFilter<"MaintenanceLog"> | number
+    description?: StringNullableFilter<"MaintenanceLog"> | string | null
+    created_at?: DateTimeFilter<"MaintenanceLog"> | Date | string
+    truck?: XOR<TruckScalarRelationFilter, TruckWhereInput>
+  }, "id">
+
+  export type MaintenanceLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    truck_id?: SortOrder
+    type?: SortOrder
+    service_mileage?: SortOrder
+    next_service_at?: SortOrder
+    description?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: MaintenanceLogCountOrderByAggregateInput
+    _avg?: MaintenanceLogAvgOrderByAggregateInput
+    _max?: MaintenanceLogMaxOrderByAggregateInput
+    _min?: MaintenanceLogMinOrderByAggregateInput
+    _sum?: MaintenanceLogSumOrderByAggregateInput
+  }
+
+  export type MaintenanceLogScalarWhereWithAggregatesInput = {
+    AND?: MaintenanceLogScalarWhereWithAggregatesInput | MaintenanceLogScalarWhereWithAggregatesInput[]
+    OR?: MaintenanceLogScalarWhereWithAggregatesInput[]
+    NOT?: MaintenanceLogScalarWhereWithAggregatesInput | MaintenanceLogScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"MaintenanceLog"> | bigint | number
+    truck_id?: BigIntWithAggregatesFilter<"MaintenanceLog"> | bigint | number
+    type?: StringWithAggregatesFilter<"MaintenanceLog"> | string
+    service_mileage?: IntWithAggregatesFilter<"MaintenanceLog"> | number
+    next_service_at?: IntWithAggregatesFilter<"MaintenanceLog"> | number
+    description?: StringNullableWithAggregatesFilter<"MaintenanceLog"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"MaintenanceLog"> | Date | string
+  }
+
   export type TruckCreateInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
     drivers?: DriverCreateNestedOneWithoutTrucksInput
     reports?: ReportCreateNestedManyWithoutTruckInput
     tires?: tiresCreateNestedManyWithoutTruckInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTruckInput
   }
 
   export type TruckUncheckedCreateInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     driver_id?: bigint | number | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     reports?: ReportUncheckedCreateNestedManyWithoutTruckInput
     tires?: tiresUncheckedCreateNestedManyWithoutTruckInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput
   }
 
   export type TruckUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     drivers?: DriverUpdateOneWithoutTrucksNestedInput
     reports?: ReportUpdateManyWithoutTruckNestedInput
     tires?: tiresUpdateManyWithoutTruckNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTruckNestedInput
   }
 
   export type TruckUncheckedUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     driver_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reports?: ReportUncheckedUpdateManyWithoutTruckNestedInput
     tires?: tiresUncheckedUpdateManyWithoutTruckNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput
   }
 
   export type TruckCreateManyInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     driver_id?: bigint | number | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
@@ -11102,6 +12341,7 @@ export namespace Prisma {
   export type TruckUpdateManyMutationInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -11109,6 +12349,7 @@ export namespace Prisma {
   export type TruckUncheckedUpdateManyInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     driver_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11621,6 +12862,75 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MaintenanceLogCreateInput = {
+    id?: bigint | number
+    type: string
+    service_mileage: number
+    next_service_at: number
+    description?: string | null
+    created_at?: Date | string
+    truck: TruckCreateNestedOneWithoutMaintenanceLogsInput
+  }
+
+  export type MaintenanceLogUncheckedCreateInput = {
+    id?: bigint | number
+    truck_id: bigint | number
+    type: string
+    service_mileage: number
+    next_service_at: number
+    description?: string | null
+    created_at?: Date | string
+  }
+
+  export type MaintenanceLogUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_at?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    truck?: TruckUpdateOneRequiredWithoutMaintenanceLogsNestedInput
+  }
+
+  export type MaintenanceLogUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    truck_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_at?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceLogCreateManyInput = {
+    id?: bigint | number
+    truck_id: bigint | number
+    type: string
+    service_mileage: number
+    next_service_at: number
+    description?: string | null
+    created_at?: Date | string
+  }
+
+  export type MaintenanceLogUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_at?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceLogUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    truck_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_at?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[]
@@ -11645,6 +12955,17 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type BigIntNullableFilter<$PrismaModel = never> = {
@@ -11686,6 +13007,12 @@ export namespace Prisma {
     none?: tiresWhereInput
   }
 
+  export type MaintenanceLogListRelationFilter = {
+    every?: MaintenanceLogWhereInput
+    some?: MaintenanceLogWhereInput
+    none?: MaintenanceLogWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11699,6 +13026,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type MaintenanceLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type TruckOrderByRelevanceInput = {
     fields: TruckOrderByRelevanceFieldEnum | TruckOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -11708,6 +13039,7 @@ export namespace Prisma {
   export type TruckCountOrderByAggregateInput = {
     id?: SortOrder
     number_plate?: SortOrder
+    current_mileage?: SortOrder
     driver_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -11715,12 +13047,14 @@ export namespace Prisma {
 
   export type TruckAvgOrderByAggregateInput = {
     id?: SortOrder
+    current_mileage?: SortOrder
     driver_id?: SortOrder
   }
 
   export type TruckMaxOrderByAggregateInput = {
     id?: SortOrder
     number_plate?: SortOrder
+    current_mileage?: SortOrder
     driver_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -11729,6 +13063,7 @@ export namespace Prisma {
   export type TruckMinOrderByAggregateInput = {
     id?: SortOrder
     number_plate?: SortOrder
+    current_mileage?: SortOrder
     driver_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -11736,6 +13071,7 @@ export namespace Prisma {
 
   export type TruckSumOrderByAggregateInput = {
     id?: SortOrder
+    current_mileage?: SortOrder
     driver_id?: SortOrder
   }
 
@@ -11771,6 +13107,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11848,17 +13200,6 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -11925,22 +13266,6 @@ export namespace Prisma {
     id?: SortOrder
     license_plate_id?: SortOrder
     status?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12245,6 +13570,56 @@ export namespace Prisma {
     truckId?: SortOrder
   }
 
+  export type MaintenanceLogOrderByRelevanceInput = {
+    fields: MaintenanceLogOrderByRelevanceFieldEnum | MaintenanceLogOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type MaintenanceLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    truck_id?: SortOrder
+    type?: SortOrder
+    service_mileage?: SortOrder
+    next_service_at?: SortOrder
+    description?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type MaintenanceLogAvgOrderByAggregateInput = {
+    id?: SortOrder
+    truck_id?: SortOrder
+    service_mileage?: SortOrder
+    next_service_at?: SortOrder
+  }
+
+  export type MaintenanceLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    truck_id?: SortOrder
+    type?: SortOrder
+    service_mileage?: SortOrder
+    next_service_at?: SortOrder
+    description?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type MaintenanceLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    truck_id?: SortOrder
+    type?: SortOrder
+    service_mileage?: SortOrder
+    next_service_at?: SortOrder
+    description?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type MaintenanceLogSumOrderByAggregateInput = {
+    id?: SortOrder
+    truck_id?: SortOrder
+    service_mileage?: SortOrder
+    next_service_at?: SortOrder
+  }
+
   export type DriverCreateNestedOneWithoutTrucksInput = {
     create?: XOR<DriverCreateWithoutTrucksInput, DriverUncheckedCreateWithoutTrucksInput>
     connectOrCreate?: DriverCreateOrConnectWithoutTrucksInput
@@ -12265,6 +13640,13 @@ export namespace Prisma {
     connect?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
   }
 
+  export type MaintenanceLogCreateNestedManyWithoutTruckInput = {
+    create?: XOR<MaintenanceLogCreateWithoutTruckInput, MaintenanceLogUncheckedCreateWithoutTruckInput> | MaintenanceLogCreateWithoutTruckInput[] | MaintenanceLogUncheckedCreateWithoutTruckInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTruckInput | MaintenanceLogCreateOrConnectWithoutTruckInput[]
+    createMany?: MaintenanceLogCreateManyTruckInputEnvelope
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+  }
+
   export type ReportUncheckedCreateNestedManyWithoutTruckInput = {
     create?: XOR<ReportCreateWithoutTruckInput, ReportUncheckedCreateWithoutTruckInput> | ReportCreateWithoutTruckInput[] | ReportUncheckedCreateWithoutTruckInput[]
     connectOrCreate?: ReportCreateOrConnectWithoutTruckInput | ReportCreateOrConnectWithoutTruckInput[]
@@ -12279,6 +13661,13 @@ export namespace Prisma {
     connect?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
   }
 
+  export type MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput = {
+    create?: XOR<MaintenanceLogCreateWithoutTruckInput, MaintenanceLogUncheckedCreateWithoutTruckInput> | MaintenanceLogCreateWithoutTruckInput[] | MaintenanceLogUncheckedCreateWithoutTruckInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTruckInput | MaintenanceLogCreateOrConnectWithoutTruckInput[]
+    createMany?: MaintenanceLogCreateManyTruckInputEnvelope
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+  }
+
   export type BigIntFieldUpdateOperationsInput = {
     set?: bigint | number
     increment?: bigint | number
@@ -12289,6 +13678,14 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -12333,6 +13730,20 @@ export namespace Prisma {
     deleteMany?: tiresScalarWhereInput | tiresScalarWhereInput[]
   }
 
+  export type MaintenanceLogUpdateManyWithoutTruckNestedInput = {
+    create?: XOR<MaintenanceLogCreateWithoutTruckInput, MaintenanceLogUncheckedCreateWithoutTruckInput> | MaintenanceLogCreateWithoutTruckInput[] | MaintenanceLogUncheckedCreateWithoutTruckInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTruckInput | MaintenanceLogCreateOrConnectWithoutTruckInput[]
+    upsert?: MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput | MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput[]
+    createMany?: MaintenanceLogCreateManyTruckInputEnvelope
+    set?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    disconnect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    delete?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    update?: MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput | MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput[]
+    updateMany?: MaintenanceLogUpdateManyWithWhereWithoutTruckInput | MaintenanceLogUpdateManyWithWhereWithoutTruckInput[]
+    deleteMany?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
+  }
+
   export type NullableBigIntFieldUpdateOperationsInput = {
     set?: bigint | number | null
     increment?: bigint | number
@@ -12367,6 +13778,20 @@ export namespace Prisma {
     update?: tiresUpdateWithWhereUniqueWithoutTruckInput | tiresUpdateWithWhereUniqueWithoutTruckInput[]
     updateMany?: tiresUpdateManyWithWhereWithoutTruckInput | tiresUpdateManyWithWhereWithoutTruckInput[]
     deleteMany?: tiresScalarWhereInput | tiresScalarWhereInput[]
+  }
+
+  export type MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput = {
+    create?: XOR<MaintenanceLogCreateWithoutTruckInput, MaintenanceLogUncheckedCreateWithoutTruckInput> | MaintenanceLogCreateWithoutTruckInput[] | MaintenanceLogUncheckedCreateWithoutTruckInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTruckInput | MaintenanceLogCreateOrConnectWithoutTruckInput[]
+    upsert?: MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput | MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput[]
+    createMany?: MaintenanceLogCreateManyTruckInputEnvelope
+    set?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    disconnect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    delete?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    update?: MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput | MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput[]
+    updateMany?: MaintenanceLogUpdateManyWithWhereWithoutTruckInput | MaintenanceLogUpdateManyWithWhereWithoutTruckInput[]
+    deleteMany?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
   }
 
   export type TruckCreateNestedManyWithoutDriversInput = {
@@ -12417,14 +13842,6 @@ export namespace Prisma {
     connect?: TruckWhereUniqueInput
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -12457,6 +13874,20 @@ export namespace Prisma {
     update?: XOR<XOR<TruckUpdateToOneWithWhereWithoutTiresInput, TruckUpdateWithoutTiresInput>, TruckUncheckedUpdateWithoutTiresInput>
   }
 
+  export type TruckCreateNestedOneWithoutMaintenanceLogsInput = {
+    create?: XOR<TruckCreateWithoutMaintenanceLogsInput, TruckUncheckedCreateWithoutMaintenanceLogsInput>
+    connectOrCreate?: TruckCreateOrConnectWithoutMaintenanceLogsInput
+    connect?: TruckWhereUniqueInput
+  }
+
+  export type TruckUpdateOneRequiredWithoutMaintenanceLogsNestedInput = {
+    create?: XOR<TruckCreateWithoutMaintenanceLogsInput, TruckUncheckedCreateWithoutMaintenanceLogsInput>
+    connectOrCreate?: TruckCreateOrConnectWithoutMaintenanceLogsInput
+    upsert?: TruckUpsertWithoutMaintenanceLogsInput
+    connect?: TruckWhereUniqueInput
+    update?: XOR<XOR<TruckUpdateToOneWithWhereWithoutMaintenanceLogsInput, TruckUpdateWithoutMaintenanceLogsInput>, TruckUncheckedUpdateWithoutMaintenanceLogsInput>
+  }
+
   export type NestedBigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[]
@@ -12481,6 +13912,17 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedBigIntNullableFilter<$PrismaModel = never> = {
@@ -12521,17 +13963,6 @@ export namespace Prisma {
     _max?: NestedBigIntFilter<$PrismaModel>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[]
@@ -12559,6 +13990,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12626,22 +14073,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12761,6 +14192,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MaintenanceLogCreateWithoutTruckInput = {
+    id?: bigint | number
+    type: string
+    service_mileage: number
+    next_service_at: number
+    description?: string | null
+    created_at?: Date | string
+  }
+
+  export type MaintenanceLogUncheckedCreateWithoutTruckInput = {
+    id?: bigint | number
+    type: string
+    service_mileage: number
+    next_service_at: number
+    description?: string | null
+    created_at?: Date | string
+  }
+
+  export type MaintenanceLogCreateOrConnectWithoutTruckInput = {
+    where: MaintenanceLogWhereUniqueInput
+    create: XOR<MaintenanceLogCreateWithoutTruckInput, MaintenanceLogUncheckedCreateWithoutTruckInput>
+  }
+
+  export type MaintenanceLogCreateManyTruckInputEnvelope = {
+    data: MaintenanceLogCreateManyTruckInput | MaintenanceLogCreateManyTruckInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DriverUpsertWithoutTrucksInput = {
     update: XOR<DriverUpdateWithoutTrucksInput, DriverUncheckedUpdateWithoutTrucksInput>
     create: XOR<DriverCreateWithoutTrucksInput, DriverUncheckedCreateWithoutTrucksInput>
@@ -12844,22 +14303,55 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"tires"> | Date | string
   }
 
+  export type MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput = {
+    where: MaintenanceLogWhereUniqueInput
+    update: XOR<MaintenanceLogUpdateWithoutTruckInput, MaintenanceLogUncheckedUpdateWithoutTruckInput>
+    create: XOR<MaintenanceLogCreateWithoutTruckInput, MaintenanceLogUncheckedCreateWithoutTruckInput>
+  }
+
+  export type MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput = {
+    where: MaintenanceLogWhereUniqueInput
+    data: XOR<MaintenanceLogUpdateWithoutTruckInput, MaintenanceLogUncheckedUpdateWithoutTruckInput>
+  }
+
+  export type MaintenanceLogUpdateManyWithWhereWithoutTruckInput = {
+    where: MaintenanceLogScalarWhereInput
+    data: XOR<MaintenanceLogUpdateManyMutationInput, MaintenanceLogUncheckedUpdateManyWithoutTruckInput>
+  }
+
+  export type MaintenanceLogScalarWhereInput = {
+    AND?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
+    OR?: MaintenanceLogScalarWhereInput[]
+    NOT?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
+    id?: BigIntFilter<"MaintenanceLog"> | bigint | number
+    truck_id?: BigIntFilter<"MaintenanceLog"> | bigint | number
+    type?: StringFilter<"MaintenanceLog"> | string
+    service_mileage?: IntFilter<"MaintenanceLog"> | number
+    next_service_at?: IntFilter<"MaintenanceLog"> | number
+    description?: StringNullableFilter<"MaintenanceLog"> | string | null
+    created_at?: DateTimeFilter<"MaintenanceLog"> | Date | string
+  }
+
   export type TruckCreateWithoutDriversInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
     reports?: ReportCreateNestedManyWithoutTruckInput
     tires?: tiresCreateNestedManyWithoutTruckInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTruckInput
   }
 
   export type TruckUncheckedCreateWithoutDriversInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
     reports?: ReportUncheckedCreateNestedManyWithoutTruckInput
     tires?: tiresUncheckedCreateNestedManyWithoutTruckInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput
   }
 
   export type TruckCreateOrConnectWithoutDriversInput = {
@@ -12894,6 +14386,7 @@ export namespace Prisma {
     NOT?: TruckScalarWhereInput | TruckScalarWhereInput[]
     id?: BigIntFilter<"Truck"> | bigint | number
     number_plate?: StringFilter<"Truck"> | string
+    current_mileage?: IntFilter<"Truck"> | number
     driver_id?: BigIntNullableFilter<"Truck"> | bigint | number | null
     created_at?: DateTimeNullableFilter<"Truck"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"Truck"> | Date | string | null
@@ -12902,19 +14395,23 @@ export namespace Prisma {
   export type TruckCreateWithoutReportsInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
     drivers?: DriverCreateNestedOneWithoutTrucksInput
     tires?: tiresCreateNestedManyWithoutTruckInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTruckInput
   }
 
   export type TruckUncheckedCreateWithoutReportsInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     driver_id?: bigint | number | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     tires?: tiresUncheckedCreateNestedManyWithoutTruckInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput
   }
 
   export type TruckCreateOrConnectWithoutReportsInput = {
@@ -12936,37 +14433,45 @@ export namespace Prisma {
   export type TruckUpdateWithoutReportsInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     drivers?: DriverUpdateOneWithoutTrucksNestedInput
     tires?: tiresUpdateManyWithoutTruckNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTruckNestedInput
   }
 
   export type TruckUncheckedUpdateWithoutReportsInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     driver_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tires?: tiresUncheckedUpdateManyWithoutTruckNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput
   }
 
   export type TruckCreateWithoutTiresInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
     drivers?: DriverCreateNestedOneWithoutTrucksInput
     reports?: ReportCreateNestedManyWithoutTruckInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTruckInput
   }
 
   export type TruckUncheckedCreateWithoutTiresInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     driver_id?: bigint | number | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     reports?: ReportUncheckedCreateNestedManyWithoutTruckInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput
   }
 
   export type TruckCreateOrConnectWithoutTiresInput = {
@@ -12988,19 +14493,83 @@ export namespace Prisma {
   export type TruckUpdateWithoutTiresInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     drivers?: DriverUpdateOneWithoutTrucksNestedInput
     reports?: ReportUpdateManyWithoutTruckNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTruckNestedInput
   }
 
   export type TruckUncheckedUpdateWithoutTiresInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     driver_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reports?: ReportUncheckedUpdateManyWithoutTruckNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput
+  }
+
+  export type TruckCreateWithoutMaintenanceLogsInput = {
+    id?: bigint | number
+    number_plate: string
+    current_mileage?: number
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    drivers?: DriverCreateNestedOneWithoutTrucksInput
+    reports?: ReportCreateNestedManyWithoutTruckInput
+    tires?: tiresCreateNestedManyWithoutTruckInput
+  }
+
+  export type TruckUncheckedCreateWithoutMaintenanceLogsInput = {
+    id?: bigint | number
+    number_plate: string
+    current_mileage?: number
+    driver_id?: bigint | number | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    reports?: ReportUncheckedCreateNestedManyWithoutTruckInput
+    tires?: tiresUncheckedCreateNestedManyWithoutTruckInput
+  }
+
+  export type TruckCreateOrConnectWithoutMaintenanceLogsInput = {
+    where: TruckWhereUniqueInput
+    create: XOR<TruckCreateWithoutMaintenanceLogsInput, TruckUncheckedCreateWithoutMaintenanceLogsInput>
+  }
+
+  export type TruckUpsertWithoutMaintenanceLogsInput = {
+    update: XOR<TruckUpdateWithoutMaintenanceLogsInput, TruckUncheckedUpdateWithoutMaintenanceLogsInput>
+    create: XOR<TruckCreateWithoutMaintenanceLogsInput, TruckUncheckedCreateWithoutMaintenanceLogsInput>
+    where?: TruckWhereInput
+  }
+
+  export type TruckUpdateToOneWithWhereWithoutMaintenanceLogsInput = {
+    where?: TruckWhereInput
+    data: XOR<TruckUpdateWithoutMaintenanceLogsInput, TruckUncheckedUpdateWithoutMaintenanceLogsInput>
+  }
+
+  export type TruckUpdateWithoutMaintenanceLogsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    drivers?: DriverUpdateOneWithoutTrucksNestedInput
+    reports?: ReportUpdateManyWithoutTruckNestedInput
+    tires?: tiresUpdateManyWithoutTruckNestedInput
+  }
+
+  export type TruckUncheckedUpdateWithoutMaintenanceLogsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
+    driver_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reports?: ReportUncheckedUpdateManyWithoutTruckNestedInput
+    tires?: tiresUncheckedUpdateManyWithoutTruckNestedInput
   }
 
   export type ReportCreateManyTruckInput = {
@@ -13018,6 +14587,15 @@ export namespace Prisma {
     kilometer: number
     position: number
     brand: string
+    created_at?: Date | string
+  }
+
+  export type MaintenanceLogCreateManyTruckInput = {
+    id?: bigint | number
+    type: string
+    service_mileage: number
+    next_service_at: number
+    description?: string | null
     created_at?: Date | string
   }
 
@@ -13074,9 +14652,37 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MaintenanceLogUpdateWithoutTruckInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_at?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceLogUncheckedUpdateWithoutTruckInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_at?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceLogUncheckedUpdateManyWithoutTruckInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    type?: StringFieldUpdateOperationsInput | string
+    service_mileage?: IntFieldUpdateOperationsInput | number
+    next_service_at?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TruckCreateManyDriversInput = {
     id?: bigint | number
     number_plate: string
+    current_mileage?: number
     created_at?: Date | string | null
     updated_at?: Date | string | null
   }
@@ -13084,24 +14690,29 @@ export namespace Prisma {
   export type TruckUpdateWithoutDriversInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reports?: ReportUpdateManyWithoutTruckNestedInput
     tires?: tiresUpdateManyWithoutTruckNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTruckNestedInput
   }
 
   export type TruckUncheckedUpdateWithoutDriversInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reports?: ReportUncheckedUpdateManyWithoutTruckNestedInput
     tires?: tiresUncheckedUpdateManyWithoutTruckNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput
   }
 
   export type TruckUncheckedUpdateManyWithoutDriversInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     number_plate?: StringFieldUpdateOperationsInput | string
+    current_mileage?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }

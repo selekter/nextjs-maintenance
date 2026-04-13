@@ -13,7 +13,7 @@ import { useActionState, useEffect, useState, useTransition } from "react";
 
 const initialState = {
   message: "",
-  success: false
+  success: false,
 };
 
 export default function ReportEditForm({
@@ -102,6 +102,15 @@ export default function ReportEditForm({
               </label>
             </div>
           ))}
+          <div className="px-4">
+            <input
+              type="number"
+              name="current_mileage"
+              className="border border-gray-200 rounded-md px-2 py-1"
+              placeholder="ระบุเลขไมล์ที่เปลี่ยน"
+              required
+            />
+          </div>
           <div className="px-4">
             <textarea
               name="description"
