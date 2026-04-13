@@ -63,11 +63,27 @@ export async function createTruck(prevState: any, formData: FormData) {
   redirect("/dashboard/drivers");
 }
 
-export async function updateTruckMileage(formData: FormData) {
+export async function updateTruckMileage(prevState: any, formData: FormData) {
   const truckId = BigInt(formData.get("truckId") as string);
   const newMileage = parseInt(formData.get("mileage") as string);
 
   try {
+    // 1. ดึงข้อมูลรถคันนี้มาดูเลขไมล์ล่าสุดใน DB จริงๆ
+    const currentTruck = await prisma.truck.findUnique({
+      where: { id: truckId },
+      select: { current_mileage: true },
+    });
+
+    // 2. ตรวจสอบเงื่อนไข
+    if (!currentTruck) return { success: false, message: "ไม่พบข้อมูลรถ" };
+
+    if (newMileage < currentTruck.current_mileage) {
+      return {
+        success: false,
+        message: `เลขไมล์ใหม่ (${newMileage}) ห้ามน้อยกว่าเลขไมล์เดิม (${currentTruck.current_mileage})`,
+      };
+    }
+
     await prisma.$transaction(async (tx) => {
       // 1. อัปเดตเลขไมล์รถปัจจุบัน
       await tx.truck.update({
@@ -111,7 +127,7 @@ export async function updateTruckMileage(formData: FormData) {
 
     revalidatePath("/dashboard/reports");
     revalidatePath("/dashboard/maintenance"); // ปรับ Path ตามหน้าของคุณ
-    return { success: true };
+    return { success: true, message: "อัพเดลเลขไมล์เรียบร้อย" };
   } catch (error) {
     console.error(error);
     return { success: false, message: "อัปเดตเลขไมล์ไม่สำเร็จ" };

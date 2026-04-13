@@ -11681,10 +11681,10 @@ export namespace Prisma {
 
   export type TruckWhereUniqueInput = Prisma.AtLeast<{
     id?: bigint | number
+    number_plate?: string
     AND?: TruckWhereInput | TruckWhereInput[]
     OR?: TruckWhereInput[]
     NOT?: TruckWhereInput | TruckWhereInput[]
-    number_plate?: StringFilter<"Truck"> | string
     current_mileage?: IntFilter<"Truck"> | number
     driver_id?: BigIntNullableFilter<"Truck"> | bigint | number | null
     created_at?: DateTimeNullableFilter<"Truck"> | Date | string | null
@@ -11693,7 +11693,7 @@ export namespace Prisma {
     reports?: ReportListRelationFilter
     tires?: TiresListRelationFilter
     maintenanceLogs?: MaintenanceLogListRelationFilter
-  }, "id">
+  }, "id" | "number_plate">
 
   export type TruckOrderByWithAggregationInput = {
     id?: SortOrder

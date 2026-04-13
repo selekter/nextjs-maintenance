@@ -47,7 +47,7 @@ export async function getMaintenanceStatus() {
   return result;
 }
 
-export async function updateMaintenance(formData: FormData) {
+export async function updateMaintenance(prevState: any, formData: FormData) {
   const truckId = formData.get("truckId") as string;
   const type = formData.get("type") as string;
   const serviceMileage = parseInt(formData.get("serviceMileage") as string);
@@ -73,6 +73,8 @@ export async function updateMaintenance(formData: FormData) {
     ]);
 
     revalidatePath("/dashboard/maintenance");
+
+    return { success: true, message: "บันทึกข้อมูลเรียบร้อย" };
   } catch (error) {
     console.error(error);
   }

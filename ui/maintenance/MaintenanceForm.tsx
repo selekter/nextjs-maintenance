@@ -2,7 +2,7 @@
 "use client";
 
 import { updateMaintenance } from "@/actions/MaintenanceAction";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 
 export default function MaintenanceForm({ trucks }: { trucks: any[] }) {
   const [interval, setInterval] = useState(20000);
@@ -17,9 +17,20 @@ export default function MaintenanceForm({ trucks }: { trucks: any[] }) {
       setInterval(70000);
     }
   };
+
+  const initialState = {
+    success: false,
+    message: "",
+    errors: {},
+  };
+
+  const [state, formAction, isPending] = useActionState(
+    updateMaintenance,
+    initialState,
+  );
   return (
     <form
-      action={updateMaintenance}
+      action={formAction}
       className="bg-white p-6 rounded-lg shadow-md border"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -88,8 +99,9 @@ export default function MaintenanceForm({ trucks }: { trucks: any[] }) {
       <button
         type="submit"
         className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        disabled={isPending}
       >
-        บันทึกข้อมูล
+        {isPending ? "กำลังบันทึกข้อมูล" : "บันทึกข้อมูล"}
       </button>
     </form>
   );
