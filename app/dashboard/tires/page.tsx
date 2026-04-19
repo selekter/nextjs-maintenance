@@ -1,5 +1,6 @@
 import { getTires } from "@/actions/TiresAction";
 import TableSkeleton from "@/components/tableSkeleton";
+import TireChangeForm from "@/ui/tirehistory/TireChangeForm";
 import TiresTable from "@/ui/tires/TiresTable";
 import { Suspense } from "react";
 
@@ -13,6 +14,7 @@ export default async function TiresPage() {
       <Suspense fallback={<TableSkeleton />}>
         <TiresTable tires={tires} />
       </Suspense>
+      <TireChangeForm />
     </>
   );
 }

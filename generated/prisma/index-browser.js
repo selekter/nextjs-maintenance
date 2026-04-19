@@ -147,16 +147,6 @@ exports.Prisma.ReportScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Failed_jobsScalarFieldEnum = {
-  id: 'id',
-  uuid: 'uuid',
-  connection: 'connection',
-  queue: 'queue',
-  payload: 'payload',
-  exception: 'exception',
-  failed_at: 'failed_at'
-};
-
 exports.Prisma.MigrationsScalarFieldEnum = {
   id: 'id',
   migration: 'migration',
@@ -213,6 +203,28 @@ exports.Prisma.MaintenanceLogScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.TireChangeHistoryScalarFieldEnum = {
+  id: 'id',
+  truck_id: 'truck_id',
+  change_date: 'change_date',
+  mileage_at_change: 'mileage_at_change',
+  notes: 'notes'
+};
+
+exports.Prisma.TireBrandScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.TireItemScalarFieldEnum = {
+  id: 'id',
+  tire_change_id: 'tire_change_id',
+  brand_id: 'brand_id',
+  tire_code: 'tire_code',
+  position: 'position',
+  status: 'status'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -234,14 +246,6 @@ exports.Prisma.DriverOrderByRelevanceFieldEnum = {
 exports.Prisma.ReportOrderByRelevanceFieldEnum = {
   repair: 'repair',
   description: 'description'
-};
-
-exports.Prisma.failed_jobsOrderByRelevanceFieldEnum = {
-  uuid: 'uuid',
-  connection: 'connection',
-  queue: 'queue',
-  payload: 'payload',
-  exception: 'exception'
 };
 
 exports.Prisma.migrationsOrderByRelevanceFieldEnum = {
@@ -277,18 +281,33 @@ exports.Prisma.MaintenanceLogOrderByRelevanceFieldEnum = {
   description: 'description'
 };
 
+exports.Prisma.TireChangeHistoryOrderByRelevanceFieldEnum = {
+  notes: 'notes'
+};
+
+exports.Prisma.TireBrandOrderByRelevanceFieldEnum = {
+  name: 'name'
+};
+
+exports.Prisma.TireItemOrderByRelevanceFieldEnum = {
+  tire_code: 'tire_code',
+  status: 'status'
+};
+
 
 exports.Prisma.ModelName = {
   Truck: 'Truck',
   Driver: 'Driver',
   Report: 'Report',
-  failed_jobs: 'failed_jobs',
   migrations: 'migrations',
   password_reset_tokens: 'password_reset_tokens',
   personal_access_tokens: 'personal_access_tokens',
   users: 'users',
   tires: 'tires',
-  MaintenanceLog: 'MaintenanceLog'
+  MaintenanceLog: 'MaintenanceLog',
+  TireChangeHistory: 'TireChangeHistory',
+  TireBrand: 'TireBrand',
+  TireItem: 'TireItem'
 };
 
 /**

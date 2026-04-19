@@ -1,6 +1,5 @@
 "use server";
 
-import { db } from "@/libs/db";
 import { prisma } from "@/libs/prisma";
 import { driverSchema } from "@/libs/zod";
 import { revalidatePath } from "next/cache";
@@ -46,8 +45,6 @@ export async function CreateDriver(
     driver_name: String(formData.get("driver_name") ?? ""),
   };
 
-  console.log(formData.get("license_plate"));
-
   const validationFields = driverSchema.safeParse(rawData);
 
   if (!validationFields.success) {
@@ -59,35 +56,30 @@ export async function CreateDriver(
   }
   const { driver_name, license_plate } = validationFields.data;
 
-  const connection = await db.getConnection();
-
   try {
-    await connection.beginTransaction();
-
-    const [result]: any = await connection.execute(
-      "INSERT INTO drivers(name,created_at,updated_at) VALUES(?,NOW(),NOW())",
-      [driver_name],
-    );
-    const driver_id = result.insertId;
-
-    await connection.execute(
-      `UPDATE license_plates
-      SET driver_id = ?
-      WHERE id = ?`,
-      [driver_id, license_plate],
-    );
-
-    await connection.commit();
+    const result = await prisma.$transaction(async (tx) => {
+      // 1. หาหรือสร้าง Driver ในคำสั่งเดียว (Upsert)
+      // หมายเหตุ: ชื่อ Driver ควรจะทำ Unique Constraint ใน Schema ไว้ด้วย
+      const driver = await tx.driver.upsert({
+        where: { name: driver_name },
+        update: {},
+        create: { name: driver_name },
+      });
+      // 2. อัปเดต Truck โดยใช้ ID ที่ได้จาก driver (ไม่ว่าจะเพิ่งสร้างหรือมีอยู่เดิม)
+      await tx.truck.update({
+        where: { id: Number(license_plate) },
+        data: {
+          driver_id: driver.id,
+        },
+      });
+    });
   } catch (error) {
     console.error(error);
-    await connection.rollback();
     return {
       formError: "เกิดข้อผิดพลาดในการบันทึกข้อมูล",
       license_plate,
       driver_name,
     };
-  } finally {
-    connection.release();
   }
 
   revalidatePath("/dashboard/drivers");

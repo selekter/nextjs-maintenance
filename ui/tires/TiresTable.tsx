@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
+import LinkButton from "@/components/LinkButton";
 import Modal from "@/components/Modal";
 import { useModal } from "@/hooks/useModal";
 import { TiresProps } from "@/types";

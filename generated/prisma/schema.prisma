@@ -9,16 +9,17 @@ datasource db {
 }
 
 model Truck {
-  id              BigInt           @id @default(autoincrement()) @db.UnsignedBigInt
-  number_plate    String           @unique @db.VarChar(255)
-  current_mileage Int              @default(0)
-  driver_id       BigInt?          @db.UnsignedBigInt
-  created_at      DateTime?        @db.Timestamp(0)
-  updated_at      DateTime?        @updatedAt @db.Timestamp(0)
-  drivers         Driver?          @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_license_plates_drivers")
-  reports         Report[]
-  tires           tires[]
-  maintenanceLogs MaintenanceLog[]
+  id                  BigInt              @id @default(autoincrement()) @db.UnsignedBigInt
+  number_plate        String              @unique @db.VarChar(255)
+  current_mileage     Int                 @default(0)
+  driver_id           BigInt?             @unique @db.UnsignedBigInt
+  created_at          DateTime?           @default(now()) @db.Timestamp(0)
+  updated_at          DateTime?           @updatedAt @db.Timestamp(0)
+  drivers             Driver?             @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_license_plates_drivers")
+  reports             Report[]
+  tires               tires[]
+  maintenanceLogs     MaintenanceLog[]
+  tireChangeHistories TireChangeHistory[]
 
   @@index([driver_id], map: "FK_license_plates_drivers")
   @@map("license_plates")
@@ -26,8 +27,8 @@ model Truck {
 
 model Driver {
   id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
-  name       String    @db.VarChar(255)
-  created_at DateTime? @db.Timestamp(0)
+  name       String    @unique @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
   updated_at DateTime? @updatedAt @db.Timestamp(0)
   trucks     Truck[]
 
@@ -49,16 +50,6 @@ model Report {
   @@map("report_repairs")
 }
 
-model failed_jobs {
-  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
-  uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.VarChar(255)
-  connection String   @db.Text
-  queue      String   @db.Text
-  payload    String   @db.LongText
-  exception  String   @db.LongText
-  failed_at  DateTime @default(now()) @db.Timestamp(0)
-}
-
 model migrations {
   id        Int    @id @default(autoincrement()) @db.UnsignedInt
   migration String @db.VarChar(255)
@@ -68,7 +59,7 @@ model migrations {
 model password_reset_tokens {
   email      String    @id @db.VarChar(255)
   token      String    @db.VarChar(255)
-  created_at DateTime? @db.Timestamp(0)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
 }
 
 model personal_access_tokens {
@@ -80,8 +71,8 @@ model personal_access_tokens {
   abilities      String?   @db.Text
   last_used_at   DateTime? @db.Timestamp(0)
   expires_at     DateTime? @db.Timestamp(0)
-  created_at     DateTime? @db.Timestamp(0)
-  updated_at     DateTime? @db.Timestamp(0)
+  created_at     DateTime? @default(now()) @db.Timestamp(0)
+  updated_at     DateTime? @updatedAt @db.Timestamp(0)
 
   @@index([tokenable_type, tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
 }
@@ -93,8 +84,8 @@ model users {
   email_verified_at DateTime? @db.Timestamp(0)
   password          String    @db.VarChar(255)
   remember_token    String?   @db.VarChar(100)
-  created_at        DateTime? @db.Timestamp(0)
-  updated_at        DateTime? @db.Timestamp(0)
+  created_at        DateTime? @default(now()) @db.Timestamp(0)
+  updated_at        DateTime? @updatedAt @db.Timestamp(0)
 }
 
 model tires {
@@ -120,4 +111,40 @@ model MaintenanceLog {
   truck Truck @relation(fields: [truck_id], references: [id])
 
   @@index([truck_id, created_at])
+}
+
+model TireChangeHistory {
+  id                BigInt     @id @default(autoincrement())
+  truck_id          BigInt     @db.UnsignedBigInt
+  change_date       DateTime   @default(now())
+  mileage_at_change Int
+  notes             String?    @db.Text
+  truck             Truck      @relation(fields: [truck_id], references: [id])
+  tireItems         TireItem[]
+
+  @@index([truck_id])
+  @@map("tire_change_history")
+}
+
+model TireBrand {
+  id    Int        @id @default(autoincrement())
+  name  String     @unique
+  items TireItem[]
+
+  @@map("tire_brand")
+}
+
+model TireItem {
+  id             BigInt @id @default(autoincrement())
+  tire_change_id BigInt
+  brand_id       Int
+  tire_code      String
+  position       Int
+  status         String @default("new")
+
+  brand   TireBrand         @relation(fields: [brand_id], references: [id])
+  history TireChangeHistory @relation(fields: [tire_change_id], references: [id])
+
+  @@index([tire_change_id])
+  @@map("tire_item")
 }

@@ -12,9 +12,9 @@ export default function MaintenanceForm({ trucks }: { trucks: any[] }) {
     if (type === "น้ำมันเครื่อง") {
       setInterval(20000);
     } else if (type === "น้ำมันเกียร์") {
-      setInterval(60000);
-    } else if (type === "น้ำมันเฟืองท้าย") {
       setInterval(70000);
+    } else if (type === "น้ำมันเฟืองท้าย") {
+      setInterval(60000);
     }
   };
 

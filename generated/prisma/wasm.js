@@ -119,16 +119,6 @@ exports.Prisma.ReportScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Failed_jobsScalarFieldEnum = {
-  id: 'id',
-  uuid: 'uuid',
-  connection: 'connection',
-  queue: 'queue',
-  payload: 'payload',
-  exception: 'exception',
-  failed_at: 'failed_at'
-};
-
 exports.Prisma.MigrationsScalarFieldEnum = {
   id: 'id',
   migration: 'migration',
@@ -185,6 +175,28 @@ exports.Prisma.MaintenanceLogScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.TireChangeHistoryScalarFieldEnum = {
+  id: 'id',
+  truck_id: 'truck_id',
+  change_date: 'change_date',
+  mileage_at_change: 'mileage_at_change',
+  notes: 'notes'
+};
+
+exports.Prisma.TireBrandScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.TireItemScalarFieldEnum = {
+  id: 'id',
+  tire_change_id: 'tire_change_id',
+  brand_id: 'brand_id',
+  tire_code: 'tire_code',
+  position: 'position',
+  status: 'status'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -206,14 +218,6 @@ exports.Prisma.DriverOrderByRelevanceFieldEnum = {
 exports.Prisma.ReportOrderByRelevanceFieldEnum = {
   repair: 'repair',
   description: 'description'
-};
-
-exports.Prisma.failed_jobsOrderByRelevanceFieldEnum = {
-  uuid: 'uuid',
-  connection: 'connection',
-  queue: 'queue',
-  payload: 'payload',
-  exception: 'exception'
 };
 
 exports.Prisma.migrationsOrderByRelevanceFieldEnum = {
@@ -249,18 +253,33 @@ exports.Prisma.MaintenanceLogOrderByRelevanceFieldEnum = {
   description: 'description'
 };
 
+exports.Prisma.TireChangeHistoryOrderByRelevanceFieldEnum = {
+  notes: 'notes'
+};
+
+exports.Prisma.TireBrandOrderByRelevanceFieldEnum = {
+  name: 'name'
+};
+
+exports.Prisma.TireItemOrderByRelevanceFieldEnum = {
+  tire_code: 'tire_code',
+  status: 'status'
+};
+
 
 exports.Prisma.ModelName = {
   Truck: 'Truck',
   Driver: 'Driver',
   Report: 'Report',
-  failed_jobs: 'failed_jobs',
   migrations: 'migrations',
   password_reset_tokens: 'password_reset_tokens',
   personal_access_tokens: 'personal_access_tokens',
   users: 'users',
   tires: 'tires',
-  MaintenanceLog: 'MaintenanceLog'
+  MaintenanceLog: 'MaintenanceLog',
+  TireChangeHistory: 'TireChangeHistory',
+  TireBrand: 'TireBrand',
+  TireItem: 'TireItem'
 };
 /**
  * Create the Client
@@ -273,7 +292,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\nextjs\\maintenance\\generated\\prisma",
+      "value": "E:\\nextjs\\maintenance\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -287,7 +306,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\nextjs\\maintenance\\prisma\\schema.prisma",
+    "sourceFilePath": "E:\\nextjs\\maintenance\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -309,13 +328,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Truck {\n  id              BigInt           @id @default(autoincrement()) @db.UnsignedBigInt\n  number_plate    String           @unique @db.VarChar(255)\n  current_mileage Int              @default(0)\n  driver_id       BigInt?          @db.UnsignedBigInt\n  created_at      DateTime?        @db.Timestamp(0)\n  updated_at      DateTime?        @updatedAt @db.Timestamp(0)\n  drivers         Driver?          @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"FK_license_plates_drivers\")\n  reports         Report[]\n  tires           tires[]\n  maintenanceLogs MaintenanceLog[]\n\n  @@index([driver_id], map: \"FK_license_plates_drivers\")\n  @@map(\"license_plates\")\n}\n\nmodel Driver {\n  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt\n  name       String    @db.VarChar(255)\n  created_at DateTime? @db.Timestamp(0)\n  updated_at DateTime? @updatedAt @db.Timestamp(0)\n  trucks     Truck[]\n\n  @@map(\"drivers\")\n}\n\nmodel Report {\n  id               BigInt    @id @default(autoincrement()) @db.UnsignedBigInt\n  license_plate_id BigInt    @db.UnsignedBigInt\n  repair           String    @db.VarChar(255)\n  status           Int       @default(0)\n  description      String?   @db.Text\n  created_at       DateTime? @default(now()) @db.Timestamp(0)\n  updated_at       DateTime? @updatedAt @db.Timestamp(0)\n  truck            Truck?    @relation(fields: [license_plate_id], references: [id])\n\n  @@index([status, updated_at(sort: Desc)])\n  @@index([license_plate_id], map: \"report_repairs_license_plate_id_fkey\")\n  @@map(\"report_repairs\")\n}\n\nmodel failed_jobs {\n  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt\n  uuid       String   @unique(map: \"failed_jobs_uuid_unique\") @db.VarChar(255)\n  connection String   @db.Text\n  queue      String   @db.Text\n  payload    String   @db.LongText\n  exception  String   @db.LongText\n  failed_at  DateTime @default(now()) @db.Timestamp(0)\n}\n\nmodel migrations {\n  id        Int    @id @default(autoincrement()) @db.UnsignedInt\n  migration String @db.VarChar(255)\n  batch     Int\n}\n\nmodel password_reset_tokens {\n  email      String    @id @db.VarChar(255)\n  token      String    @db.VarChar(255)\n  created_at DateTime? @db.Timestamp(0)\n}\n\nmodel personal_access_tokens {\n  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt\n  tokenable_type String    @db.VarChar(255)\n  tokenable_id   BigInt    @db.UnsignedBigInt\n  name           String    @db.VarChar(255)\n  token          String    @unique(map: \"personal_access_tokens_token_unique\") @db.VarChar(64)\n  abilities      String?   @db.Text\n  last_used_at   DateTime? @db.Timestamp(0)\n  expires_at     DateTime? @db.Timestamp(0)\n  created_at     DateTime? @db.Timestamp(0)\n  updated_at     DateTime? @db.Timestamp(0)\n\n  @@index([tokenable_type, tokenable_id], map: \"personal_access_tokens_tokenable_type_tokenable_id_index\")\n}\n\nmodel users {\n  id                BigInt    @id @default(autoincrement()) @db.UnsignedBigInt\n  name              String    @db.VarChar(255)\n  email             String    @unique(map: \"users_email_unique\") @db.VarChar(255)\n  email_verified_at DateTime? @db.Timestamp(0)\n  password          String    @db.VarChar(255)\n  remember_token    String?   @db.VarChar(100)\n  created_at        DateTime? @db.Timestamp(0)\n  updated_at        DateTime? @db.Timestamp(0)\n}\n\nmodel tires {\n  id         Int      @id @default(autoincrement())\n  number     String   @db.VarChar(50)\n  kilometer  Int\n  position   Int\n  brand      String   @db.VarChar(50)\n  truckId    BigInt   @db.UnsignedBigInt\n  created_at DateTime @default(now())\n  truck      Truck    @relation(fields: [truckId], references: [id])\n}\n\nmodel MaintenanceLog {\n  id              BigInt   @id @default(autoincrement())\n  truck_id        BigInt   @db.UnsignedBigInt\n  type            String\n  service_mileage Int\n  next_service_at Int\n  description     String?\n  created_at      DateTime @default(now())\n\n  truck Truck @relation(fields: [truck_id], references: [id])\n\n  @@index([truck_id, created_at])\n}\n",
-  "inlineSchemaHash": "e2edd2cba58446076f0ad20391da46a0464e20b318f2e822a99da8d4619aaf1e",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Truck {\n  id                  BigInt              @id @default(autoincrement()) @db.UnsignedBigInt\n  number_plate        String              @unique @db.VarChar(255)\n  current_mileage     Int                 @default(0)\n  driver_id           BigInt?             @unique @db.UnsignedBigInt\n  created_at          DateTime?           @default(now()) @db.Timestamp(0)\n  updated_at          DateTime?           @updatedAt @db.Timestamp(0)\n  drivers             Driver?             @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"FK_license_plates_drivers\")\n  reports             Report[]\n  tires               tires[]\n  maintenanceLogs     MaintenanceLog[]\n  tireChangeHistories TireChangeHistory[]\n\n  @@index([driver_id], map: \"FK_license_plates_drivers\")\n  @@map(\"license_plates\")\n}\n\nmodel Driver {\n  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt\n  name       String    @unique @db.VarChar(255)\n  created_at DateTime? @default(now()) @db.Timestamp(0)\n  updated_at DateTime? @updatedAt @db.Timestamp(0)\n  trucks     Truck[]\n\n  @@map(\"drivers\")\n}\n\nmodel Report {\n  id               BigInt    @id @default(autoincrement()) @db.UnsignedBigInt\n  license_plate_id BigInt    @db.UnsignedBigInt\n  repair           String    @db.VarChar(255)\n  status           Int       @default(0)\n  description      String?   @db.Text\n  created_at       DateTime? @default(now()) @db.Timestamp(0)\n  updated_at       DateTime? @updatedAt @db.Timestamp(0)\n  truck            Truck?    @relation(fields: [license_plate_id], references: [id])\n\n  @@index([status, updated_at(sort: Desc)])\n  @@index([license_plate_id], map: \"report_repairs_license_plate_id_fkey\")\n  @@map(\"report_repairs\")\n}\n\nmodel migrations {\n  id        Int    @id @default(autoincrement()) @db.UnsignedInt\n  migration String @db.VarChar(255)\n  batch     Int\n}\n\nmodel password_reset_tokens {\n  email      String    @id @db.VarChar(255)\n  token      String    @db.VarChar(255)\n  created_at DateTime? @default(now()) @db.Timestamp(0)\n}\n\nmodel personal_access_tokens {\n  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt\n  tokenable_type String    @db.VarChar(255)\n  tokenable_id   BigInt    @db.UnsignedBigInt\n  name           String    @db.VarChar(255)\n  token          String    @unique(map: \"personal_access_tokens_token_unique\") @db.VarChar(64)\n  abilities      String?   @db.Text\n  last_used_at   DateTime? @db.Timestamp(0)\n  expires_at     DateTime? @db.Timestamp(0)\n  created_at     DateTime? @default(now()) @db.Timestamp(0)\n  updated_at     DateTime? @updatedAt @db.Timestamp(0)\n\n  @@index([tokenable_type, tokenable_id], map: \"personal_access_tokens_tokenable_type_tokenable_id_index\")\n}\n\nmodel users {\n  id                BigInt    @id @default(autoincrement()) @db.UnsignedBigInt\n  name              String    @db.VarChar(255)\n  email             String    @unique(map: \"users_email_unique\") @db.VarChar(255)\n  email_verified_at DateTime? @db.Timestamp(0)\n  password          String    @db.VarChar(255)\n  remember_token    String?   @db.VarChar(100)\n  created_at        DateTime? @default(now()) @db.Timestamp(0)\n  updated_at        DateTime? @updatedAt @db.Timestamp(0)\n}\n\nmodel tires {\n  id         Int      @id @default(autoincrement())\n  number     String   @db.VarChar(50)\n  kilometer  Int\n  position   Int\n  brand      String   @db.VarChar(50)\n  truckId    BigInt   @db.UnsignedBigInt\n  created_at DateTime @default(now())\n  truck      Truck    @relation(fields: [truckId], references: [id])\n}\n\nmodel MaintenanceLog {\n  id              BigInt   @id @default(autoincrement())\n  truck_id        BigInt   @db.UnsignedBigInt\n  type            String\n  service_mileage Int\n  next_service_at Int\n  description     String?\n  created_at      DateTime @default(now())\n\n  truck Truck @relation(fields: [truck_id], references: [id])\n\n  @@index([truck_id, created_at])\n}\n\nmodel TireChangeHistory {\n  id                BigInt     @id @default(autoincrement())\n  truck_id          BigInt     @db.UnsignedBigInt\n  change_date       DateTime   @default(now())\n  mileage_at_change Int\n  notes             String?    @db.Text\n  truck             Truck      @relation(fields: [truck_id], references: [id])\n  tireItems         TireItem[]\n\n  @@index([truck_id])\n  @@map(\"tire_change_history\")\n}\n\nmodel TireBrand {\n  id    Int        @id @default(autoincrement())\n  name  String     @unique\n  items TireItem[]\n\n  @@map(\"tire_brand\")\n}\n\nmodel TireItem {\n  id             BigInt @id @default(autoincrement())\n  tire_change_id BigInt\n  brand_id       Int\n  tire_code      String\n  position       Int\n  status         String @default(\"new\")\n\n  brand   TireBrand         @relation(fields: [brand_id], references: [id])\n  history TireChangeHistory @relation(fields: [tire_change_id], references: [id])\n\n  @@index([tire_change_id])\n  @@map(\"tire_item\")\n}\n",
+  "inlineSchemaHash": "69851228d2369c849b16cbfcde87c33bac3843b2520b824ad889251d2d6a0fa0",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Truck\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"number_plate\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"current_mileage\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"driver_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"drivers\",\"kind\":\"object\",\"type\":\"Driver\",\"relationName\":\"DriverToTruck\"},{\"name\":\"reports\",\"kind\":\"object\",\"type\":\"Report\",\"relationName\":\"ReportToTruck\"},{\"name\":\"tires\",\"kind\":\"object\",\"type\":\"tires\",\"relationName\":\"TruckTotires\"},{\"name\":\"maintenanceLogs\",\"kind\":\"object\",\"type\":\"MaintenanceLog\",\"relationName\":\"MaintenanceLogToTruck\"}],\"dbName\":\"license_plates\"},\"Driver\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"trucks\",\"kind\":\"object\",\"type\":\"Truck\",\"relationName\":\"DriverToTruck\"}],\"dbName\":\"drivers\"},\"Report\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"license_plate_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"repair\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"truck\",\"kind\":\"object\",\"type\":\"Truck\",\"relationName\":\"ReportToTruck\"}],\"dbName\":\"report_repairs\"},\"failed_jobs\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"connection\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"queue\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payload\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"exception\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"failed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"migrations\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"migration\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"batch\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"password_reset_tokens\":{\"fields\":[{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"personal_access_tokens\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"tokenable_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tokenable_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"abilities\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_used_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"users\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email_verified_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"remember_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"tires\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"number\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"kilometer\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"position\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"brand\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"truckId\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"truck\",\"kind\":\"object\",\"type\":\"Truck\",\"relationName\":\"TruckTotires\"}],\"dbName\":null},\"MaintenanceLog\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"truck_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"service_mileage\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"next_service_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"truck\",\"kind\":\"object\",\"type\":\"Truck\",\"relationName\":\"MaintenanceLogToTruck\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Truck\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"number_plate\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"current_mileage\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"driver_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"drivers\",\"kind\":\"object\",\"type\":\"Driver\",\"relationName\":\"DriverToTruck\"},{\"name\":\"reports\",\"kind\":\"object\",\"type\":\"Report\",\"relationName\":\"ReportToTruck\"},{\"name\":\"tires\",\"kind\":\"object\",\"type\":\"tires\",\"relationName\":\"TruckTotires\"},{\"name\":\"maintenanceLogs\",\"kind\":\"object\",\"type\":\"MaintenanceLog\",\"relationName\":\"MaintenanceLogToTruck\"},{\"name\":\"tireChangeHistories\",\"kind\":\"object\",\"type\":\"TireChangeHistory\",\"relationName\":\"TireChangeHistoryToTruck\"}],\"dbName\":\"license_plates\"},\"Driver\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"trucks\",\"kind\":\"object\",\"type\":\"Truck\",\"relationName\":\"DriverToTruck\"}],\"dbName\":\"drivers\"},\"Report\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"license_plate_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"repair\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"truck\",\"kind\":\"object\",\"type\":\"Truck\",\"relationName\":\"ReportToTruck\"}],\"dbName\":\"report_repairs\"},\"migrations\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"migration\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"batch\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"password_reset_tokens\":{\"fields\":[{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"personal_access_tokens\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"tokenable_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tokenable_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"abilities\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_used_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"users\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email_verified_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"remember_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"tires\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"number\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"kilometer\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"position\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"brand\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"truckId\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"truck\",\"kind\":\"object\",\"type\":\"Truck\",\"relationName\":\"TruckTotires\"}],\"dbName\":null},\"MaintenanceLog\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"truck_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"service_mileage\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"next_service_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"truck\",\"kind\":\"object\",\"type\":\"Truck\",\"relationName\":\"MaintenanceLogToTruck\"}],\"dbName\":null},\"TireChangeHistory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"truck_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"change_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"mileage_at_change\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"truck\",\"kind\":\"object\",\"type\":\"Truck\",\"relationName\":\"TireChangeHistoryToTruck\"},{\"name\":\"tireItems\",\"kind\":\"object\",\"type\":\"TireItem\",\"relationName\":\"TireChangeHistoryToTireItem\"}],\"dbName\":\"tire_change_history\"},\"TireBrand\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"items\",\"kind\":\"object\",\"type\":\"TireItem\",\"relationName\":\"TireBrandToTireItem\"}],\"dbName\":\"tire_brand\"},\"TireItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"tire_change_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"brand_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"tire_code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"position\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"brand\",\"kind\":\"object\",\"type\":\"TireBrand\",\"relationName\":\"TireBrandToTireItem\"},{\"name\":\"history\",\"kind\":\"object\",\"type\":\"TireChangeHistory\",\"relationName\":\"TireChangeHistoryToTireItem\"}],\"dbName\":\"tire_item\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),
