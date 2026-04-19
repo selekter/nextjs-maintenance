@@ -14,7 +14,7 @@ export default async function TiresPage() {
       <Suspense fallback={<TableSkeleton />}>
         <TiresTable tires={tires} />
       </Suspense>
-      <TireChangeForm />
+      {/* <TireChangeForm /> */}
     </>
   );
 }

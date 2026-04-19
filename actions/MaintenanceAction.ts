@@ -79,3 +79,8 @@ export async function updateMaintenance(prevState: any, formData: FormData) {
     console.error(error);
   }
 }
+
+export async function createLicenseMaintenance(
+  prevState: any,
+  formData: FormData,
+) {}
