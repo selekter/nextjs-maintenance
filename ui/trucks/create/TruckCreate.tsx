@@ -41,6 +41,20 @@ export default function CreateTruckForm() {
           {state?.errors?.license_plate && (
             <Alert>{state.errors.license_plate[0]}</Alert>
           )}
+
+          <label htmlFor="current_mileage">เลขไมล์ปัจจุบัน (กม.)</label>
+          <input
+            type="number"
+            id="current_mileage"
+            name="current_mileage"
+            defaultValue="0"
+            className={`bg-white px-2 py-1 rounded-md shadow-sm md:w-80 border border-gray-300 ${state.errors?.current_mileage ? "border-red-500" : ""}`}
+            placeholder="เช่น 10000"
+          />
+          {state?.errors?.current_mileage && (
+            <Alert>{state.errors.current_mileage[0]}</Alert>
+          )}
+
           {state.messages && <Alert>{state.messages}</Alert>}
           <button
             disabled={isPending}

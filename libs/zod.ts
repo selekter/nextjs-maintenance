@@ -21,6 +21,7 @@ export const truckSchema = z.object({
     .regex(/^\d{2}-\d{4}$/, {
       message: "รูปแบบทะเบียนต้องเป็น 00-0000 เท่านั้น เช่น (70-5857)",
     }),
+  current_mileage: z.coerce.number().min(0, "เลขไมล์ต้องไม่ต่ำกว่า 0"),
 });
 
 export const reportSchema = z.object({

@@ -30,6 +30,7 @@ export async function getTrucks() {
 export async function createTruck(prevState: any, formData: FormData) {
   const rawData = {
     license_plate: formData.get("license_plate"),
+    current_mileage: formData.get("current_mileage"),
   };
 
   const validationFields = truckSchema.safeParse(rawData);
@@ -40,7 +41,7 @@ export async function createTruck(prevState: any, formData: FormData) {
     };
   }
 
-  const { license_plate } = validationFields.data;
+  const { license_plate, current_mileage } = validationFields.data;
 
   try {
     const existing = await prisma.truck.findFirst({
@@ -50,12 +51,36 @@ export async function createTruck(prevState: any, formData: FormData) {
     if (existing) {
       return { errors: { license_plate: ["เลขทะเบียนนี้มีในระบบแล้วครับ"] } };
     }
-    await prisma.truck.create({
-      data: {
-        number_plate: license_plate,
-      },
+
+    await prisma.$transaction(async (tx) => {
+      const truck = await tx.truck.create({
+        data: {
+          number_plate: license_plate,
+          current_mileage: current_mileage,
+        },
+      });
+
+      // สร้างรายการบำรุงรักษาพื้นฐาน
+      const maintenanceDefaults = [
+        { type: "น้ำมันเครื่อง", interval: 20000 },
+        { type: "น้ำมันเกียร์", interval: 70000 },
+        { type: "น้ำมันเฟืองท้าย", interval: 60000 },
+      ];
+
+      for (const item of maintenanceDefaults) {
+        await tx.maintenanceLog.create({
+          data: {
+            truck_id: truck.id,
+            type: item.type,
+            service_mileage: current_mileage,
+            next_service_at: current_mileage + item.interval,
+            description: "เริ่มต้นระบบ",
+          },
+        });
+      }
     });
   } catch (error) {
+    console.error(error);
     return { messages: "เกิดข้อผิดพลาดบางประการ" };
   }
 

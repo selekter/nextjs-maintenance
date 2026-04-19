@@ -7,7 +7,12 @@ export async function getMaintenanceStatus() {
   const reports = await prisma.maintenanceLog.findMany({
     include: {
       truck: {
-        select: { id: true, number_plate: true, current_mileage: true },
+        select: {
+          id: true,
+          number_plate: true,
+          current_mileage: true,
+          updated_at: true,
+        },
       },
     },
     orderBy: { created_at: "desc" },
@@ -21,6 +26,7 @@ export async function getMaintenanceStatus() {
         id: log.truck.id,
         number_plate: plate,
         current_mileage: log.truck.current_mileage,
+        updated_at: log.truck.updated_at,
         items: [],
       };
     }
