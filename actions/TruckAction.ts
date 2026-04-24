@@ -158,3 +158,19 @@ export async function updateTruckMileage(prevState: any, formData: FormData) {
     return { success: false, message: "อัปเดตเลขไมล์ไม่สำเร็จ" };
   }
 }
+
+export async function deleteTruck(prevState: any, formData: FormData) {
+  const truckId = BigInt(formData.get("truckId") as string);
+
+  try {
+    await prisma.truck.delete({
+      where: { id: truckId },
+    });
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: "ลบรถไม่สำเร็จ" };
+  }
+
+  revalidatePath("/dashboard/drivers");
+  return { success: true, message: "ลบรถเรียบร้อย" };
+}

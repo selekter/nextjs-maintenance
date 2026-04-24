@@ -1,11 +1,7 @@
 "use client";
 
-// import { getDrivers } from "@/actions/DriverAction";
-// import { authOptions } from "@/auth";
-import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import { useModal } from "@/hooks/useModal";
-// import { getServerSession } from "next-auth";
 
 interface DriverProp {
   id: bigint;
@@ -33,7 +29,6 @@ export default function DriverTable({
             <th className="px-6 py-4 font-semibold text-gray-700">
               พนักงานขับรถ
             </th>
-            <th className="px-6 py-4 font-semibold text-gray-700">เลขไมล์</th>
             {session && <th className="px-6 py-4 text-right">จัดการ</th>}
           </tr>
         </thead>
@@ -51,9 +46,6 @@ export default function DriverTable({
                     ยังไม่มี พขร
                   </span>
                 )}
-              </td>
-              <td className="px-6 py-4 font-medium">
-                {truck.current_mileage.toLocaleString()} กม.
               </td>
               {session && (
                 <td className="flex gap-3 justify-end px-6 py-4">

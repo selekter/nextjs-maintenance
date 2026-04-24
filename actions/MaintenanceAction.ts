@@ -89,4 +89,55 @@ export async function updateMaintenance(prevState: any, formData: FormData) {
 export async function createLicenseMaintenance(
   prevState: any,
   formData: FormData,
-) {}
+) {
+  const truckId = formData.get("truckId") as string;
+  const currentMileage =
+    parseInt(formData.get("current_mileage") as string) || 0;
+
+  if (!truckId || truckId.trim() === "") {
+    return { success: false, message: "กรุณากรอกเลขทะเบียนรถ" };
+  }
+
+  try {
+    const existing = await prisma.maintenanceLog.findFirst({
+      where: { truck_id: BigInt(truckId) },
+    });
+
+    if (existing) {
+      return { success: false, message: "เลขทะเบียนนี้มีในระบบแล้ว" };
+    }
+
+    await prisma.$transaction(async (tx) => {
+      await tx.truck.update({
+        where: { id: BigInt(truckId) },
+        data: {
+          current_mileage: currentMileage,
+        },
+      });
+      // สร้างรายการบำรุงรักษาพื้นฐาน
+      const maintenanceDefaults = [
+        { type: "น้ำมันเครื่อง", interval: 20000 },
+        { type: "น้ำมันเกียร์", interval: 70000 },
+        { type: "น้ำมันเฟืองท้าย", interval: 60000 },
+      ];
+
+      for (const item of maintenanceDefaults) {
+        await tx.maintenanceLog.create({
+          data: {
+            truck_id: BigInt(truckId),
+            type: item.type,
+            service_mileage: currentMileage,
+            next_service_at: currentMileage + item.interval,
+            description: "เริ่มต้นระบบ",
+          },
+        });
+      }
+    });
+
+    revalidatePath("/dashboard/maintenance");
+    return { success: true, message: "เพิ่มทะเบียนรถเรียบร้อยแล้ว" };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: "เกิดข้อผิดพลาดในการเพิ่มทะเบียนรถ" };
+  }
+}

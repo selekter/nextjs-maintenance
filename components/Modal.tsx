@@ -10,6 +10,7 @@ interface ModalProps {
   confirmText?: string;
   cancelText?: string;
   onConfirm?: () => void;
+  closeOnConfirm?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -22,6 +23,7 @@ const Modal: React.FC<ModalProps> = ({
   confirmText = "ยืนยัน",
   cancelText = "ยกเลิก",
   onConfirm,
+  closeOnConfirm = true,
 }) => {
   const [shouldRender, setShouldRender] = useState(isOpen);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -58,7 +60,9 @@ const Modal: React.FC<ModalProps> = ({
     if (onConfirm) {
       onConfirm();
     }
-    onClose();
+    if (closeOnConfirm) {
+      onClose();
+    }
   };
 
   return (
