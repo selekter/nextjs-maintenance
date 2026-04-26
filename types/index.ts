@@ -24,12 +24,20 @@ export interface GroupedReport {
 }
 
 export interface TiresProps {
-  number: string;
-  kilometer: number;
-  brand: string;
-  created_at: Date;
+  id: bigint;
+  tire_change_id: bigint;
+  brand_id: number;
+  tire_code: string;
   position: number;
-  truck: {
-    number_plate: string;
+  brand: {
+    name: string;
+  };
+  history: {
+    change_date: Date;
+    mileage_at_change: number;
+
+    truck: {
+      number_plate: string;
+    };
   };
 }

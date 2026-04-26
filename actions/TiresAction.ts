@@ -4,15 +4,22 @@ import { prisma } from "@/libs/prisma";
 import { revalidatePath } from "next/cache";
 
 export async function getTires() {
-  const tires = await prisma.tires.findMany({
+  const tires = await prisma.tireItem.findMany({
     include: {
-      truck: {
-        select: {
-          number_plate: true,
+      brand: true,
+      history: {
+        include: {
+          truck: {
+            select: {
+              number_plate: true,
+            },
+          },
         },
       },
     },
   });
+  console.log(tires);
+
   return tires;
 }
 

@@ -79,6 +79,7 @@ export default function TiresTable({
           <thead className="bg-blue-200 border-b border-gray-100">
             <tr>
               <th className="px-6 py-4">วันที่</th>
+              <th>ทะเบียน</th>
               <th>หมายเลขยาง</th>
               <th>ยี่ห้อ</th>
               <th>ตำแหน่ง</th>
@@ -88,14 +89,15 @@ export default function TiresTable({
           </thead>
           <tbody className="divide-y divide-gray-200">
             {tires.map((tires) => (
-              <tr key={tires.number}>
+              <tr key={tires.id}>
                 <td className="px-6 py-4">
-                  {formatDateThai(tires.created_at)}
+                  {formatDateThai(tires.history.change_date)}
                 </td>
-                <td>{tires.number}</td>
-                <td>{tires.brand}</td>
+                <td>{tires.history.truck.number_plate}</td>
+                <td>{tires.tire_code}</td>
+                <td>{tires.brand.name}</td>
                 <td>{tires.position}</td>
-                <td>{tires.kilometer}</td>
+                <td>{tires.history.mileage_at_change}</td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3 md:justify-end">
                     <Link

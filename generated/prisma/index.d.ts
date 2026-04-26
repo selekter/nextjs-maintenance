@@ -49,11 +49,6 @@ export type personal_access_tokens = $Result.DefaultSelection<Prisma.$personal_a
  */
 export type users = $Result.DefaultSelection<Prisma.$usersPayload>
 /**
- * Model tires
- * 
- */
-export type tires = $Result.DefaultSelection<Prisma.$tiresPayload>
-/**
  * Model MaintenanceLog
  * 
  */
@@ -261,16 +256,6 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.usersDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.tires`: Exposes CRUD operations for the **tires** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Tires
-    * const tires = await prisma.tires.findMany()
-    * ```
-    */
-  get tires(): Prisma.tiresDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.maintenanceLog`: Exposes CRUD operations for the **MaintenanceLog** model.
@@ -759,7 +744,6 @@ export namespace Prisma {
     password_reset_tokens: 'password_reset_tokens',
     personal_access_tokens: 'personal_access_tokens',
     users: 'users',
-    tires: 'tires',
     MaintenanceLog: 'MaintenanceLog',
     TireChangeHistory: 'TireChangeHistory',
     TireBrand: 'TireBrand',
@@ -782,7 +766,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "truck" | "driver" | "report" | "migrations" | "password_reset_tokens" | "personal_access_tokens" | "users" | "tires" | "maintenanceLog" | "tireChangeHistory" | "tireBrand" | "tireItem"
+      modelProps: "truck" | "driver" | "report" | "migrations" | "password_reset_tokens" | "personal_access_tokens" | "users" | "maintenanceLog" | "tireChangeHistory" | "tireBrand" | "tireItem"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1248,72 +1232,6 @@ export namespace Prisma {
           }
         }
       }
-      tires: {
-        payload: Prisma.$tiresPayload<ExtArgs>
-        fields: Prisma.tiresFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.tiresFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tiresPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.tiresFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tiresPayload>
-          }
-          findFirst: {
-            args: Prisma.tiresFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tiresPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.tiresFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tiresPayload>
-          }
-          findMany: {
-            args: Prisma.tiresFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tiresPayload>[]
-          }
-          create: {
-            args: Prisma.tiresCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tiresPayload>
-          }
-          createMany: {
-            args: Prisma.tiresCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.tiresDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tiresPayload>
-          }
-          update: {
-            args: Prisma.tiresUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tiresPayload>
-          }
-          deleteMany: {
-            args: Prisma.tiresDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.tiresUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.tiresUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tiresPayload>
-          }
-          aggregate: {
-            args: Prisma.TiresAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTires>
-          }
-          groupBy: {
-            args: Prisma.tiresGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TiresGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.tiresCountArgs<ExtArgs>
-            result: $Utils.Optional<TiresCountAggregateOutputType> | number
-          }
-        }
-      }
       MaintenanceLog: {
         payload: Prisma.$MaintenanceLogPayload<ExtArgs>
         fields: Prisma.MaintenanceLogFieldRefs
@@ -1681,7 +1599,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensOmit
     personal_access_tokens?: personal_access_tokensOmit
     users?: usersOmit
-    tires?: tiresOmit
     maintenanceLog?: MaintenanceLogOmit
     tireChangeHistory?: TireChangeHistoryOmit
     tireBrand?: TireBrandOmit
@@ -1767,14 +1684,12 @@ export namespace Prisma {
 
   export type TruckCountOutputType = {
     reports: number
-    tires: number
     maintenanceLogs: number
     tireChangeHistories: number
   }
 
   export type TruckCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reports?: boolean | TruckCountOutputTypeCountReportsArgs
-    tires?: boolean | TruckCountOutputTypeCountTiresArgs
     maintenanceLogs?: boolean | TruckCountOutputTypeCountMaintenanceLogsArgs
     tireChangeHistories?: boolean | TruckCountOutputTypeCountTireChangeHistoriesArgs
   }
@@ -1795,13 +1710,6 @@ export namespace Prisma {
    */
   export type TruckCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReportWhereInput
-  }
-
-  /**
-   * TruckCountOutputType without action
-   */
-  export type TruckCountOutputTypeCountTiresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: tiresWhereInput
   }
 
   /**
@@ -2132,7 +2040,6 @@ export namespace Prisma {
     updated_at?: boolean
     drivers?: boolean | Truck$driversArgs<ExtArgs>
     reports?: boolean | Truck$reportsArgs<ExtArgs>
-    tires?: boolean | Truck$tiresArgs<ExtArgs>
     maintenanceLogs?: boolean | Truck$maintenanceLogsArgs<ExtArgs>
     tireChangeHistories?: boolean | Truck$tireChangeHistoriesArgs<ExtArgs>
     _count?: boolean | TruckCountOutputTypeDefaultArgs<ExtArgs>
@@ -2153,7 +2060,6 @@ export namespace Prisma {
   export type TruckInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     drivers?: boolean | Truck$driversArgs<ExtArgs>
     reports?: boolean | Truck$reportsArgs<ExtArgs>
-    tires?: boolean | Truck$tiresArgs<ExtArgs>
     maintenanceLogs?: boolean | Truck$maintenanceLogsArgs<ExtArgs>
     tireChangeHistories?: boolean | Truck$tireChangeHistoriesArgs<ExtArgs>
     _count?: boolean | TruckCountOutputTypeDefaultArgs<ExtArgs>
@@ -2164,7 +2070,6 @@ export namespace Prisma {
     objects: {
       drivers: Prisma.$DriverPayload<ExtArgs> | null
       reports: Prisma.$ReportPayload<ExtArgs>[]
-      tires: Prisma.$tiresPayload<ExtArgs>[]
       maintenanceLogs: Prisma.$MaintenanceLogPayload<ExtArgs>[]
       tireChangeHistories: Prisma.$TireChangeHistoryPayload<ExtArgs>[]
     }
@@ -2517,7 +2422,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     drivers<T extends Truck$driversArgs<ExtArgs> = {}>(args?: Subset<T, Truck$driversArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     reports<T extends Truck$reportsArgs<ExtArgs> = {}>(args?: Subset<T, Truck$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    tires<T extends Truck$tiresArgs<ExtArgs> = {}>(args?: Subset<T, Truck$tiresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenanceLogs<T extends Truck$maintenanceLogsArgs<ExtArgs> = {}>(args?: Subset<T, Truck$maintenanceLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tireChangeHistories<T extends Truck$tireChangeHistoriesArgs<ExtArgs> = {}>(args?: Subset<T, Truck$tireChangeHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TireChangeHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -2938,30 +2842,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReportScalarFieldEnum | ReportScalarFieldEnum[]
-  }
-
-  /**
-   * Truck.tires
-   */
-  export type Truck$tiresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    where?: tiresWhereInput
-    orderBy?: tiresOrderByWithRelationInput | tiresOrderByWithRelationInput[]
-    cursor?: tiresWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TiresScalarFieldEnum | TiresScalarFieldEnum[]
   }
 
   /**
@@ -8704,1003 +8584,6 @@ export namespace Prisma {
 
 
   /**
-   * Model tires
-   */
-
-  export type AggregateTires = {
-    _count: TiresCountAggregateOutputType | null
-    _avg: TiresAvgAggregateOutputType | null
-    _sum: TiresSumAggregateOutputType | null
-    _min: TiresMinAggregateOutputType | null
-    _max: TiresMaxAggregateOutputType | null
-  }
-
-  export type TiresAvgAggregateOutputType = {
-    id: number | null
-    kilometer: number | null
-    position: number | null
-    truckId: number | null
-  }
-
-  export type TiresSumAggregateOutputType = {
-    id: number | null
-    kilometer: number | null
-    position: number | null
-    truckId: bigint | null
-  }
-
-  export type TiresMinAggregateOutputType = {
-    id: number | null
-    number: string | null
-    kilometer: number | null
-    position: number | null
-    brand: string | null
-    truckId: bigint | null
-    created_at: Date | null
-  }
-
-  export type TiresMaxAggregateOutputType = {
-    id: number | null
-    number: string | null
-    kilometer: number | null
-    position: number | null
-    brand: string | null
-    truckId: bigint | null
-    created_at: Date | null
-  }
-
-  export type TiresCountAggregateOutputType = {
-    id: number
-    number: number
-    kilometer: number
-    position: number
-    brand: number
-    truckId: number
-    created_at: number
-    _all: number
-  }
-
-
-  export type TiresAvgAggregateInputType = {
-    id?: true
-    kilometer?: true
-    position?: true
-    truckId?: true
-  }
-
-  export type TiresSumAggregateInputType = {
-    id?: true
-    kilometer?: true
-    position?: true
-    truckId?: true
-  }
-
-  export type TiresMinAggregateInputType = {
-    id?: true
-    number?: true
-    kilometer?: true
-    position?: true
-    brand?: true
-    truckId?: true
-    created_at?: true
-  }
-
-  export type TiresMaxAggregateInputType = {
-    id?: true
-    number?: true
-    kilometer?: true
-    position?: true
-    brand?: true
-    truckId?: true
-    created_at?: true
-  }
-
-  export type TiresCountAggregateInputType = {
-    id?: true
-    number?: true
-    kilometer?: true
-    position?: true
-    brand?: true
-    truckId?: true
-    created_at?: true
-    _all?: true
-  }
-
-  export type TiresAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which tires to aggregate.
-     */
-    where?: tiresWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tires to fetch.
-     */
-    orderBy?: tiresOrderByWithRelationInput | tiresOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: tiresWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tires from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tires.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned tires
-    **/
-    _count?: true | TiresCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: TiresAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: TiresSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: TiresMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: TiresMaxAggregateInputType
-  }
-
-  export type GetTiresAggregateType<T extends TiresAggregateArgs> = {
-        [P in keyof T & keyof AggregateTires]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateTires[P]>
-      : GetScalarType<T[P], AggregateTires[P]>
-  }
-
-
-
-
-  export type tiresGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: tiresWhereInput
-    orderBy?: tiresOrderByWithAggregationInput | tiresOrderByWithAggregationInput[]
-    by: TiresScalarFieldEnum[] | TiresScalarFieldEnum
-    having?: tiresScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: TiresCountAggregateInputType | true
-    _avg?: TiresAvgAggregateInputType
-    _sum?: TiresSumAggregateInputType
-    _min?: TiresMinAggregateInputType
-    _max?: TiresMaxAggregateInputType
-  }
-
-  export type TiresGroupByOutputType = {
-    id: number
-    number: string
-    kilometer: number
-    position: number
-    brand: string
-    truckId: bigint
-    created_at: Date
-    _count: TiresCountAggregateOutputType | null
-    _avg: TiresAvgAggregateOutputType | null
-    _sum: TiresSumAggregateOutputType | null
-    _min: TiresMinAggregateOutputType | null
-    _max: TiresMaxAggregateOutputType | null
-  }
-
-  type GetTiresGroupByPayload<T extends tiresGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<TiresGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof TiresGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], TiresGroupByOutputType[P]>
-            : GetScalarType<T[P], TiresGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type tiresSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    number?: boolean
-    kilometer?: boolean
-    position?: boolean
-    brand?: boolean
-    truckId?: boolean
-    created_at?: boolean
-    truck?: boolean | TruckDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["tires"]>
-
-
-
-  export type tiresSelectScalar = {
-    id?: boolean
-    number?: boolean
-    kilometer?: boolean
-    position?: boolean
-    brand?: boolean
-    truckId?: boolean
-    created_at?: boolean
-  }
-
-  export type tiresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "kilometer" | "position" | "brand" | "truckId" | "created_at", ExtArgs["result"]["tires"]>
-  export type tiresInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    truck?: boolean | TruckDefaultArgs<ExtArgs>
-  }
-
-  export type $tiresPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "tires"
-    objects: {
-      truck: Prisma.$TruckPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      number: string
-      kilometer: number
-      position: number
-      brand: string
-      truckId: bigint
-      created_at: Date
-    }, ExtArgs["result"]["tires"]>
-    composites: {}
-  }
-
-  type tiresGetPayload<S extends boolean | null | undefined | tiresDefaultArgs> = $Result.GetResult<Prisma.$tiresPayload, S>
-
-  type tiresCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<tiresFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: TiresCountAggregateInputType | true
-    }
-
-  export interface tiresDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tires'], meta: { name: 'tires' } }
-    /**
-     * Find zero or one Tires that matches the filter.
-     * @param {tiresFindUniqueArgs} args - Arguments to find a Tires
-     * @example
-     * // Get one Tires
-     * const tires = await prisma.tires.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends tiresFindUniqueArgs>(args: SelectSubset<T, tiresFindUniqueArgs<ExtArgs>>): Prisma__tiresClient<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Tires that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {tiresFindUniqueOrThrowArgs} args - Arguments to find a Tires
-     * @example
-     * // Get one Tires
-     * const tires = await prisma.tires.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends tiresFindUniqueOrThrowArgs>(args: SelectSubset<T, tiresFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tiresClient<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Tires that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tiresFindFirstArgs} args - Arguments to find a Tires
-     * @example
-     * // Get one Tires
-     * const tires = await prisma.tires.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends tiresFindFirstArgs>(args?: SelectSubset<T, tiresFindFirstArgs<ExtArgs>>): Prisma__tiresClient<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Tires that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tiresFindFirstOrThrowArgs} args - Arguments to find a Tires
-     * @example
-     * // Get one Tires
-     * const tires = await prisma.tires.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends tiresFindFirstOrThrowArgs>(args?: SelectSubset<T, tiresFindFirstOrThrowArgs<ExtArgs>>): Prisma__tiresClient<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Tires that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tiresFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Tires
-     * const tires = await prisma.tires.findMany()
-     * 
-     * // Get first 10 Tires
-     * const tires = await prisma.tires.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const tiresWithIdOnly = await prisma.tires.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends tiresFindManyArgs>(args?: SelectSubset<T, tiresFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Tires.
-     * @param {tiresCreateArgs} args - Arguments to create a Tires.
-     * @example
-     * // Create one Tires
-     * const Tires = await prisma.tires.create({
-     *   data: {
-     *     // ... data to create a Tires
-     *   }
-     * })
-     * 
-     */
-    create<T extends tiresCreateArgs>(args: SelectSubset<T, tiresCreateArgs<ExtArgs>>): Prisma__tiresClient<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Tires.
-     * @param {tiresCreateManyArgs} args - Arguments to create many Tires.
-     * @example
-     * // Create many Tires
-     * const tires = await prisma.tires.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends tiresCreateManyArgs>(args?: SelectSubset<T, tiresCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Tires.
-     * @param {tiresDeleteArgs} args - Arguments to delete one Tires.
-     * @example
-     * // Delete one Tires
-     * const Tires = await prisma.tires.delete({
-     *   where: {
-     *     // ... filter to delete one Tires
-     *   }
-     * })
-     * 
-     */
-    delete<T extends tiresDeleteArgs>(args: SelectSubset<T, tiresDeleteArgs<ExtArgs>>): Prisma__tiresClient<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Tires.
-     * @param {tiresUpdateArgs} args - Arguments to update one Tires.
-     * @example
-     * // Update one Tires
-     * const tires = await prisma.tires.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends tiresUpdateArgs>(args: SelectSubset<T, tiresUpdateArgs<ExtArgs>>): Prisma__tiresClient<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Tires.
-     * @param {tiresDeleteManyArgs} args - Arguments to filter Tires to delete.
-     * @example
-     * // Delete a few Tires
-     * const { count } = await prisma.tires.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends tiresDeleteManyArgs>(args?: SelectSubset<T, tiresDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Tires.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tiresUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Tires
-     * const tires = await prisma.tires.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends tiresUpdateManyArgs>(args: SelectSubset<T, tiresUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Tires.
-     * @param {tiresUpsertArgs} args - Arguments to update or create a Tires.
-     * @example
-     * // Update or create a Tires
-     * const tires = await prisma.tires.upsert({
-     *   create: {
-     *     // ... data to create a Tires
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Tires we want to update
-     *   }
-     * })
-     */
-    upsert<T extends tiresUpsertArgs>(args: SelectSubset<T, tiresUpsertArgs<ExtArgs>>): Prisma__tiresClient<$Result.GetResult<Prisma.$tiresPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Tires.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tiresCountArgs} args - Arguments to filter Tires to count.
-     * @example
-     * // Count the number of Tires
-     * const count = await prisma.tires.count({
-     *   where: {
-     *     // ... the filter for the Tires we want to count
-     *   }
-     * })
-    **/
-    count<T extends tiresCountArgs>(
-      args?: Subset<T, tiresCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], TiresCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Tires.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TiresAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends TiresAggregateArgs>(args: Subset<T, TiresAggregateArgs>): Prisma.PrismaPromise<GetTiresAggregateType<T>>
-
-    /**
-     * Group by Tires.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tiresGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends tiresGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: tiresGroupByArgs['orderBy'] }
-        : { orderBy?: tiresGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, tiresGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTiresGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the tires model
-   */
-  readonly fields: tiresFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for tires.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__tiresClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    truck<T extends TruckDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TruckDefaultArgs<ExtArgs>>): Prisma__TruckClient<$Result.GetResult<Prisma.$TruckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the tires model
-   */
-  interface tiresFieldRefs {
-    readonly id: FieldRef<"tires", 'Int'>
-    readonly number: FieldRef<"tires", 'String'>
-    readonly kilometer: FieldRef<"tires", 'Int'>
-    readonly position: FieldRef<"tires", 'Int'>
-    readonly brand: FieldRef<"tires", 'String'>
-    readonly truckId: FieldRef<"tires", 'BigInt'>
-    readonly created_at: FieldRef<"tires", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * tires findUnique
-   */
-  export type tiresFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    /**
-     * Filter, which tires to fetch.
-     */
-    where: tiresWhereUniqueInput
-  }
-
-  /**
-   * tires findUniqueOrThrow
-   */
-  export type tiresFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    /**
-     * Filter, which tires to fetch.
-     */
-    where: tiresWhereUniqueInput
-  }
-
-  /**
-   * tires findFirst
-   */
-  export type tiresFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    /**
-     * Filter, which tires to fetch.
-     */
-    where?: tiresWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tires to fetch.
-     */
-    orderBy?: tiresOrderByWithRelationInput | tiresOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for tires.
-     */
-    cursor?: tiresWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tires from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tires.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of tires.
-     */
-    distinct?: TiresScalarFieldEnum | TiresScalarFieldEnum[]
-  }
-
-  /**
-   * tires findFirstOrThrow
-   */
-  export type tiresFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    /**
-     * Filter, which tires to fetch.
-     */
-    where?: tiresWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tires to fetch.
-     */
-    orderBy?: tiresOrderByWithRelationInput | tiresOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for tires.
-     */
-    cursor?: tiresWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tires from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tires.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of tires.
-     */
-    distinct?: TiresScalarFieldEnum | TiresScalarFieldEnum[]
-  }
-
-  /**
-   * tires findMany
-   */
-  export type tiresFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    /**
-     * Filter, which tires to fetch.
-     */
-    where?: tiresWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tires to fetch.
-     */
-    orderBy?: tiresOrderByWithRelationInput | tiresOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing tires.
-     */
-    cursor?: tiresWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tires from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tires.
-     */
-    skip?: number
-    distinct?: TiresScalarFieldEnum | TiresScalarFieldEnum[]
-  }
-
-  /**
-   * tires create
-   */
-  export type tiresCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    /**
-     * The data needed to create a tires.
-     */
-    data: XOR<tiresCreateInput, tiresUncheckedCreateInput>
-  }
-
-  /**
-   * tires createMany
-   */
-  export type tiresCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many tires.
-     */
-    data: tiresCreateManyInput | tiresCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * tires update
-   */
-  export type tiresUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    /**
-     * The data needed to update a tires.
-     */
-    data: XOR<tiresUpdateInput, tiresUncheckedUpdateInput>
-    /**
-     * Choose, which tires to update.
-     */
-    where: tiresWhereUniqueInput
-  }
-
-  /**
-   * tires updateMany
-   */
-  export type tiresUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update tires.
-     */
-    data: XOR<tiresUpdateManyMutationInput, tiresUncheckedUpdateManyInput>
-    /**
-     * Filter which tires to update
-     */
-    where?: tiresWhereInput
-    /**
-     * Limit how many tires to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * tires upsert
-   */
-  export type tiresUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    /**
-     * The filter to search for the tires to update in case it exists.
-     */
-    where: tiresWhereUniqueInput
-    /**
-     * In case the tires found by the `where` argument doesn't exist, create a new tires with this data.
-     */
-    create: XOR<tiresCreateInput, tiresUncheckedCreateInput>
-    /**
-     * In case the tires was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<tiresUpdateInput, tiresUncheckedUpdateInput>
-  }
-
-  /**
-   * tires delete
-   */
-  export type tiresDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-    /**
-     * Filter which tires to delete.
-     */
-    where: tiresWhereUniqueInput
-  }
-
-  /**
-   * tires deleteMany
-   */
-  export type tiresDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which tires to delete
-     */
-    where?: tiresWhereInput
-    /**
-     * Limit how many tires to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * tires without action
-   */
-  export type tiresDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tires
-     */
-    select?: tiresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tires
-     */
-    omit?: tiresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tiresInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model MaintenanceLog
    */
 
@@ -12686,7 +11569,6 @@ export namespace Prisma {
     brand_id: number | null
     tire_code: string | null
     position: number | null
-    status: string | null
   }
 
   export type TireItemMaxAggregateOutputType = {
@@ -12695,7 +11577,6 @@ export namespace Prisma {
     brand_id: number | null
     tire_code: string | null
     position: number | null
-    status: string | null
   }
 
   export type TireItemCountAggregateOutputType = {
@@ -12704,7 +11585,6 @@ export namespace Prisma {
     brand_id: number
     tire_code: number
     position: number
-    status: number
     _all: number
   }
 
@@ -12729,7 +11609,6 @@ export namespace Prisma {
     brand_id?: true
     tire_code?: true
     position?: true
-    status?: true
   }
 
   export type TireItemMaxAggregateInputType = {
@@ -12738,7 +11617,6 @@ export namespace Prisma {
     brand_id?: true
     tire_code?: true
     position?: true
-    status?: true
   }
 
   export type TireItemCountAggregateInputType = {
@@ -12747,7 +11625,6 @@ export namespace Prisma {
     brand_id?: true
     tire_code?: true
     position?: true
-    status?: true
     _all?: true
   }
 
@@ -12843,7 +11720,6 @@ export namespace Prisma {
     brand_id: number
     tire_code: string
     position: number
-    status: string
     _count: TireItemCountAggregateOutputType | null
     _avg: TireItemAvgAggregateOutputType | null
     _sum: TireItemSumAggregateOutputType | null
@@ -12871,7 +11747,6 @@ export namespace Prisma {
     brand_id?: boolean
     tire_code?: boolean
     position?: boolean
-    status?: boolean
     brand?: boolean | TireBrandDefaultArgs<ExtArgs>
     history?: boolean | TireChangeHistoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tireItem"]>
@@ -12884,10 +11759,9 @@ export namespace Prisma {
     brand_id?: boolean
     tire_code?: boolean
     position?: boolean
-    status?: boolean
   }
 
-  export type TireItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tire_change_id" | "brand_id" | "tire_code" | "position" | "status", ExtArgs["result"]["tireItem"]>
+  export type TireItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tire_change_id" | "brand_id" | "tire_code" | "position", ExtArgs["result"]["tireItem"]>
   export type TireItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brand?: boolean | TireBrandDefaultArgs<ExtArgs>
     history?: boolean | TireChangeHistoryDefaultArgs<ExtArgs>
@@ -12905,7 +11779,6 @@ export namespace Prisma {
       brand_id: number
       tire_code: string
       position: number
-      status: string
     }, ExtArgs["result"]["tireItem"]>
     composites: {}
   }
@@ -13282,7 +12155,6 @@ export namespace Prisma {
     readonly brand_id: FieldRef<"TireItem", 'Int'>
     readonly tire_code: FieldRef<"TireItem", 'String'>
     readonly position: FieldRef<"TireItem", 'Int'>
-    readonly status: FieldRef<"TireItem", 'String'>
   }
     
 
@@ -13741,19 +12613,6 @@ export namespace Prisma {
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
 
 
-  export const TiresScalarFieldEnum: {
-    id: 'id',
-    number: 'number',
-    kilometer: 'kilometer',
-    position: 'position',
-    brand: 'brand',
-    truckId: 'truckId',
-    created_at: 'created_at'
-  };
-
-  export type TiresScalarFieldEnum = (typeof TiresScalarFieldEnum)[keyof typeof TiresScalarFieldEnum]
-
-
   export const MaintenanceLogScalarFieldEnum: {
     id: 'id',
     truck_id: 'truck_id',
@@ -13791,8 +12650,7 @@ export namespace Prisma {
     tire_change_id: 'tire_change_id',
     brand_id: 'brand_id',
     tire_code: 'tire_code',
-    position: 'position',
-    status: 'status'
+    position: 'position'
   };
 
   export type TireItemScalarFieldEnum = (typeof TireItemScalarFieldEnum)[keyof typeof TireItemScalarFieldEnum]
@@ -13871,14 +12729,6 @@ export namespace Prisma {
   export type usersOrderByRelevanceFieldEnum = (typeof usersOrderByRelevanceFieldEnum)[keyof typeof usersOrderByRelevanceFieldEnum]
 
 
-  export const tiresOrderByRelevanceFieldEnum: {
-    number: 'number',
-    brand: 'brand'
-  };
-
-  export type tiresOrderByRelevanceFieldEnum = (typeof tiresOrderByRelevanceFieldEnum)[keyof typeof tiresOrderByRelevanceFieldEnum]
-
-
   export const MaintenanceLogOrderByRelevanceFieldEnum: {
     type: 'type',
     description: 'description'
@@ -13902,8 +12752,7 @@ export namespace Prisma {
 
 
   export const TireItemOrderByRelevanceFieldEnum: {
-    tire_code: 'tire_code',
-    status: 'status'
+    tire_code: 'tire_code'
   };
 
   export type TireItemOrderByRelevanceFieldEnum = (typeof TireItemOrderByRelevanceFieldEnum)[keyof typeof TireItemOrderByRelevanceFieldEnum]
@@ -13964,7 +12813,6 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"Truck"> | Date | string | null
     drivers?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
     reports?: ReportListRelationFilter
-    tires?: TiresListRelationFilter
     maintenanceLogs?: MaintenanceLogListRelationFilter
     tireChangeHistories?: TireChangeHistoryListRelationFilter
   }
@@ -13978,7 +12826,6 @@ export namespace Prisma {
     updated_at?: SortOrderInput | SortOrder
     drivers?: DriverOrderByWithRelationInput
     reports?: ReportOrderByRelationAggregateInput
-    tires?: tiresOrderByRelationAggregateInput
     maintenanceLogs?: MaintenanceLogOrderByRelationAggregateInput
     tireChangeHistories?: TireChangeHistoryOrderByRelationAggregateInput
     _relevance?: TruckOrderByRelevanceInput
@@ -13996,7 +12843,6 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"Truck"> | Date | string | null
     drivers?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
     reports?: ReportListRelationFilter
-    tires?: TiresListRelationFilter
     maintenanceLogs?: MaintenanceLogListRelationFilter
     tireChangeHistories?: TireChangeHistoryListRelationFilter
   }, "id" | "number_plate" | "driver_id">
@@ -14386,74 +13232,6 @@ export namespace Prisma {
     updated_at?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
   }
 
-  export type tiresWhereInput = {
-    AND?: tiresWhereInput | tiresWhereInput[]
-    OR?: tiresWhereInput[]
-    NOT?: tiresWhereInput | tiresWhereInput[]
-    id?: IntFilter<"tires"> | number
-    number?: StringFilter<"tires"> | string
-    kilometer?: IntFilter<"tires"> | number
-    position?: IntFilter<"tires"> | number
-    brand?: StringFilter<"tires"> | string
-    truckId?: BigIntFilter<"tires"> | bigint | number
-    created_at?: DateTimeFilter<"tires"> | Date | string
-    truck?: XOR<TruckScalarRelationFilter, TruckWhereInput>
-  }
-
-  export type tiresOrderByWithRelationInput = {
-    id?: SortOrder
-    number?: SortOrder
-    kilometer?: SortOrder
-    position?: SortOrder
-    brand?: SortOrder
-    truckId?: SortOrder
-    created_at?: SortOrder
-    truck?: TruckOrderByWithRelationInput
-    _relevance?: tiresOrderByRelevanceInput
-  }
-
-  export type tiresWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: tiresWhereInput | tiresWhereInput[]
-    OR?: tiresWhereInput[]
-    NOT?: tiresWhereInput | tiresWhereInput[]
-    number?: StringFilter<"tires"> | string
-    kilometer?: IntFilter<"tires"> | number
-    position?: IntFilter<"tires"> | number
-    brand?: StringFilter<"tires"> | string
-    truckId?: BigIntFilter<"tires"> | bigint | number
-    created_at?: DateTimeFilter<"tires"> | Date | string
-    truck?: XOR<TruckScalarRelationFilter, TruckWhereInput>
-  }, "id">
-
-  export type tiresOrderByWithAggregationInput = {
-    id?: SortOrder
-    number?: SortOrder
-    kilometer?: SortOrder
-    position?: SortOrder
-    brand?: SortOrder
-    truckId?: SortOrder
-    created_at?: SortOrder
-    _count?: tiresCountOrderByAggregateInput
-    _avg?: tiresAvgOrderByAggregateInput
-    _max?: tiresMaxOrderByAggregateInput
-    _min?: tiresMinOrderByAggregateInput
-    _sum?: tiresSumOrderByAggregateInput
-  }
-
-  export type tiresScalarWhereWithAggregatesInput = {
-    AND?: tiresScalarWhereWithAggregatesInput | tiresScalarWhereWithAggregatesInput[]
-    OR?: tiresScalarWhereWithAggregatesInput[]
-    NOT?: tiresScalarWhereWithAggregatesInput | tiresScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"tires"> | number
-    number?: StringWithAggregatesFilter<"tires"> | string
-    kilometer?: IntWithAggregatesFilter<"tires"> | number
-    position?: IntWithAggregatesFilter<"tires"> | number
-    brand?: StringWithAggregatesFilter<"tires"> | string
-    truckId?: BigIntWithAggregatesFilter<"tires"> | bigint | number
-    created_at?: DateTimeWithAggregatesFilter<"tires"> | Date | string
-  }
-
   export type MaintenanceLogWhereInput = {
     AND?: MaintenanceLogWhereInput | MaintenanceLogWhereInput[]
     OR?: MaintenanceLogWhereInput[]
@@ -14635,7 +13413,6 @@ export namespace Prisma {
     brand_id?: IntFilter<"TireItem"> | number
     tire_code?: StringFilter<"TireItem"> | string
     position?: IntFilter<"TireItem"> | number
-    status?: StringFilter<"TireItem"> | string
     brand?: XOR<TireBrandScalarRelationFilter, TireBrandWhereInput>
     history?: XOR<TireChangeHistoryScalarRelationFilter, TireChangeHistoryWhereInput>
   }
@@ -14646,7 +13423,6 @@ export namespace Prisma {
     brand_id?: SortOrder
     tire_code?: SortOrder
     position?: SortOrder
-    status?: SortOrder
     brand?: TireBrandOrderByWithRelationInput
     history?: TireChangeHistoryOrderByWithRelationInput
     _relevance?: TireItemOrderByRelevanceInput
@@ -14661,7 +13437,6 @@ export namespace Prisma {
     brand_id?: IntFilter<"TireItem"> | number
     tire_code?: StringFilter<"TireItem"> | string
     position?: IntFilter<"TireItem"> | number
-    status?: StringFilter<"TireItem"> | string
     brand?: XOR<TireBrandScalarRelationFilter, TireBrandWhereInput>
     history?: XOR<TireChangeHistoryScalarRelationFilter, TireChangeHistoryWhereInput>
   }, "id">
@@ -14672,7 +13447,6 @@ export namespace Prisma {
     brand_id?: SortOrder
     tire_code?: SortOrder
     position?: SortOrder
-    status?: SortOrder
     _count?: TireItemCountOrderByAggregateInput
     _avg?: TireItemAvgOrderByAggregateInput
     _max?: TireItemMaxOrderByAggregateInput
@@ -14689,7 +13463,6 @@ export namespace Prisma {
     brand_id?: IntWithAggregatesFilter<"TireItem"> | number
     tire_code?: StringWithAggregatesFilter<"TireItem"> | string
     position?: IntWithAggregatesFilter<"TireItem"> | number
-    status?: StringWithAggregatesFilter<"TireItem"> | string
   }
 
   export type TruckCreateInput = {
@@ -14700,7 +13473,6 @@ export namespace Prisma {
     updated_at?: Date | string | null
     drivers?: DriverCreateNestedOneWithoutTrucksInput
     reports?: ReportCreateNestedManyWithoutTruckInput
-    tires?: tiresCreateNestedManyWithoutTruckInput
     maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTruckInput
     tireChangeHistories?: TireChangeHistoryCreateNestedManyWithoutTruckInput
   }
@@ -14713,7 +13485,6 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     reports?: ReportUncheckedCreateNestedManyWithoutTruckInput
-    tires?: tiresUncheckedCreateNestedManyWithoutTruckInput
     maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput
     tireChangeHistories?: TireChangeHistoryUncheckedCreateNestedManyWithoutTruckInput
   }
@@ -14726,7 +13497,6 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     drivers?: DriverUpdateOneWithoutTrucksNestedInput
     reports?: ReportUpdateManyWithoutTruckNestedInput
-    tires?: tiresUpdateManyWithoutTruckNestedInput
     maintenanceLogs?: MaintenanceLogUpdateManyWithoutTruckNestedInput
     tireChangeHistories?: TireChangeHistoryUpdateManyWithoutTruckNestedInput
   }
@@ -14739,7 +13509,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reports?: ReportUncheckedUpdateManyWithoutTruckNestedInput
-    tires?: tiresUncheckedUpdateManyWithoutTruckNestedInput
     maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput
     tireChangeHistories?: TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput
   }
@@ -15141,72 +13910,6 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type tiresCreateInput = {
-    number: string
-    kilometer: number
-    position: number
-    brand: string
-    created_at?: Date | string
-    truck: TruckCreateNestedOneWithoutTiresInput
-  }
-
-  export type tiresUncheckedCreateInput = {
-    id?: number
-    number: string
-    kilometer: number
-    position: number
-    brand: string
-    truckId: bigint | number
-    created_at?: Date | string
-  }
-
-  export type tiresUpdateInput = {
-    number?: StringFieldUpdateOperationsInput | string
-    kilometer?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    truck?: TruckUpdateOneRequiredWithoutTiresNestedInput
-  }
-
-  export type tiresUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    number?: StringFieldUpdateOperationsInput | string
-    kilometer?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    truckId?: BigIntFieldUpdateOperationsInput | bigint | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type tiresCreateManyInput = {
-    id?: number
-    number: string
-    kilometer: number
-    position: number
-    brand: string
-    truckId: bigint | number
-    created_at?: Date | string
-  }
-
-  export type tiresUpdateManyMutationInput = {
-    number?: StringFieldUpdateOperationsInput | string
-    kilometer?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type tiresUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    number?: StringFieldUpdateOperationsInput | string
-    kilometer?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    truckId?: BigIntFieldUpdateOperationsInput | bigint | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type MaintenanceLogCreateInput = {
     id?: bigint | number
     type: string
@@ -15375,7 +14078,6 @@ export namespace Prisma {
     id?: bigint | number
     tire_code: string
     position: number
-    status?: string
     brand: TireBrandCreateNestedOneWithoutItemsInput
     history: TireChangeHistoryCreateNestedOneWithoutTireItemsInput
   }
@@ -15386,14 +14088,12 @@ export namespace Prisma {
     brand_id: number
     tire_code: string
     position: number
-    status?: string
   }
 
   export type TireItemUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
     brand?: TireBrandUpdateOneRequiredWithoutItemsNestedInput
     history?: TireChangeHistoryUpdateOneRequiredWithoutTireItemsNestedInput
   }
@@ -15404,7 +14104,6 @@ export namespace Prisma {
     brand_id?: IntFieldUpdateOperationsInput | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type TireItemCreateManyInput = {
@@ -15413,14 +14112,12 @@ export namespace Prisma {
     brand_id: number
     tire_code: string
     position: number
-    status?: string
   }
 
   export type TireItemUpdateManyMutationInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type TireItemUncheckedUpdateManyInput = {
@@ -15429,7 +14126,6 @@ export namespace Prisma {
     brand_id?: IntFieldUpdateOperationsInput | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type BigIntFilter<$PrismaModel = never> = {
@@ -15502,12 +14198,6 @@ export namespace Prisma {
     none?: ReportWhereInput
   }
 
-  export type TiresListRelationFilter = {
-    every?: tiresWhereInput
-    some?: tiresWhereInput
-    none?: tiresWhereInput
-  }
-
   export type MaintenanceLogListRelationFilter = {
     every?: MaintenanceLogWhereInput
     some?: MaintenanceLogWhereInput
@@ -15526,10 +14216,6 @@ export namespace Prisma {
   }
 
   export type ReportOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type tiresOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15973,70 +14659,6 @@ export namespace Prisma {
     isNot?: TruckWhereInput
   }
 
-  export type tiresOrderByRelevanceInput = {
-    fields: tiresOrderByRelevanceFieldEnum | tiresOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type tiresCountOrderByAggregateInput = {
-    id?: SortOrder
-    number?: SortOrder
-    kilometer?: SortOrder
-    position?: SortOrder
-    brand?: SortOrder
-    truckId?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type tiresAvgOrderByAggregateInput = {
-    id?: SortOrder
-    kilometer?: SortOrder
-    position?: SortOrder
-    truckId?: SortOrder
-  }
-
-  export type tiresMaxOrderByAggregateInput = {
-    id?: SortOrder
-    number?: SortOrder
-    kilometer?: SortOrder
-    position?: SortOrder
-    brand?: SortOrder
-    truckId?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type tiresMinOrderByAggregateInput = {
-    id?: SortOrder
-    number?: SortOrder
-    kilometer?: SortOrder
-    position?: SortOrder
-    brand?: SortOrder
-    truckId?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type tiresSumOrderByAggregateInput = {
-    id?: SortOrder
-    kilometer?: SortOrder
-    position?: SortOrder
-    truckId?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type MaintenanceLogOrderByRelevanceInput = {
     fields: MaintenanceLogOrderByRelevanceFieldEnum | MaintenanceLogOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -16085,6 +14707,20 @@ export namespace Prisma {
     truck_id?: SortOrder
     service_mileage?: SortOrder
     next_service_at?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type TireItemListRelationFilter = {
@@ -16190,7 +14826,6 @@ export namespace Prisma {
     brand_id?: SortOrder
     tire_code?: SortOrder
     position?: SortOrder
-    status?: SortOrder
   }
 
   export type TireItemAvgOrderByAggregateInput = {
@@ -16206,7 +14841,6 @@ export namespace Prisma {
     brand_id?: SortOrder
     tire_code?: SortOrder
     position?: SortOrder
-    status?: SortOrder
   }
 
   export type TireItemMinOrderByAggregateInput = {
@@ -16215,7 +14849,6 @@ export namespace Prisma {
     brand_id?: SortOrder
     tire_code?: SortOrder
     position?: SortOrder
-    status?: SortOrder
   }
 
   export type TireItemSumOrderByAggregateInput = {
@@ -16238,13 +14871,6 @@ export namespace Prisma {
     connect?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
   }
 
-  export type tiresCreateNestedManyWithoutTruckInput = {
-    create?: XOR<tiresCreateWithoutTruckInput, tiresUncheckedCreateWithoutTruckInput> | tiresCreateWithoutTruckInput[] | tiresUncheckedCreateWithoutTruckInput[]
-    connectOrCreate?: tiresCreateOrConnectWithoutTruckInput | tiresCreateOrConnectWithoutTruckInput[]
-    createMany?: tiresCreateManyTruckInputEnvelope
-    connect?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
-  }
-
   export type MaintenanceLogCreateNestedManyWithoutTruckInput = {
     create?: XOR<MaintenanceLogCreateWithoutTruckInput, MaintenanceLogUncheckedCreateWithoutTruckInput> | MaintenanceLogCreateWithoutTruckInput[] | MaintenanceLogUncheckedCreateWithoutTruckInput[]
     connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTruckInput | MaintenanceLogCreateOrConnectWithoutTruckInput[]
@@ -16264,13 +14890,6 @@ export namespace Prisma {
     connectOrCreate?: ReportCreateOrConnectWithoutTruckInput | ReportCreateOrConnectWithoutTruckInput[]
     createMany?: ReportCreateManyTruckInputEnvelope
     connect?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
-  }
-
-  export type tiresUncheckedCreateNestedManyWithoutTruckInput = {
-    create?: XOR<tiresCreateWithoutTruckInput, tiresUncheckedCreateWithoutTruckInput> | tiresCreateWithoutTruckInput[] | tiresUncheckedCreateWithoutTruckInput[]
-    connectOrCreate?: tiresCreateOrConnectWithoutTruckInput | tiresCreateOrConnectWithoutTruckInput[]
-    createMany?: tiresCreateManyTruckInputEnvelope
-    connect?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
   }
 
   export type MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput = {
@@ -16335,20 +14954,6 @@ export namespace Prisma {
     deleteMany?: ReportScalarWhereInput | ReportScalarWhereInput[]
   }
 
-  export type tiresUpdateManyWithoutTruckNestedInput = {
-    create?: XOR<tiresCreateWithoutTruckInput, tiresUncheckedCreateWithoutTruckInput> | tiresCreateWithoutTruckInput[] | tiresUncheckedCreateWithoutTruckInput[]
-    connectOrCreate?: tiresCreateOrConnectWithoutTruckInput | tiresCreateOrConnectWithoutTruckInput[]
-    upsert?: tiresUpsertWithWhereUniqueWithoutTruckInput | tiresUpsertWithWhereUniqueWithoutTruckInput[]
-    createMany?: tiresCreateManyTruckInputEnvelope
-    set?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
-    disconnect?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
-    delete?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
-    connect?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
-    update?: tiresUpdateWithWhereUniqueWithoutTruckInput | tiresUpdateWithWhereUniqueWithoutTruckInput[]
-    updateMany?: tiresUpdateManyWithWhereWithoutTruckInput | tiresUpdateManyWithWhereWithoutTruckInput[]
-    deleteMany?: tiresScalarWhereInput | tiresScalarWhereInput[]
-  }
-
   export type MaintenanceLogUpdateManyWithoutTruckNestedInput = {
     create?: XOR<MaintenanceLogCreateWithoutTruckInput, MaintenanceLogUncheckedCreateWithoutTruckInput> | MaintenanceLogCreateWithoutTruckInput[] | MaintenanceLogUncheckedCreateWithoutTruckInput[]
     connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTruckInput | MaintenanceLogCreateOrConnectWithoutTruckInput[]
@@ -16397,20 +15002,6 @@ export namespace Prisma {
     update?: ReportUpdateWithWhereUniqueWithoutTruckInput | ReportUpdateWithWhereUniqueWithoutTruckInput[]
     updateMany?: ReportUpdateManyWithWhereWithoutTruckInput | ReportUpdateManyWithWhereWithoutTruckInput[]
     deleteMany?: ReportScalarWhereInput | ReportScalarWhereInput[]
-  }
-
-  export type tiresUncheckedUpdateManyWithoutTruckNestedInput = {
-    create?: XOR<tiresCreateWithoutTruckInput, tiresUncheckedCreateWithoutTruckInput> | tiresCreateWithoutTruckInput[] | tiresUncheckedCreateWithoutTruckInput[]
-    connectOrCreate?: tiresCreateOrConnectWithoutTruckInput | tiresCreateOrConnectWithoutTruckInput[]
-    upsert?: tiresUpsertWithWhereUniqueWithoutTruckInput | tiresUpsertWithWhereUniqueWithoutTruckInput[]
-    createMany?: tiresCreateManyTruckInputEnvelope
-    set?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
-    disconnect?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
-    delete?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
-    connect?: tiresWhereUniqueInput | tiresWhereUniqueInput[]
-    update?: tiresUpdateWithWhereUniqueWithoutTruckInput | tiresUpdateWithWhereUniqueWithoutTruckInput[]
-    updateMany?: tiresUpdateManyWithWhereWithoutTruckInput | tiresUpdateManyWithWhereWithoutTruckInput[]
-    deleteMany?: tiresScalarWhereInput | tiresScalarWhereInput[]
   }
 
   export type MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput = {
@@ -16503,28 +15094,14 @@ export namespace Prisma {
     update?: XOR<XOR<TruckUpdateToOneWithWhereWithoutReportsInput, TruckUpdateWithoutReportsInput>, TruckUncheckedUpdateWithoutReportsInput>
   }
 
-  export type TruckCreateNestedOneWithoutTiresInput = {
-    create?: XOR<TruckCreateWithoutTiresInput, TruckUncheckedCreateWithoutTiresInput>
-    connectOrCreate?: TruckCreateOrConnectWithoutTiresInput
+  export type TruckCreateNestedOneWithoutMaintenanceLogsInput = {
+    create?: XOR<TruckCreateWithoutMaintenanceLogsInput, TruckUncheckedCreateWithoutMaintenanceLogsInput>
+    connectOrCreate?: TruckCreateOrConnectWithoutMaintenanceLogsInput
     connect?: TruckWhereUniqueInput
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type TruckUpdateOneRequiredWithoutTiresNestedInput = {
-    create?: XOR<TruckCreateWithoutTiresInput, TruckUncheckedCreateWithoutTiresInput>
-    connectOrCreate?: TruckCreateOrConnectWithoutTiresInput
-    upsert?: TruckUpsertWithoutTiresInput
-    connect?: TruckWhereUniqueInput
-    update?: XOR<XOR<TruckUpdateToOneWithWhereWithoutTiresInput, TruckUpdateWithoutTiresInput>, TruckUncheckedUpdateWithoutTiresInput>
-  }
-
-  export type TruckCreateNestedOneWithoutMaintenanceLogsInput = {
-    create?: XOR<TruckCreateWithoutMaintenanceLogsInput, TruckUncheckedCreateWithoutMaintenanceLogsInput>
-    connectOrCreate?: TruckCreateOrConnectWithoutMaintenanceLogsInput
-    connect?: TruckWhereUniqueInput
   }
 
   export type TruckUpdateOneRequiredWithoutMaintenanceLogsNestedInput = {
@@ -16938,33 +15515,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type tiresCreateWithoutTruckInput = {
-    number: string
-    kilometer: number
-    position: number
-    brand: string
-    created_at?: Date | string
-  }
-
-  export type tiresUncheckedCreateWithoutTruckInput = {
-    id?: number
-    number: string
-    kilometer: number
-    position: number
-    brand: string
-    created_at?: Date | string
-  }
-
-  export type tiresCreateOrConnectWithoutTruckInput = {
-    where: tiresWhereUniqueInput
-    create: XOR<tiresCreateWithoutTruckInput, tiresUncheckedCreateWithoutTruckInput>
-  }
-
-  export type tiresCreateManyTruckInputEnvelope = {
-    data: tiresCreateManyTruckInput | tiresCreateManyTruckInput[]
-    skipDuplicates?: boolean
-  }
-
   export type MaintenanceLogCreateWithoutTruckInput = {
     id?: bigint | number
     type: string
@@ -17073,35 +15623,6 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"Report"> | Date | string | null
   }
 
-  export type tiresUpsertWithWhereUniqueWithoutTruckInput = {
-    where: tiresWhereUniqueInput
-    update: XOR<tiresUpdateWithoutTruckInput, tiresUncheckedUpdateWithoutTruckInput>
-    create: XOR<tiresCreateWithoutTruckInput, tiresUncheckedCreateWithoutTruckInput>
-  }
-
-  export type tiresUpdateWithWhereUniqueWithoutTruckInput = {
-    where: tiresWhereUniqueInput
-    data: XOR<tiresUpdateWithoutTruckInput, tiresUncheckedUpdateWithoutTruckInput>
-  }
-
-  export type tiresUpdateManyWithWhereWithoutTruckInput = {
-    where: tiresScalarWhereInput
-    data: XOR<tiresUpdateManyMutationInput, tiresUncheckedUpdateManyWithoutTruckInput>
-  }
-
-  export type tiresScalarWhereInput = {
-    AND?: tiresScalarWhereInput | tiresScalarWhereInput[]
-    OR?: tiresScalarWhereInput[]
-    NOT?: tiresScalarWhereInput | tiresScalarWhereInput[]
-    id?: IntFilter<"tires"> | number
-    number?: StringFilter<"tires"> | string
-    kilometer?: IntFilter<"tires"> | number
-    position?: IntFilter<"tires"> | number
-    brand?: StringFilter<"tires"> | string
-    truckId?: BigIntFilter<"tires"> | bigint | number
-    created_at?: DateTimeFilter<"tires"> | Date | string
-  }
-
   export type MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput = {
     where: MaintenanceLogWhereUniqueInput
     update: XOR<MaintenanceLogUpdateWithoutTruckInput, MaintenanceLogUncheckedUpdateWithoutTruckInput>
@@ -17165,7 +15686,6 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     reports?: ReportCreateNestedManyWithoutTruckInput
-    tires?: tiresCreateNestedManyWithoutTruckInput
     maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTruckInput
     tireChangeHistories?: TireChangeHistoryCreateNestedManyWithoutTruckInput
   }
@@ -17177,7 +15697,6 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     reports?: ReportUncheckedCreateNestedManyWithoutTruckInput
-    tires?: tiresUncheckedCreateNestedManyWithoutTruckInput
     maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput
     tireChangeHistories?: TireChangeHistoryUncheckedCreateNestedManyWithoutTruckInput
   }
@@ -17227,7 +15746,6 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     drivers?: DriverCreateNestedOneWithoutTrucksInput
-    tires?: tiresCreateNestedManyWithoutTruckInput
     maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTruckInput
     tireChangeHistories?: TireChangeHistoryCreateNestedManyWithoutTruckInput
   }
@@ -17239,7 +15757,6 @@ export namespace Prisma {
     driver_id?: bigint | number | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
-    tires?: tiresUncheckedCreateNestedManyWithoutTruckInput
     maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput
     tireChangeHistories?: TireChangeHistoryUncheckedCreateNestedManyWithoutTruckInput
   }
@@ -17267,7 +15784,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     drivers?: DriverUpdateOneWithoutTrucksNestedInput
-    tires?: tiresUpdateManyWithoutTruckNestedInput
     maintenanceLogs?: MaintenanceLogUpdateManyWithoutTruckNestedInput
     tireChangeHistories?: TireChangeHistoryUpdateManyWithoutTruckNestedInput
   }
@@ -17279,71 +15795,6 @@ export namespace Prisma {
     driver_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    tires?: tiresUncheckedUpdateManyWithoutTruckNestedInput
-    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput
-    tireChangeHistories?: TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput
-  }
-
-  export type TruckCreateWithoutTiresInput = {
-    id?: bigint | number
-    number_plate: string
-    current_mileage?: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    drivers?: DriverCreateNestedOneWithoutTrucksInput
-    reports?: ReportCreateNestedManyWithoutTruckInput
-    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTruckInput
-    tireChangeHistories?: TireChangeHistoryCreateNestedManyWithoutTruckInput
-  }
-
-  export type TruckUncheckedCreateWithoutTiresInput = {
-    id?: bigint | number
-    number_plate: string
-    current_mileage?: number
-    driver_id?: bigint | number | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    reports?: ReportUncheckedCreateNestedManyWithoutTruckInput
-    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput
-    tireChangeHistories?: TireChangeHistoryUncheckedCreateNestedManyWithoutTruckInput
-  }
-
-  export type TruckCreateOrConnectWithoutTiresInput = {
-    where: TruckWhereUniqueInput
-    create: XOR<TruckCreateWithoutTiresInput, TruckUncheckedCreateWithoutTiresInput>
-  }
-
-  export type TruckUpsertWithoutTiresInput = {
-    update: XOR<TruckUpdateWithoutTiresInput, TruckUncheckedUpdateWithoutTiresInput>
-    create: XOR<TruckCreateWithoutTiresInput, TruckUncheckedCreateWithoutTiresInput>
-    where?: TruckWhereInput
-  }
-
-  export type TruckUpdateToOneWithWhereWithoutTiresInput = {
-    where?: TruckWhereInput
-    data: XOR<TruckUpdateWithoutTiresInput, TruckUncheckedUpdateWithoutTiresInput>
-  }
-
-  export type TruckUpdateWithoutTiresInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    number_plate?: StringFieldUpdateOperationsInput | string
-    current_mileage?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    drivers?: DriverUpdateOneWithoutTrucksNestedInput
-    reports?: ReportUpdateManyWithoutTruckNestedInput
-    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTruckNestedInput
-    tireChangeHistories?: TireChangeHistoryUpdateManyWithoutTruckNestedInput
-  }
-
-  export type TruckUncheckedUpdateWithoutTiresInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    number_plate?: StringFieldUpdateOperationsInput | string
-    current_mileage?: IntFieldUpdateOperationsInput | number
-    driver_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    reports?: ReportUncheckedUpdateManyWithoutTruckNestedInput
     maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput
     tireChangeHistories?: TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput
   }
@@ -17356,7 +15807,6 @@ export namespace Prisma {
     updated_at?: Date | string | null
     drivers?: DriverCreateNestedOneWithoutTrucksInput
     reports?: ReportCreateNestedManyWithoutTruckInput
-    tires?: tiresCreateNestedManyWithoutTruckInput
     tireChangeHistories?: TireChangeHistoryCreateNestedManyWithoutTruckInput
   }
 
@@ -17368,7 +15818,6 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     reports?: ReportUncheckedCreateNestedManyWithoutTruckInput
-    tires?: tiresUncheckedCreateNestedManyWithoutTruckInput
     tireChangeHistories?: TireChangeHistoryUncheckedCreateNestedManyWithoutTruckInput
   }
 
@@ -17396,7 +15845,6 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     drivers?: DriverUpdateOneWithoutTrucksNestedInput
     reports?: ReportUpdateManyWithoutTruckNestedInput
-    tires?: tiresUpdateManyWithoutTruckNestedInput
     tireChangeHistories?: TireChangeHistoryUpdateManyWithoutTruckNestedInput
   }
 
@@ -17408,7 +15856,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reports?: ReportUncheckedUpdateManyWithoutTruckNestedInput
-    tires?: tiresUncheckedUpdateManyWithoutTruckNestedInput
     tireChangeHistories?: TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput
   }
 
@@ -17420,7 +15867,6 @@ export namespace Prisma {
     updated_at?: Date | string | null
     drivers?: DriverCreateNestedOneWithoutTrucksInput
     reports?: ReportCreateNestedManyWithoutTruckInput
-    tires?: tiresCreateNestedManyWithoutTruckInput
     maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTruckInput
   }
 
@@ -17432,7 +15878,6 @@ export namespace Prisma {
     created_at?: Date | string | null
     updated_at?: Date | string | null
     reports?: ReportUncheckedCreateNestedManyWithoutTruckInput
-    tires?: tiresUncheckedCreateNestedManyWithoutTruckInput
     maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput
   }
 
@@ -17445,7 +15890,6 @@ export namespace Prisma {
     id?: bigint | number
     tire_code: string
     position: number
-    status?: string
     brand: TireBrandCreateNestedOneWithoutItemsInput
   }
 
@@ -17454,7 +15898,6 @@ export namespace Prisma {
     brand_id: number
     tire_code: string
     position: number
-    status?: string
   }
 
   export type TireItemCreateOrConnectWithoutHistoryInput = {
@@ -17486,7 +15929,6 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     drivers?: DriverUpdateOneWithoutTrucksNestedInput
     reports?: ReportUpdateManyWithoutTruckNestedInput
-    tires?: tiresUpdateManyWithoutTruckNestedInput
     maintenanceLogs?: MaintenanceLogUpdateManyWithoutTruckNestedInput
   }
 
@@ -17498,7 +15940,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reports?: ReportUncheckedUpdateManyWithoutTruckNestedInput
-    tires?: tiresUncheckedUpdateManyWithoutTruckNestedInput
     maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput
   }
 
@@ -17527,14 +15968,12 @@ export namespace Prisma {
     brand_id?: IntFilter<"TireItem"> | number
     tire_code?: StringFilter<"TireItem"> | string
     position?: IntFilter<"TireItem"> | number
-    status?: StringFilter<"TireItem"> | string
   }
 
   export type TireItemCreateWithoutBrandInput = {
     id?: bigint | number
     tire_code: string
     position: number
-    status?: string
     history: TireChangeHistoryCreateNestedOneWithoutTireItemsInput
   }
 
@@ -17543,7 +15982,6 @@ export namespace Prisma {
     tire_change_id: bigint | number
     tire_code: string
     position: number
-    status?: string
   }
 
   export type TireItemCreateOrConnectWithoutBrandInput = {
@@ -17663,15 +16101,6 @@ export namespace Prisma {
     updated_at?: Date | string | null
   }
 
-  export type tiresCreateManyTruckInput = {
-    id?: number
-    number: string
-    kilometer: number
-    position: number
-    brand: string
-    created_at?: Date | string
-  }
-
   export type MaintenanceLogCreateManyTruckInput = {
     id?: bigint | number
     type: string
@@ -17713,32 +16142,6 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type tiresUpdateWithoutTruckInput = {
-    number?: StringFieldUpdateOperationsInput | string
-    kilometer?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type tiresUncheckedUpdateWithoutTruckInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    number?: StringFieldUpdateOperationsInput | string
-    kilometer?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type tiresUncheckedUpdateManyWithoutTruckInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    number?: StringFieldUpdateOperationsInput | string
-    kilometer?: IntFieldUpdateOperationsInput | number
-    position?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MaintenanceLogUpdateWithoutTruckInput = {
@@ -17806,7 +16209,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reports?: ReportUpdateManyWithoutTruckNestedInput
-    tires?: tiresUpdateManyWithoutTruckNestedInput
     maintenanceLogs?: MaintenanceLogUpdateManyWithoutTruckNestedInput
     tireChangeHistories?: TireChangeHistoryUpdateManyWithoutTruckNestedInput
   }
@@ -17818,7 +16220,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reports?: ReportUncheckedUpdateManyWithoutTruckNestedInput
-    tires?: tiresUncheckedUpdateManyWithoutTruckNestedInput
     maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput
     tireChangeHistories?: TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput
   }
@@ -17836,14 +16237,12 @@ export namespace Prisma {
     brand_id: number
     tire_code: string
     position: number
-    status?: string
   }
 
   export type TireItemUpdateWithoutHistoryInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
     brand?: TireBrandUpdateOneRequiredWithoutItemsNestedInput
   }
 
@@ -17852,7 +16251,6 @@ export namespace Prisma {
     brand_id?: IntFieldUpdateOperationsInput | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type TireItemUncheckedUpdateManyWithoutHistoryInput = {
@@ -17860,7 +16258,6 @@ export namespace Prisma {
     brand_id?: IntFieldUpdateOperationsInput | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type TireItemCreateManyBrandInput = {
@@ -17868,14 +16265,12 @@ export namespace Prisma {
     tire_change_id: bigint | number
     tire_code: string
     position: number
-    status?: string
   }
 
   export type TireItemUpdateWithoutBrandInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
     history?: TireChangeHistoryUpdateOneRequiredWithoutTireItemsNestedInput
   }
 
@@ -17884,7 +16279,6 @@ export namespace Prisma {
     tire_change_id?: BigIntFieldUpdateOperationsInput | bigint | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type TireItemUncheckedUpdateManyWithoutBrandInput = {
@@ -17892,7 +16286,6 @@ export namespace Prisma {
     tire_change_id?: BigIntFieldUpdateOperationsInput | bigint | number
     tire_code?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
   }
 
 

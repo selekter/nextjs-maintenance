@@ -7,8 +7,6 @@ export default async function MainTenancePage() {
   const maintenance = await getMaintenanceStatus();
   const truckId = await getTrucks();
 
-  console.log(truckId);
-
   return (
     <>
       <MaintenanceModal truckid={truckId} />

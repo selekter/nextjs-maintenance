@@ -183,16 +183,6 @@ exports.Prisma.UsersScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.TiresScalarFieldEnum = {
-  id: 'id',
-  number: 'number',
-  kilometer: 'kilometer',
-  position: 'position',
-  brand: 'brand',
-  truckId: 'truckId',
-  created_at: 'created_at'
-};
-
 exports.Prisma.MaintenanceLogScalarFieldEnum = {
   id: 'id',
   truck_id: 'truck_id',
@@ -221,8 +211,7 @@ exports.Prisma.TireItemScalarFieldEnum = {
   tire_change_id: 'tire_change_id',
   brand_id: 'brand_id',
   tire_code: 'tire_code',
-  position: 'position',
-  status: 'status'
+  position: 'position'
 };
 
 exports.Prisma.SortOrder = {
@@ -271,11 +260,6 @@ exports.Prisma.usersOrderByRelevanceFieldEnum = {
   remember_token: 'remember_token'
 };
 
-exports.Prisma.tiresOrderByRelevanceFieldEnum = {
-  number: 'number',
-  brand: 'brand'
-};
-
 exports.Prisma.MaintenanceLogOrderByRelevanceFieldEnum = {
   type: 'type',
   description: 'description'
@@ -290,8 +274,7 @@ exports.Prisma.TireBrandOrderByRelevanceFieldEnum = {
 };
 
 exports.Prisma.TireItemOrderByRelevanceFieldEnum = {
-  tire_code: 'tire_code',
-  status: 'status'
+  tire_code: 'tire_code'
 };
 
 
@@ -303,7 +286,6 @@ exports.Prisma.ModelName = {
   password_reset_tokens: 'password_reset_tokens',
   personal_access_tokens: 'personal_access_tokens',
   users: 'users',
-  tires: 'tires',
   MaintenanceLog: 'MaintenanceLog',
   TireChangeHistory: 'TireChangeHistory',
   TireBrand: 'TireBrand',
