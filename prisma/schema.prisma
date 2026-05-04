@@ -1,21 +1,20 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
 }
 
 model Truck {
-  id                  BigInt              @id @default(autoincrement()) @db.UnsignedBigInt
-  number_plate        String              @unique @db.VarChar(255)
-  current_mileage     Int                 @default(0)
-  driver_id           BigInt?             @db.UnsignedBigInt @unique
-  created_at          DateTime?           @db.Timestamp(0) @default(now())
-  updated_at          DateTime?           @updatedAt @db.Timestamp(0)
-  drivers             Driver?             @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_license_plates_drivers")
+  id              BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  number_plate    String    @unique @db.VarChar(255)
+  current_mileage Int       @default(0)
+  driver_id       BigInt?   @unique @db.UnsignedBigInt
+  created_at      DateTime? @default(now()) @db.Timestamp(0)
+  updated_at      DateTime? @updatedAt @db.Timestamp(0)
+  drivers         Driver?   @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_license_plates_drivers")
 
   reports             Report[]
   maintenanceLogs     MaintenanceLog[]
@@ -27,8 +26,8 @@ model Truck {
 
 model Driver {
   id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
-  name       String    @db.VarChar(255) @unique
-  created_at DateTime? @db.Timestamp(0) @default(now())
+  name       String    @unique @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
   updated_at DateTime? @updatedAt @db.Timestamp(0)
   trucks     Truck[]
 
@@ -59,7 +58,7 @@ model migrations {
 model password_reset_tokens {
   email      String    @id @db.VarChar(255)
   token      String    @db.VarChar(255)
-  created_at DateTime? @db.Timestamp(0) @default(now())
+  created_at DateTime? @default(now()) @db.Timestamp(0)
 }
 
 model personal_access_tokens {
@@ -71,8 +70,8 @@ model personal_access_tokens {
   abilities      String?   @db.Text
   last_used_at   DateTime? @db.Timestamp(0)
   expires_at     DateTime? @db.Timestamp(0)
-  created_at     DateTime? @db.Timestamp(0) @default(now())
-  updated_at     DateTime? @db.Timestamp(0) @updatedAt
+  created_at     DateTime? @default(now()) @db.Timestamp(0)
+  updated_at     DateTime? @updatedAt @db.Timestamp(0)
 
   @@index([tokenable_type, tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
 }
@@ -84,8 +83,8 @@ model users {
   email_verified_at DateTime? @db.Timestamp(0)
   password          String    @db.VarChar(255)
   remember_token    String?   @db.VarChar(100)
-  created_at        DateTime? @db.Timestamp(0) @default(now())
-  updated_at        DateTime? @db.Timestamp(0) @updatedAt
+  created_at        DateTime? @default(now()) @db.Timestamp(0)
+  updated_at        DateTime? @updatedAt @db.Timestamp(0)
 }
 
 model MaintenanceLog {
