@@ -68,7 +68,6 @@ export async function createTireChange(data: {
               brand_id: item.brand_id,
               tire_code: item.tire_code,
               position: item.position,
-              status: "new",
             })),
           },
         },

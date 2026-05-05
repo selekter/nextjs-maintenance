@@ -88,7 +88,7 @@ const Modal: React.FC<ModalProps> = ({
         <div
           className={`bg-white rounded-2xl shadow-2xl ${
             sizeClasses[size]
-          } w-full transform transition-all duration-300 pointer-events-auto ${
+          } w-full max-h-[90vh] flex flex-col transform transition-all duration-300 pointer-events-auto ${
             isAnimating ? "scale-100 opacity-100" : "scale-95 opacity-0"
           }`}
           style={{
@@ -124,7 +124,7 @@ const Modal: React.FC<ModalProps> = ({
           </div>
 
           {/* Content */}
-          <div className="p-6">{children}</div>
+          <div className="p-6 overflow-y-auto">{children}</div>
 
           {/* Footer */}
           {showFooter && (
