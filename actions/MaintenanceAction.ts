@@ -4,9 +4,9 @@ import { prisma } from "@/libs/prisma";
 import { revalidatePath } from "next/cache";
 
 export async function getMaintenanceStatus() {
-  const reports = await prisma.maintenanceLog.findMany({
+  const reports = await prisma.maintenancelog.findMany({
     include: {
-      truck: {
+      license_plates: {
         select: {
           id: true,
           number_plate: true,
@@ -20,13 +20,13 @@ export async function getMaintenanceStatus() {
 
   // จัดกลุ่มด้วย Reduce
   const grouped = reports.reduce((acc, log) => {
-    const plate = log.truck.number_plate;
+    const plate = log.license_plates.number_plate;
     if (!acc[plate]) {
       acc[plate] = {
-        id: log.truck.id,
+        id: log.license_plates.id,
         number_plate: plate,
-        current_mileage: log.truck.current_mileage,
-        updated_at: log.truck.updated_at,
+        current_mileage: log.license_plates.current_mileage,
+        updated_at: log.license_plates.updated_at,
         items: [],
       };
     }
@@ -63,7 +63,7 @@ export async function updateMaintenance(prevState: any, formData: FormData) {
     // ใช้ Transaction เพื่อความปลอดภัยของข้อมูล
     await prisma.$transaction([
       // 1. บันทึกประวัติการเปลี่ยน
-      prisma.maintenanceLog.create({
+      prisma.maintenancelog.create({
         data: {
           truck_id: BigInt(truckId),
           type: type,
@@ -99,7 +99,7 @@ export async function createLicenseMaintenance(
   }
 
   try {
-    const existing = await prisma.maintenanceLog.findFirst({
+    const existing = await prisma.maintenancelog.findFirst({
       where: { truck_id: BigInt(truckId) },
     });
 
@@ -122,7 +122,7 @@ export async function createLicenseMaintenance(
       ];
 
       for (const item of maintenanceDefaults) {
-        await tx.maintenanceLog.create({
+        await tx.maintenancelog.create({
           data: {
             truck_id: BigInt(truckId),
             type: item.type,

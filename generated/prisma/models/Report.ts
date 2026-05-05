@@ -240,7 +240,7 @@ export type ReportWhereInput = {
   description?: Prisma.StringNullableFilter<"Report"> | string | null
   created_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
-  truck?: Prisma.XOR<Prisma.TruckNullableScalarRelationFilter, Prisma.TruckWhereInput> | null
+  truck?: Prisma.XOR<Prisma.TruckScalarRelationFilter, Prisma.TruckWhereInput>
 }
 
 export type ReportOrderByWithRelationInput = {
@@ -266,7 +266,7 @@ export type ReportWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Report"> | string | null
   created_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
-  truck?: Prisma.XOR<Prisma.TruckNullableScalarRelationFilter, Prisma.TruckWhereInput> | null
+  truck?: Prisma.XOR<Prisma.TruckScalarRelationFilter, Prisma.TruckWhereInput>
 }, "id">
 
 export type ReportOrderByWithAggregationInput = {
@@ -304,7 +304,7 @@ export type ReportCreateInput = {
   description?: string | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
-  truck?: Prisma.TruckCreateNestedOneWithoutReportsInput
+  truck: Prisma.TruckCreateNestedOneWithoutReportsInput
 }
 
 export type ReportUncheckedCreateInput = {
@@ -324,7 +324,7 @@ export type ReportUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  truck?: Prisma.TruckUpdateOneWithoutReportsNestedInput
+  truck?: Prisma.TruckUpdateOneRequiredWithoutReportsNestedInput
 }
 
 export type ReportUncheckedUpdateInput = {
@@ -573,7 +573,7 @@ export type ReportSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   description?: boolean
   created_at?: boolean
   updated_at?: boolean
-  truck?: boolean | Prisma.Report$truckArgs<ExtArgs>
+  truck?: boolean | Prisma.TruckDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["report"]>
 
 
@@ -590,13 +590,13 @@ export type ReportSelectScalar = {
 
 export type ReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "license_plate_id" | "repair" | "status" | "description" | "created_at" | "updated_at", ExtArgs["result"]["report"]>
 export type ReportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  truck?: boolean | Prisma.Report$truckArgs<ExtArgs>
+  truck?: boolean | Prisma.TruckDefaultArgs<ExtArgs>
 }
 
 export type $ReportPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Report"
   objects: {
-    truck: Prisma.$TruckPayload<ExtArgs> | null
+    truck: Prisma.$TruckPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: bigint
@@ -946,7 +946,7 @@ readonly fields: ReportFieldRefs;
  */
 export interface Prisma__ReportClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  truck<T extends Prisma.Report$truckArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Report$truckArgs<ExtArgs>>): Prisma.Prisma__TruckClient<runtime.Types.Result.GetResult<Prisma.$TruckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  truck<T extends Prisma.TruckDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TruckDefaultArgs<ExtArgs>>): Prisma.Prisma__TruckClient<runtime.Types.Result.GetResult<Prisma.$TruckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1328,25 +1328,6 @@ export type ReportDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Reports to delete.
    */
   limit?: number
-}
-
-/**
- * Report.truck
- */
-export type Report$truckArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Truck
-   */
-  select?: Prisma.TruckSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Truck
-   */
-  omit?: Prisma.TruckOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TruckInclude<ExtArgs> | null
-  where?: Prisma.TruckWhereInput
 }
 
 /**

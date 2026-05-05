@@ -391,10 +391,10 @@ export const ModelName = {
   password_reset_tokens: 'password_reset_tokens',
   personal_access_tokens: 'personal_access_tokens',
   users: 'users',
-  MaintenanceLog: 'MaintenanceLog',
   TireChangeHistory: 'TireChangeHistory',
   TireBrand: 'TireBrand',
-  TireItem: 'TireItem'
+  TireItem: 'TireItem',
+  maintenancelog: 'maintenancelog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "truck" | "driver" | "report" | "migrations" | "password_reset_tokens" | "personal_access_tokens" | "users" | "maintenanceLog" | "tireChangeHistory" | "tireBrand" | "tireItem"
+    modelProps: "truck" | "driver" | "report" | "migrations" | "password_reset_tokens" | "personal_access_tokens" | "users" | "tireChangeHistory" | "tireBrand" | "tireItem" | "maintenancelog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -876,72 +876,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    MaintenanceLog: {
-      payload: Prisma.$MaintenanceLogPayload<ExtArgs>
-      fields: Prisma.MaintenanceLogFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.MaintenanceLogFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaintenanceLogPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.MaintenanceLogFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
-        }
-        findFirst: {
-          args: Prisma.MaintenanceLogFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaintenanceLogPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.MaintenanceLogFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
-        }
-        findMany: {
-          args: Prisma.MaintenanceLogFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>[]
-        }
-        create: {
-          args: Prisma.MaintenanceLogCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
-        }
-        createMany: {
-          args: Prisma.MaintenanceLogCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        delete: {
-          args: Prisma.MaintenanceLogDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
-        }
-        update: {
-          args: Prisma.MaintenanceLogUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
-        }
-        deleteMany: {
-          args: Prisma.MaintenanceLogDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.MaintenanceLogUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        upsert: {
-          args: Prisma.MaintenanceLogUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
-        }
-        aggregate: {
-          args: Prisma.MaintenanceLogAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateMaintenanceLog>
-        }
-        groupBy: {
-          args: Prisma.MaintenanceLogGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MaintenanceLogGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.MaintenanceLogCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MaintenanceLogCountAggregateOutputType> | number
-        }
-      }
-    }
     TireChangeHistory: {
       payload: Prisma.$TireChangeHistoryPayload<ExtArgs>
       fields: Prisma.TireChangeHistoryFieldRefs
@@ -1140,6 +1074,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    maintenancelog: {
+      payload: Prisma.$maintenancelogPayload<ExtArgs>
+      fields: Prisma.maintenancelogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.maintenancelogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.maintenancelogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+        }
+        findFirst: {
+          args: Prisma.maintenancelogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.maintenancelogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+        }
+        findMany: {
+          args: Prisma.maintenancelogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>[]
+        }
+        create: {
+          args: Prisma.maintenancelogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+        }
+        createMany: {
+          args: Prisma.maintenancelogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.maintenancelogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+        }
+        update: {
+          args: Prisma.maintenancelogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+        }
+        deleteMany: {
+          args: Prisma.maintenancelogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.maintenancelogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.maintenancelogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+        }
+        aggregate: {
+          args: Prisma.MaintenancelogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMaintenancelog>
+        }
+        groupBy: {
+          args: Prisma.maintenancelogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaintenancelogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.maintenancelogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaintenancelogCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1262,19 +1262,6 @@ export const UsersScalarFieldEnum = {
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
 
 
-export const MaintenanceLogScalarFieldEnum = {
-  id: 'id',
-  truck_id: 'truck_id',
-  type: 'type',
-  service_mileage: 'service_mileage',
-  next_service_at: 'next_service_at',
-  description: 'description',
-  created_at: 'created_at'
-} as const
-
-export type MaintenanceLogScalarFieldEnum = (typeof MaintenanceLogScalarFieldEnum)[keyof typeof MaintenanceLogScalarFieldEnum]
-
-
 export const TireChangeHistoryScalarFieldEnum = {
   id: 'id',
   truck_id: 'truck_id',
@@ -1303,6 +1290,19 @@ export const TireItemScalarFieldEnum = {
 } as const
 
 export type TireItemScalarFieldEnum = (typeof TireItemScalarFieldEnum)[keyof typeof TireItemScalarFieldEnum]
+
+
+export const MaintenancelogScalarFieldEnum = {
+  id: 'id',
+  truck_id: 'truck_id',
+  type: 'type',
+  service_mileage: 'service_mileage',
+  next_service_at: 'next_service_at',
+  description: 'description',
+  created_at: 'created_at'
+} as const
+
+export type MaintenancelogScalarFieldEnum = (typeof MaintenancelogScalarFieldEnum)[keyof typeof MaintenancelogScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1378,14 +1378,6 @@ export const usersOrderByRelevanceFieldEnum = {
 export type usersOrderByRelevanceFieldEnum = (typeof usersOrderByRelevanceFieldEnum)[keyof typeof usersOrderByRelevanceFieldEnum]
 
 
-export const MaintenanceLogOrderByRelevanceFieldEnum = {
-  type: 'type',
-  description: 'description'
-} as const
-
-export type MaintenanceLogOrderByRelevanceFieldEnum = (typeof MaintenanceLogOrderByRelevanceFieldEnum)[keyof typeof MaintenanceLogOrderByRelevanceFieldEnum]
-
-
 export const TireChangeHistoryOrderByRelevanceFieldEnum = {
   notes: 'notes'
 } as const
@@ -1405,6 +1397,14 @@ export const TireItemOrderByRelevanceFieldEnum = {
 } as const
 
 export type TireItemOrderByRelevanceFieldEnum = (typeof TireItemOrderByRelevanceFieldEnum)[keyof typeof TireItemOrderByRelevanceFieldEnum]
+
+
+export const maintenancelogOrderByRelevanceFieldEnum = {
+  type: 'type',
+  description: 'description'
+} as const
+
+export type maintenancelogOrderByRelevanceFieldEnum = (typeof maintenancelogOrderByRelevanceFieldEnum)[keyof typeof maintenancelogOrderByRelevanceFieldEnum]
 
 
 
@@ -1564,10 +1564,10 @@ export type GlobalOmitConfig = {
   password_reset_tokens?: Prisma.password_reset_tokensOmit
   personal_access_tokens?: Prisma.personal_access_tokensOmit
   users?: Prisma.usersOmit
-  maintenanceLog?: Prisma.MaintenanceLogOmit
   tireChangeHistory?: Prisma.TireChangeHistoryOmit
   tireBrand?: Prisma.TireBrandOmit
   tireItem?: Prisma.TireItemOmit
+  maintenancelog?: Prisma.maintenancelogOmit
 }
 
 /* Types for Logging */

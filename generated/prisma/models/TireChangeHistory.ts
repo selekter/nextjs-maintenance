@@ -434,6 +434,10 @@ export type TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput = {
   deleteMany?: Prisma.TireChangeHistoryScalarWhereInput | Prisma.TireChangeHistoryScalarWhereInput[]
 }
 
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
 export type TireChangeHistoryCreateNestedOneWithoutTireItemsInput = {
   create?: Prisma.XOR<Prisma.TireChangeHistoryCreateWithoutTireItemsInput, Prisma.TireChangeHistoryUncheckedCreateWithoutTireItemsInput>
   connectOrCreate?: Prisma.TireChangeHistoryCreateOrConnectWithoutTireItemsInput

@@ -208,7 +208,7 @@ export type DriverWhereInput = {
   name?: Prisma.StringFilter<"Driver"> | string
   created_at?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
-  trucks?: Prisma.TruckListRelationFilter
+  trucks?: Prisma.XOR<Prisma.TruckNullableScalarRelationFilter, Prisma.TruckWhereInput> | null
 }
 
 export type DriverOrderByWithRelationInput = {
@@ -216,7 +216,7 @@ export type DriverOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  trucks?: Prisma.TruckOrderByRelationAggregateInput
+  trucks?: Prisma.TruckOrderByWithRelationInput
   _relevance?: Prisma.DriverOrderByRelevanceInput
 }
 
@@ -228,7 +228,7 @@ export type DriverWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DriverWhereInput | Prisma.DriverWhereInput[]
   created_at?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
-  trucks?: Prisma.TruckListRelationFilter
+  trucks?: Prisma.XOR<Prisma.TruckNullableScalarRelationFilter, Prisma.TruckWhereInput> | null
 }, "id" | "name">
 
 export type DriverOrderByWithAggregationInput = {
@@ -258,7 +258,7 @@ export type DriverCreateInput = {
   name: string
   created_at?: Date | string | null
   updated_at?: Date | string | null
-  trucks?: Prisma.TruckCreateNestedManyWithoutDriversInput
+  trucks?: Prisma.TruckCreateNestedOneWithoutDriversInput
 }
 
 export type DriverUncheckedCreateInput = {
@@ -266,7 +266,7 @@ export type DriverUncheckedCreateInput = {
   name: string
   created_at?: Date | string | null
   updated_at?: Date | string | null
-  trucks?: Prisma.TruckUncheckedCreateNestedManyWithoutDriversInput
+  trucks?: Prisma.TruckUncheckedCreateNestedOneWithoutDriversInput
 }
 
 export type DriverUpdateInput = {
@@ -274,7 +274,7 @@ export type DriverUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trucks?: Prisma.TruckUpdateManyWithoutDriversNestedInput
+  trucks?: Prisma.TruckUpdateOneWithoutDriversNestedInput
 }
 
 export type DriverUncheckedUpdateInput = {
@@ -282,7 +282,7 @@ export type DriverUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trucks?: Prisma.TruckUncheckedUpdateManyWithoutDriversNestedInput
+  trucks?: Prisma.TruckUncheckedUpdateOneWithoutDriversNestedInput
 }
 
 export type DriverCreateManyInput = {
@@ -407,35 +407,6 @@ export type DriverUncheckedUpdateWithoutTrucksInput = {
 }
 
 
-/**
- * Count Type DriverCountOutputType
- */
-
-export type DriverCountOutputType = {
-  trucks: number
-}
-
-export type DriverCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  trucks?: boolean | DriverCountOutputTypeCountTrucksArgs
-}
-
-/**
- * DriverCountOutputType without action
- */
-export type DriverCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DriverCountOutputType
-   */
-  select?: Prisma.DriverCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * DriverCountOutputType without action
- */
-export type DriverCountOutputTypeCountTrucksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TruckWhereInput
-}
-
 
 export type DriverSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -443,7 +414,6 @@ export type DriverSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   created_at?: boolean
   updated_at?: boolean
   trucks?: boolean | Prisma.Driver$trucksArgs<ExtArgs>
-  _count?: boolean | Prisma.DriverCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["driver"]>
 
 
@@ -458,13 +428,12 @@ export type DriverSelectScalar = {
 export type DriverOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "created_at" | "updated_at", ExtArgs["result"]["driver"]>
 export type DriverInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   trucks?: boolean | Prisma.Driver$trucksArgs<ExtArgs>
-  _count?: boolean | Prisma.DriverCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $DriverPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Driver"
   objects: {
-    trucks: Prisma.$TruckPayload<ExtArgs>[]
+    trucks: Prisma.$TruckPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: bigint
@@ -811,7 +780,7 @@ readonly fields: DriverFieldRefs;
  */
 export interface Prisma__DriverClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  trucks<T extends Prisma.Driver$trucksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Driver$trucksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TruckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  trucks<T extends Prisma.Driver$trucksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Driver$trucksArgs<ExtArgs>>): Prisma.Prisma__TruckClient<runtime.Types.Result.GetResult<Prisma.$TruckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1209,11 +1178,6 @@ export type Driver$trucksArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   include?: Prisma.TruckInclude<ExtArgs> | null
   where?: Prisma.TruckWhereInput
-  orderBy?: Prisma.TruckOrderByWithRelationInput | Prisma.TruckOrderByWithRelationInput[]
-  cursor?: Prisma.TruckWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TruckScalarFieldEnum | Prisma.TruckScalarFieldEnum[]
 }
 
 /**

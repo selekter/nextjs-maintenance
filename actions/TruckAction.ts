@@ -68,7 +68,7 @@ export async function createTruck(prevState: any, formData: FormData) {
       ];
 
       for (const item of maintenanceDefaults) {
-        await tx.maintenanceLog.create({
+        await tx.maintenancelog.create({
           data: {
             truck_id: truck.id,
             type: item.type,
@@ -118,7 +118,7 @@ export async function updateTruckMileage(prevState: any, formData: FormData) {
 
       // 2. ดึงรายการบำรุงรักษาล่าสุดของรถคันนี้มาเช็ค
       // (ดึงเฉพาะรายการที่ยังไม่ได้ซ่อม หรือดึงตัวล่าสุดของแต่ละประเภท)
-      const maintenanceItems = await tx.maintenanceLog.findMany({
+      const maintenanceItems = await tx.maintenancelog.findMany({
         where: { truck_id: truckId },
         distinct: ["type"],
         orderBy: { created_at: "desc" },

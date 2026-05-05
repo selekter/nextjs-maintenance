@@ -248,7 +248,7 @@ export async function updateReport(prevState: any, formData: FormData) {
       for (const report of reportToUpdate) {
         for (const rule of maintenaceRules) {
           if (report.repair.includes(rule.key)) {
-            await tx.maintenanceLog.create({
+            await tx.maintenancelog.create({
               data: {
                 truck_id: report.license_plate_id,
                 type: rule.key,

@@ -4,7 +4,7 @@
 // biome-ignore-all lint: generated file
 // @ts-nocheck 
 /*
- * This file exports the `MaintenanceLog` model and its related types.
+ * This file exports the `maintenancelog` model and its related types.
  *
  * 🟢 You can import this file directly.
  */
@@ -13,44 +13,34 @@ import type * as $Enums from "../enums"
 import type * as Prisma from "../internal/prismaNamespace"
 
 /**
- * Model MaintenanceLog
+ * Model maintenancelog
  * 
  */
-export type MaintenanceLogModel = runtime.Types.Result.DefaultSelection<Prisma.$MaintenanceLogPayload>
+export type maintenancelogModel = runtime.Types.Result.DefaultSelection<Prisma.$maintenancelogPayload>
 
-export type AggregateMaintenanceLog = {
-  _count: MaintenanceLogCountAggregateOutputType | null
-  _avg: MaintenanceLogAvgAggregateOutputType | null
-  _sum: MaintenanceLogSumAggregateOutputType | null
-  _min: MaintenanceLogMinAggregateOutputType | null
-  _max: MaintenanceLogMaxAggregateOutputType | null
+export type AggregateMaintenancelog = {
+  _count: MaintenancelogCountAggregateOutputType | null
+  _avg: MaintenancelogAvgAggregateOutputType | null
+  _sum: MaintenancelogSumAggregateOutputType | null
+  _min: MaintenancelogMinAggregateOutputType | null
+  _max: MaintenancelogMaxAggregateOutputType | null
 }
 
-export type MaintenanceLogAvgAggregateOutputType = {
+export type MaintenancelogAvgAggregateOutputType = {
   id: number | null
   truck_id: number | null
   service_mileage: number | null
   next_service_at: number | null
 }
 
-export type MaintenanceLogSumAggregateOutputType = {
+export type MaintenancelogSumAggregateOutputType = {
   id: bigint | null
   truck_id: bigint | null
   service_mileage: number | null
   next_service_at: number | null
 }
 
-export type MaintenanceLogMinAggregateOutputType = {
-  id: bigint | null
-  truck_id: bigint | null
-  type: string | null
-  service_mileage: number | null
-  next_service_at: number | null
-  description: string | null
-  created_at: Date | null
-}
-
-export type MaintenanceLogMaxAggregateOutputType = {
+export type MaintenancelogMinAggregateOutputType = {
   id: bigint | null
   truck_id: bigint | null
   type: string | null
@@ -60,7 +50,17 @@ export type MaintenanceLogMaxAggregateOutputType = {
   created_at: Date | null
 }
 
-export type MaintenanceLogCountAggregateOutputType = {
+export type MaintenancelogMaxAggregateOutputType = {
+  id: bigint | null
+  truck_id: bigint | null
+  type: string | null
+  service_mileage: number | null
+  next_service_at: number | null
+  description: string | null
+  created_at: Date | null
+}
+
+export type MaintenancelogCountAggregateOutputType = {
   id: number
   truck_id: number
   type: number
@@ -72,31 +72,21 @@ export type MaintenanceLogCountAggregateOutputType = {
 }
 
 
-export type MaintenanceLogAvgAggregateInputType = {
+export type MaintenancelogAvgAggregateInputType = {
   id?: true
   truck_id?: true
   service_mileage?: true
   next_service_at?: true
 }
 
-export type MaintenanceLogSumAggregateInputType = {
+export type MaintenancelogSumAggregateInputType = {
   id?: true
   truck_id?: true
   service_mileage?: true
   next_service_at?: true
 }
 
-export type MaintenanceLogMinAggregateInputType = {
-  id?: true
-  truck_id?: true
-  type?: true
-  service_mileage?: true
-  next_service_at?: true
-  description?: true
-  created_at?: true
-}
-
-export type MaintenanceLogMaxAggregateInputType = {
+export type MaintenancelogMinAggregateInputType = {
   id?: true
   truck_id?: true
   type?: true
@@ -106,7 +96,17 @@ export type MaintenanceLogMaxAggregateInputType = {
   created_at?: true
 }
 
-export type MaintenanceLogCountAggregateInputType = {
+export type MaintenancelogMaxAggregateInputType = {
+  id?: true
+  truck_id?: true
+  type?: true
+  service_mileage?: true
+  next_service_at?: true
+  description?: true
+  created_at?: true
+}
+
+export type MaintenancelogCountAggregateInputType = {
   id?: true
   truck_id?: true
   type?: true
@@ -117,93 +117,93 @@ export type MaintenanceLogCountAggregateInputType = {
   _all?: true
 }
 
-export type MaintenanceLogAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type MaintenancelogAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Filter which MaintenanceLog to aggregate.
+   * Filter which maintenancelog to aggregate.
    */
-  where?: Prisma.MaintenanceLogWhereInput
+  where?: Prisma.maintenancelogWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of MaintenanceLogs to fetch.
+   * Determine the order of maintenancelogs to fetch.
    */
-  orderBy?: Prisma.MaintenanceLogOrderByWithRelationInput | Prisma.MaintenanceLogOrderByWithRelationInput[]
+  orderBy?: Prisma.maintenancelogOrderByWithRelationInput | Prisma.maintenancelogOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
    * Sets the start position
    */
-  cursor?: Prisma.MaintenanceLogWhereUniqueInput
+  cursor?: Prisma.maintenancelogWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` MaintenanceLogs from the position of the cursor.
+   * Take `±n` maintenancelogs from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` MaintenanceLogs.
+   * Skip the first `n` maintenancelogs.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Count returned MaintenanceLogs
+   * Count returned maintenancelogs
   **/
-  _count?: true | MaintenanceLogCountAggregateInputType
+  _count?: true | MaintenancelogCountAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to average
   **/
-  _avg?: MaintenanceLogAvgAggregateInputType
+  _avg?: MaintenancelogAvgAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to sum
   **/
-  _sum?: MaintenanceLogSumAggregateInputType
+  _sum?: MaintenancelogSumAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to find the minimum value
   **/
-  _min?: MaintenanceLogMinAggregateInputType
+  _min?: MaintenancelogMinAggregateInputType
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
    * Select which fields to find the maximum value
   **/
-  _max?: MaintenanceLogMaxAggregateInputType
+  _max?: MaintenancelogMaxAggregateInputType
 }
 
-export type GetMaintenanceLogAggregateType<T extends MaintenanceLogAggregateArgs> = {
-      [P in keyof T & keyof AggregateMaintenanceLog]: P extends '_count' | 'count'
+export type GetMaintenancelogAggregateType<T extends MaintenancelogAggregateArgs> = {
+      [P in keyof T & keyof AggregateMaintenancelog]: P extends '_count' | 'count'
     ? T[P] extends true
       ? number
-      : Prisma.GetScalarType<T[P], AggregateMaintenanceLog[P]>
-    : Prisma.GetScalarType<T[P], AggregateMaintenanceLog[P]>
+      : Prisma.GetScalarType<T[P], AggregateMaintenancelog[P]>
+    : Prisma.GetScalarType<T[P], AggregateMaintenancelog[P]>
 }
 
 
 
 
-export type MaintenanceLogGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MaintenanceLogWhereInput
-  orderBy?: Prisma.MaintenanceLogOrderByWithAggregationInput | Prisma.MaintenanceLogOrderByWithAggregationInput[]
-  by: Prisma.MaintenanceLogScalarFieldEnum[] | Prisma.MaintenanceLogScalarFieldEnum
-  having?: Prisma.MaintenanceLogScalarWhereWithAggregatesInput
+export type maintenancelogGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.maintenancelogWhereInput
+  orderBy?: Prisma.maintenancelogOrderByWithAggregationInput | Prisma.maintenancelogOrderByWithAggregationInput[]
+  by: Prisma.MaintenancelogScalarFieldEnum[] | Prisma.MaintenancelogScalarFieldEnum
+  having?: Prisma.maintenancelogScalarWhereWithAggregatesInput
   take?: number
   skip?: number
-  _count?: MaintenanceLogCountAggregateInputType | true
-  _avg?: MaintenanceLogAvgAggregateInputType
-  _sum?: MaintenanceLogSumAggregateInputType
-  _min?: MaintenanceLogMinAggregateInputType
-  _max?: MaintenanceLogMaxAggregateInputType
+  _count?: MaintenancelogCountAggregateInputType | true
+  _avg?: MaintenancelogAvgAggregateInputType
+  _sum?: MaintenancelogSumAggregateInputType
+  _min?: MaintenancelogMinAggregateInputType
+  _max?: MaintenancelogMaxAggregateInputType
 }
 
-export type MaintenanceLogGroupByOutputType = {
+export type MaintenancelogGroupByOutputType = {
   id: bigint
   truck_id: bigint
   type: string
@@ -211,43 +211,43 @@ export type MaintenanceLogGroupByOutputType = {
   next_service_at: number
   description: string | null
   created_at: Date
-  _count: MaintenanceLogCountAggregateOutputType | null
-  _avg: MaintenanceLogAvgAggregateOutputType | null
-  _sum: MaintenanceLogSumAggregateOutputType | null
-  _min: MaintenanceLogMinAggregateOutputType | null
-  _max: MaintenanceLogMaxAggregateOutputType | null
+  _count: MaintenancelogCountAggregateOutputType | null
+  _avg: MaintenancelogAvgAggregateOutputType | null
+  _sum: MaintenancelogSumAggregateOutputType | null
+  _min: MaintenancelogMinAggregateOutputType | null
+  _max: MaintenancelogMaxAggregateOutputType | null
 }
 
-export type GetMaintenanceLogGroupByPayload<T extends MaintenanceLogGroupByArgs> = Prisma.PrismaPromise<
+export type GetMaintenancelogGroupByPayload<T extends maintenancelogGroupByArgs> = Prisma.PrismaPromise<
   Array<
-    Prisma.PickEnumerable<MaintenanceLogGroupByOutputType, T['by']> &
+    Prisma.PickEnumerable<MaintenancelogGroupByOutputType, T['by']> &
       {
-        [P in ((keyof T) & (keyof MaintenanceLogGroupByOutputType))]: P extends '_count'
+        [P in ((keyof T) & (keyof MaintenancelogGroupByOutputType))]: P extends '_count'
           ? T[P] extends boolean
             ? number
-            : Prisma.GetScalarType<T[P], MaintenanceLogGroupByOutputType[P]>
-          : Prisma.GetScalarType<T[P], MaintenanceLogGroupByOutputType[P]>
+            : Prisma.GetScalarType<T[P], MaintenancelogGroupByOutputType[P]>
+          : Prisma.GetScalarType<T[P], MaintenancelogGroupByOutputType[P]>
       }
     >
   >
 
 
 
-export type MaintenanceLogWhereInput = {
-  AND?: Prisma.MaintenanceLogWhereInput | Prisma.MaintenanceLogWhereInput[]
-  OR?: Prisma.MaintenanceLogWhereInput[]
-  NOT?: Prisma.MaintenanceLogWhereInput | Prisma.MaintenanceLogWhereInput[]
-  id?: Prisma.BigIntFilter<"MaintenanceLog"> | bigint | number
-  truck_id?: Prisma.BigIntFilter<"MaintenanceLog"> | bigint | number
-  type?: Prisma.StringFilter<"MaintenanceLog"> | string
-  service_mileage?: Prisma.IntFilter<"MaintenanceLog"> | number
-  next_service_at?: Prisma.IntFilter<"MaintenanceLog"> | number
-  description?: Prisma.StringNullableFilter<"MaintenanceLog"> | string | null
-  created_at?: Prisma.DateTimeFilter<"MaintenanceLog"> | Date | string
-  truck?: Prisma.XOR<Prisma.TruckScalarRelationFilter, Prisma.TruckWhereInput>
+export type maintenancelogWhereInput = {
+  AND?: Prisma.maintenancelogWhereInput | Prisma.maintenancelogWhereInput[]
+  OR?: Prisma.maintenancelogWhereInput[]
+  NOT?: Prisma.maintenancelogWhereInput | Prisma.maintenancelogWhereInput[]
+  id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
+  truck_id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
+  type?: Prisma.StringFilter<"maintenancelog"> | string
+  service_mileage?: Prisma.IntFilter<"maintenancelog"> | number
+  next_service_at?: Prisma.IntFilter<"maintenancelog"> | number
+  description?: Prisma.StringNullableFilter<"maintenancelog"> | string | null
+  created_at?: Prisma.DateTimeFilter<"maintenancelog"> | Date | string
+  license_plates?: Prisma.XOR<Prisma.TruckScalarRelationFilter, Prisma.TruckWhereInput>
 }
 
-export type MaintenanceLogOrderByWithRelationInput = {
+export type maintenancelogOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   truck_id?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -255,25 +255,25 @@ export type MaintenanceLogOrderByWithRelationInput = {
   next_service_at?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  truck?: Prisma.TruckOrderByWithRelationInput
-  _relevance?: Prisma.MaintenanceLogOrderByRelevanceInput
+  license_plates?: Prisma.TruckOrderByWithRelationInput
+  _relevance?: Prisma.maintenancelogOrderByRelevanceInput
 }
 
-export type MaintenanceLogWhereUniqueInput = Prisma.AtLeast<{
+export type maintenancelogWhereUniqueInput = Prisma.AtLeast<{
   id?: bigint | number
-  AND?: Prisma.MaintenanceLogWhereInput | Prisma.MaintenanceLogWhereInput[]
-  OR?: Prisma.MaintenanceLogWhereInput[]
-  NOT?: Prisma.MaintenanceLogWhereInput | Prisma.MaintenanceLogWhereInput[]
-  truck_id?: Prisma.BigIntFilter<"MaintenanceLog"> | bigint | number
-  type?: Prisma.StringFilter<"MaintenanceLog"> | string
-  service_mileage?: Prisma.IntFilter<"MaintenanceLog"> | number
-  next_service_at?: Prisma.IntFilter<"MaintenanceLog"> | number
-  description?: Prisma.StringNullableFilter<"MaintenanceLog"> | string | null
-  created_at?: Prisma.DateTimeFilter<"MaintenanceLog"> | Date | string
-  truck?: Prisma.XOR<Prisma.TruckScalarRelationFilter, Prisma.TruckWhereInput>
+  AND?: Prisma.maintenancelogWhereInput | Prisma.maintenancelogWhereInput[]
+  OR?: Prisma.maintenancelogWhereInput[]
+  NOT?: Prisma.maintenancelogWhereInput | Prisma.maintenancelogWhereInput[]
+  truck_id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
+  type?: Prisma.StringFilter<"maintenancelog"> | string
+  service_mileage?: Prisma.IntFilter<"maintenancelog"> | number
+  next_service_at?: Prisma.IntFilter<"maintenancelog"> | number
+  description?: Prisma.StringNullableFilter<"maintenancelog"> | string | null
+  created_at?: Prisma.DateTimeFilter<"maintenancelog"> | Date | string
+  license_plates?: Prisma.XOR<Prisma.TruckScalarRelationFilter, Prisma.TruckWhereInput>
 }, "id">
 
-export type MaintenanceLogOrderByWithAggregationInput = {
+export type maintenancelogOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   truck_id?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -281,67 +281,37 @@ export type MaintenanceLogOrderByWithAggregationInput = {
   next_service_at?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  _count?: Prisma.MaintenanceLogCountOrderByAggregateInput
-  _avg?: Prisma.MaintenanceLogAvgOrderByAggregateInput
-  _max?: Prisma.MaintenanceLogMaxOrderByAggregateInput
-  _min?: Prisma.MaintenanceLogMinOrderByAggregateInput
-  _sum?: Prisma.MaintenanceLogSumOrderByAggregateInput
+  _count?: Prisma.maintenancelogCountOrderByAggregateInput
+  _avg?: Prisma.maintenancelogAvgOrderByAggregateInput
+  _max?: Prisma.maintenancelogMaxOrderByAggregateInput
+  _min?: Prisma.maintenancelogMinOrderByAggregateInput
+  _sum?: Prisma.maintenancelogSumOrderByAggregateInput
 }
 
-export type MaintenanceLogScalarWhereWithAggregatesInput = {
-  AND?: Prisma.MaintenanceLogScalarWhereWithAggregatesInput | Prisma.MaintenanceLogScalarWhereWithAggregatesInput[]
-  OR?: Prisma.MaintenanceLogScalarWhereWithAggregatesInput[]
-  NOT?: Prisma.MaintenanceLogScalarWhereWithAggregatesInput | Prisma.MaintenanceLogScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"MaintenanceLog"> | bigint | number
-  truck_id?: Prisma.BigIntWithAggregatesFilter<"MaintenanceLog"> | bigint | number
-  type?: Prisma.StringWithAggregatesFilter<"MaintenanceLog"> | string
-  service_mileage?: Prisma.IntWithAggregatesFilter<"MaintenanceLog"> | number
-  next_service_at?: Prisma.IntWithAggregatesFilter<"MaintenanceLog"> | number
-  description?: Prisma.StringNullableWithAggregatesFilter<"MaintenanceLog"> | string | null
-  created_at?: Prisma.DateTimeWithAggregatesFilter<"MaintenanceLog"> | Date | string
+export type maintenancelogScalarWhereWithAggregatesInput = {
+  AND?: Prisma.maintenancelogScalarWhereWithAggregatesInput | Prisma.maintenancelogScalarWhereWithAggregatesInput[]
+  OR?: Prisma.maintenancelogScalarWhereWithAggregatesInput[]
+  NOT?: Prisma.maintenancelogScalarWhereWithAggregatesInput | Prisma.maintenancelogScalarWhereWithAggregatesInput[]
+  id?: Prisma.BigIntWithAggregatesFilter<"maintenancelog"> | bigint | number
+  truck_id?: Prisma.BigIntWithAggregatesFilter<"maintenancelog"> | bigint | number
+  type?: Prisma.StringWithAggregatesFilter<"maintenancelog"> | string
+  service_mileage?: Prisma.IntWithAggregatesFilter<"maintenancelog"> | number
+  next_service_at?: Prisma.IntWithAggregatesFilter<"maintenancelog"> | number
+  description?: Prisma.StringNullableWithAggregatesFilter<"maintenancelog"> | string | null
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"maintenancelog"> | Date | string
 }
 
-export type MaintenanceLogCreateInput = {
+export type maintenancelogCreateInput = {
   id?: bigint | number
   type: string
   service_mileage: number
   next_service_at: number
   description?: string | null
   created_at?: Date | string
-  truck: Prisma.TruckCreateNestedOneWithoutMaintenanceLogsInput
+  license_plates: Prisma.TruckCreateNestedOneWithoutMaintenancelogInput
 }
 
-export type MaintenanceLogUncheckedCreateInput = {
-  id?: bigint | number
-  truck_id: bigint | number
-  type: string
-  service_mileage: number
-  next_service_at: number
-  description?: string | null
-  created_at?: Date | string
-}
-
-export type MaintenanceLogUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
-  next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  truck?: Prisma.TruckUpdateOneRequiredWithoutMaintenanceLogsNestedInput
-}
-
-export type MaintenanceLogUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  truck_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
-  next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type MaintenanceLogCreateManyInput = {
+export type maintenancelogUncheckedCreateInput = {
   id?: bigint | number
   truck_id: bigint | number
   type: string
@@ -351,16 +321,17 @@ export type MaintenanceLogCreateManyInput = {
   created_at?: Date | string
 }
 
-export type MaintenanceLogUpdateManyMutationInput = {
+export type maintenancelogUpdateInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  license_plates?: Prisma.TruckUpdateOneRequiredWithoutMaintenancelogNestedInput
 }
 
-export type MaintenanceLogUncheckedUpdateManyInput = {
+export type maintenancelogUncheckedUpdateInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   truck_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
@@ -370,23 +341,52 @@ export type MaintenanceLogUncheckedUpdateManyInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type MaintenanceLogListRelationFilter = {
-  every?: Prisma.MaintenanceLogWhereInput
-  some?: Prisma.MaintenanceLogWhereInput
-  none?: Prisma.MaintenanceLogWhereInput
+export type maintenancelogCreateManyInput = {
+  id?: bigint | number
+  truck_id: bigint | number
+  type: string
+  service_mileage: number
+  next_service_at: number
+  description?: string | null
+  created_at?: Date | string
 }
 
-export type MaintenanceLogOrderByRelationAggregateInput = {
+export type maintenancelogUpdateManyMutationInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
+  next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type maintenancelogUncheckedUpdateManyInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  truck_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
+  next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type MaintenancelogListRelationFilter = {
+  every?: Prisma.maintenancelogWhereInput
+  some?: Prisma.maintenancelogWhereInput
+  none?: Prisma.maintenancelogWhereInput
+}
+
+export type maintenancelogOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type MaintenanceLogOrderByRelevanceInput = {
-  fields: Prisma.MaintenanceLogOrderByRelevanceFieldEnum | Prisma.MaintenanceLogOrderByRelevanceFieldEnum[]
+export type maintenancelogOrderByRelevanceInput = {
+  fields: Prisma.maintenancelogOrderByRelevanceFieldEnum | Prisma.maintenancelogOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
 }
 
-export type MaintenanceLogCountOrderByAggregateInput = {
+export type maintenancelogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   truck_id?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -396,24 +396,14 @@ export type MaintenanceLogCountOrderByAggregateInput = {
   created_at?: Prisma.SortOrder
 }
 
-export type MaintenanceLogAvgOrderByAggregateInput = {
+export type maintenancelogAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   truck_id?: Prisma.SortOrder
   service_mileage?: Prisma.SortOrder
   next_service_at?: Prisma.SortOrder
 }
 
-export type MaintenanceLogMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  truck_id?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  service_mileage?: Prisma.SortOrder
-  next_service_at?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  created_at?: Prisma.SortOrder
-}
-
-export type MaintenanceLogMinOrderByAggregateInput = {
+export type maintenancelogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   truck_id?: Prisma.SortOrder
   type?: Prisma.SortOrder
@@ -423,60 +413,66 @@ export type MaintenanceLogMinOrderByAggregateInput = {
   created_at?: Prisma.SortOrder
 }
 
-export type MaintenanceLogSumOrderByAggregateInput = {
+export type maintenancelogMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  truck_id?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  service_mileage?: Prisma.SortOrder
+  next_service_at?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+}
+
+export type maintenancelogSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   truck_id?: Prisma.SortOrder
   service_mileage?: Prisma.SortOrder
   next_service_at?: Prisma.SortOrder
 }
 
-export type MaintenanceLogCreateNestedManyWithoutTruckInput = {
-  create?: Prisma.XOR<Prisma.MaintenanceLogCreateWithoutTruckInput, Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput> | Prisma.MaintenanceLogCreateWithoutTruckInput[] | Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput[]
-  connectOrCreate?: Prisma.MaintenanceLogCreateOrConnectWithoutTruckInput | Prisma.MaintenanceLogCreateOrConnectWithoutTruckInput[]
-  createMany?: Prisma.MaintenanceLogCreateManyTruckInputEnvelope
-  connect?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
+export type maintenancelogCreateNestedManyWithoutLicense_platesInput = {
+  create?: Prisma.XOR<Prisma.maintenancelogCreateWithoutLicense_platesInput, Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput> | Prisma.maintenancelogCreateWithoutLicense_platesInput[] | Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput[]
+  connectOrCreate?: Prisma.maintenancelogCreateOrConnectWithoutLicense_platesInput | Prisma.maintenancelogCreateOrConnectWithoutLicense_platesInput[]
+  createMany?: Prisma.maintenancelogCreateManyLicense_platesInputEnvelope
+  connect?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
 }
 
-export type MaintenanceLogUncheckedCreateNestedManyWithoutTruckInput = {
-  create?: Prisma.XOR<Prisma.MaintenanceLogCreateWithoutTruckInput, Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput> | Prisma.MaintenanceLogCreateWithoutTruckInput[] | Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput[]
-  connectOrCreate?: Prisma.MaintenanceLogCreateOrConnectWithoutTruckInput | Prisma.MaintenanceLogCreateOrConnectWithoutTruckInput[]
-  createMany?: Prisma.MaintenanceLogCreateManyTruckInputEnvelope
-  connect?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
+export type maintenancelogUncheckedCreateNestedManyWithoutLicense_platesInput = {
+  create?: Prisma.XOR<Prisma.maintenancelogCreateWithoutLicense_platesInput, Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput> | Prisma.maintenancelogCreateWithoutLicense_platesInput[] | Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput[]
+  connectOrCreate?: Prisma.maintenancelogCreateOrConnectWithoutLicense_platesInput | Prisma.maintenancelogCreateOrConnectWithoutLicense_platesInput[]
+  createMany?: Prisma.maintenancelogCreateManyLicense_platesInputEnvelope
+  connect?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
 }
 
-export type MaintenanceLogUpdateManyWithoutTruckNestedInput = {
-  create?: Prisma.XOR<Prisma.MaintenanceLogCreateWithoutTruckInput, Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput> | Prisma.MaintenanceLogCreateWithoutTruckInput[] | Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput[]
-  connectOrCreate?: Prisma.MaintenanceLogCreateOrConnectWithoutTruckInput | Prisma.MaintenanceLogCreateOrConnectWithoutTruckInput[]
-  upsert?: Prisma.MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput | Prisma.MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput[]
-  createMany?: Prisma.MaintenanceLogCreateManyTruckInputEnvelope
-  set?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
-  disconnect?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
-  delete?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
-  connect?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
-  update?: Prisma.MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput | Prisma.MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput[]
-  updateMany?: Prisma.MaintenanceLogUpdateManyWithWhereWithoutTruckInput | Prisma.MaintenanceLogUpdateManyWithWhereWithoutTruckInput[]
-  deleteMany?: Prisma.MaintenanceLogScalarWhereInput | Prisma.MaintenanceLogScalarWhereInput[]
+export type maintenancelogUpdateManyWithoutLicense_platesNestedInput = {
+  create?: Prisma.XOR<Prisma.maintenancelogCreateWithoutLicense_platesInput, Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput> | Prisma.maintenancelogCreateWithoutLicense_platesInput[] | Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput[]
+  connectOrCreate?: Prisma.maintenancelogCreateOrConnectWithoutLicense_platesInput | Prisma.maintenancelogCreateOrConnectWithoutLicense_platesInput[]
+  upsert?: Prisma.maintenancelogUpsertWithWhereUniqueWithoutLicense_platesInput | Prisma.maintenancelogUpsertWithWhereUniqueWithoutLicense_platesInput[]
+  createMany?: Prisma.maintenancelogCreateManyLicense_platesInputEnvelope
+  set?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
+  disconnect?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
+  delete?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
+  connect?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
+  update?: Prisma.maintenancelogUpdateWithWhereUniqueWithoutLicense_platesInput | Prisma.maintenancelogUpdateWithWhereUniqueWithoutLicense_platesInput[]
+  updateMany?: Prisma.maintenancelogUpdateManyWithWhereWithoutLicense_platesInput | Prisma.maintenancelogUpdateManyWithWhereWithoutLicense_platesInput[]
+  deleteMany?: Prisma.maintenancelogScalarWhereInput | Prisma.maintenancelogScalarWhereInput[]
 }
 
-export type MaintenanceLogUncheckedUpdateManyWithoutTruckNestedInput = {
-  create?: Prisma.XOR<Prisma.MaintenanceLogCreateWithoutTruckInput, Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput> | Prisma.MaintenanceLogCreateWithoutTruckInput[] | Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput[]
-  connectOrCreate?: Prisma.MaintenanceLogCreateOrConnectWithoutTruckInput | Prisma.MaintenanceLogCreateOrConnectWithoutTruckInput[]
-  upsert?: Prisma.MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput | Prisma.MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput[]
-  createMany?: Prisma.MaintenanceLogCreateManyTruckInputEnvelope
-  set?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
-  disconnect?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
-  delete?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
-  connect?: Prisma.MaintenanceLogWhereUniqueInput | Prisma.MaintenanceLogWhereUniqueInput[]
-  update?: Prisma.MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput | Prisma.MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput[]
-  updateMany?: Prisma.MaintenanceLogUpdateManyWithWhereWithoutTruckInput | Prisma.MaintenanceLogUpdateManyWithWhereWithoutTruckInput[]
-  deleteMany?: Prisma.MaintenanceLogScalarWhereInput | Prisma.MaintenanceLogScalarWhereInput[]
+export type maintenancelogUncheckedUpdateManyWithoutLicense_platesNestedInput = {
+  create?: Prisma.XOR<Prisma.maintenancelogCreateWithoutLicense_platesInput, Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput> | Prisma.maintenancelogCreateWithoutLicense_platesInput[] | Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput[]
+  connectOrCreate?: Prisma.maintenancelogCreateOrConnectWithoutLicense_platesInput | Prisma.maintenancelogCreateOrConnectWithoutLicense_platesInput[]
+  upsert?: Prisma.maintenancelogUpsertWithWhereUniqueWithoutLicense_platesInput | Prisma.maintenancelogUpsertWithWhereUniqueWithoutLicense_platesInput[]
+  createMany?: Prisma.maintenancelogCreateManyLicense_platesInputEnvelope
+  set?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
+  disconnect?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
+  delete?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
+  connect?: Prisma.maintenancelogWhereUniqueInput | Prisma.maintenancelogWhereUniqueInput[]
+  update?: Prisma.maintenancelogUpdateWithWhereUniqueWithoutLicense_platesInput | Prisma.maintenancelogUpdateWithWhereUniqueWithoutLicense_platesInput[]
+  updateMany?: Prisma.maintenancelogUpdateManyWithWhereWithoutLicense_platesInput | Prisma.maintenancelogUpdateManyWithWhereWithoutLicense_platesInput[]
+  deleteMany?: Prisma.maintenancelogScalarWhereInput | Prisma.maintenancelogScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
-export type MaintenanceLogCreateWithoutTruckInput = {
+export type maintenancelogCreateWithoutLicense_platesInput = {
   id?: bigint | number
   type: string
   service_mileage: number
@@ -485,7 +481,7 @@ export type MaintenanceLogCreateWithoutTruckInput = {
   created_at?: Date | string
 }
 
-export type MaintenanceLogUncheckedCreateWithoutTruckInput = {
+export type maintenancelogUncheckedCreateWithoutLicense_platesInput = {
   id?: bigint | number
   type: string
   service_mileage: number
@@ -494,46 +490,46 @@ export type MaintenanceLogUncheckedCreateWithoutTruckInput = {
   created_at?: Date | string
 }
 
-export type MaintenanceLogCreateOrConnectWithoutTruckInput = {
-  where: Prisma.MaintenanceLogWhereUniqueInput
-  create: Prisma.XOR<Prisma.MaintenanceLogCreateWithoutTruckInput, Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput>
+export type maintenancelogCreateOrConnectWithoutLicense_platesInput = {
+  where: Prisma.maintenancelogWhereUniqueInput
+  create: Prisma.XOR<Prisma.maintenancelogCreateWithoutLicense_platesInput, Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput>
 }
 
-export type MaintenanceLogCreateManyTruckInputEnvelope = {
-  data: Prisma.MaintenanceLogCreateManyTruckInput | Prisma.MaintenanceLogCreateManyTruckInput[]
+export type maintenancelogCreateManyLicense_platesInputEnvelope = {
+  data: Prisma.maintenancelogCreateManyLicense_platesInput | Prisma.maintenancelogCreateManyLicense_platesInput[]
   skipDuplicates?: boolean
 }
 
-export type MaintenanceLogUpsertWithWhereUniqueWithoutTruckInput = {
-  where: Prisma.MaintenanceLogWhereUniqueInput
-  update: Prisma.XOR<Prisma.MaintenanceLogUpdateWithoutTruckInput, Prisma.MaintenanceLogUncheckedUpdateWithoutTruckInput>
-  create: Prisma.XOR<Prisma.MaintenanceLogCreateWithoutTruckInput, Prisma.MaintenanceLogUncheckedCreateWithoutTruckInput>
+export type maintenancelogUpsertWithWhereUniqueWithoutLicense_platesInput = {
+  where: Prisma.maintenancelogWhereUniqueInput
+  update: Prisma.XOR<Prisma.maintenancelogUpdateWithoutLicense_platesInput, Prisma.maintenancelogUncheckedUpdateWithoutLicense_platesInput>
+  create: Prisma.XOR<Prisma.maintenancelogCreateWithoutLicense_platesInput, Prisma.maintenancelogUncheckedCreateWithoutLicense_platesInput>
 }
 
-export type MaintenanceLogUpdateWithWhereUniqueWithoutTruckInput = {
-  where: Prisma.MaintenanceLogWhereUniqueInput
-  data: Prisma.XOR<Prisma.MaintenanceLogUpdateWithoutTruckInput, Prisma.MaintenanceLogUncheckedUpdateWithoutTruckInput>
+export type maintenancelogUpdateWithWhereUniqueWithoutLicense_platesInput = {
+  where: Prisma.maintenancelogWhereUniqueInput
+  data: Prisma.XOR<Prisma.maintenancelogUpdateWithoutLicense_platesInput, Prisma.maintenancelogUncheckedUpdateWithoutLicense_platesInput>
 }
 
-export type MaintenanceLogUpdateManyWithWhereWithoutTruckInput = {
-  where: Prisma.MaintenanceLogScalarWhereInput
-  data: Prisma.XOR<Prisma.MaintenanceLogUpdateManyMutationInput, Prisma.MaintenanceLogUncheckedUpdateManyWithoutTruckInput>
+export type maintenancelogUpdateManyWithWhereWithoutLicense_platesInput = {
+  where: Prisma.maintenancelogScalarWhereInput
+  data: Prisma.XOR<Prisma.maintenancelogUpdateManyMutationInput, Prisma.maintenancelogUncheckedUpdateManyWithoutLicense_platesInput>
 }
 
-export type MaintenanceLogScalarWhereInput = {
-  AND?: Prisma.MaintenanceLogScalarWhereInput | Prisma.MaintenanceLogScalarWhereInput[]
-  OR?: Prisma.MaintenanceLogScalarWhereInput[]
-  NOT?: Prisma.MaintenanceLogScalarWhereInput | Prisma.MaintenanceLogScalarWhereInput[]
-  id?: Prisma.BigIntFilter<"MaintenanceLog"> | bigint | number
-  truck_id?: Prisma.BigIntFilter<"MaintenanceLog"> | bigint | number
-  type?: Prisma.StringFilter<"MaintenanceLog"> | string
-  service_mileage?: Prisma.IntFilter<"MaintenanceLog"> | number
-  next_service_at?: Prisma.IntFilter<"MaintenanceLog"> | number
-  description?: Prisma.StringNullableFilter<"MaintenanceLog"> | string | null
-  created_at?: Prisma.DateTimeFilter<"MaintenanceLog"> | Date | string
+export type maintenancelogScalarWhereInput = {
+  AND?: Prisma.maintenancelogScalarWhereInput | Prisma.maintenancelogScalarWhereInput[]
+  OR?: Prisma.maintenancelogScalarWhereInput[]
+  NOT?: Prisma.maintenancelogScalarWhereInput | Prisma.maintenancelogScalarWhereInput[]
+  id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
+  truck_id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
+  type?: Prisma.StringFilter<"maintenancelog"> | string
+  service_mileage?: Prisma.IntFilter<"maintenancelog"> | number
+  next_service_at?: Prisma.IntFilter<"maintenancelog"> | number
+  description?: Prisma.StringNullableFilter<"maintenancelog"> | string | null
+  created_at?: Prisma.DateTimeFilter<"maintenancelog"> | Date | string
 }
 
-export type MaintenanceLogCreateManyTruckInput = {
+export type maintenancelogCreateManyLicense_platesInput = {
   id?: bigint | number
   type: string
   service_mileage: number
@@ -542,7 +538,7 @@ export type MaintenanceLogCreateManyTruckInput = {
   created_at?: Date | string
 }
 
-export type MaintenanceLogUpdateWithoutTruckInput = {
+export type maintenancelogUpdateWithoutLicense_platesInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
@@ -551,7 +547,7 @@ export type MaintenanceLogUpdateWithoutTruckInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type MaintenanceLogUncheckedUpdateWithoutTruckInput = {
+export type maintenancelogUncheckedUpdateWithoutLicense_platesInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
@@ -560,7 +556,7 @@ export type MaintenanceLogUncheckedUpdateWithoutTruckInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type MaintenanceLogUncheckedUpdateManyWithoutTruckInput = {
+export type maintenancelogUncheckedUpdateManyWithoutLicense_platesInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
@@ -571,7 +567,7 @@ export type MaintenanceLogUncheckedUpdateManyWithoutTruckInput = {
 
 
 
-export type MaintenanceLogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type maintenancelogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   truck_id?: boolean
   type?: boolean
@@ -579,12 +575,12 @@ export type MaintenanceLogSelect<ExtArgs extends runtime.Types.Extensions.Intern
   next_service_at?: boolean
   description?: boolean
   created_at?: boolean
-  truck?: boolean | Prisma.TruckDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["maintenanceLog"]>
+  license_plates?: boolean | Prisma.TruckDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["maintenancelog"]>
 
 
 
-export type MaintenanceLogSelectScalar = {
+export type maintenancelogSelectScalar = {
   id?: boolean
   truck_id?: boolean
   type?: boolean
@@ -594,15 +590,15 @@ export type MaintenanceLogSelectScalar = {
   created_at?: boolean
 }
 
-export type MaintenanceLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "truck_id" | "type" | "service_mileage" | "next_service_at" | "description" | "created_at", ExtArgs["result"]["maintenanceLog"]>
-export type MaintenanceLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  truck?: boolean | Prisma.TruckDefaultArgs<ExtArgs>
+export type maintenancelogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "truck_id" | "type" | "service_mileage" | "next_service_at" | "description" | "created_at", ExtArgs["result"]["maintenancelog"]>
+export type maintenancelogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  license_plates?: boolean | Prisma.TruckDefaultArgs<ExtArgs>
 }
 
-export type $MaintenanceLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  name: "MaintenanceLog"
+export type $maintenancelogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  name: "maintenancelog"
   objects: {
-    truck: Prisma.$TruckPayload<ExtArgs>
+    license_plates: Prisma.$TruckPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: bigint
@@ -612,143 +608,143 @@ export type $MaintenanceLogPayload<ExtArgs extends runtime.Types.Extensions.Inte
     next_service_at: number
     description: string | null
     created_at: Date
-  }, ExtArgs["result"]["maintenanceLog"]>
+  }, ExtArgs["result"]["maintenancelog"]>
   composites: {}
 }
 
-export type MaintenanceLogGetPayload<S extends boolean | null | undefined | MaintenanceLogDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload, S>
+export type maintenancelogGetPayload<S extends boolean | null | undefined | maintenancelogDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload, S>
 
-export type MaintenanceLogCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
-  Omit<MaintenanceLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-    select?: MaintenanceLogCountAggregateInputType | true
+export type maintenancelogCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
+  Omit<maintenancelogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: MaintenancelogCountAggregateInputType | true
   }
 
-export interface MaintenanceLogDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MaintenanceLog'], meta: { name: 'MaintenanceLog' } }
+export interface maintenancelogDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['maintenancelog'], meta: { name: 'maintenancelog' } }
   /**
-   * Find zero or one MaintenanceLog that matches the filter.
-   * @param {MaintenanceLogFindUniqueArgs} args - Arguments to find a MaintenanceLog
+   * Find zero or one Maintenancelog that matches the filter.
+   * @param {maintenancelogFindUniqueArgs} args - Arguments to find a Maintenancelog
    * @example
-   * // Get one MaintenanceLog
-   * const maintenanceLog = await prisma.maintenanceLog.findUnique({
+   * // Get one Maintenancelog
+   * const maintenancelog = await prisma.maintenancelog.findUnique({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findUnique<T extends MaintenanceLogFindUniqueArgs>(args: Prisma.SelectSubset<T, MaintenanceLogFindUniqueArgs<ExtArgs>>): Prisma.Prisma__MaintenanceLogClient<runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  findUnique<T extends maintenancelogFindUniqueArgs>(args: Prisma.SelectSubset<T, maintenancelogFindUniqueArgs<ExtArgs>>): Prisma.Prisma__maintenancelogClient<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find one MaintenanceLog that matches the filter or throw an error with `error.code='P2025'`
+   * Find one Maintenancelog that matches the filter or throw an error with `error.code='P2025'`
    * if no matches were found.
-   * @param {MaintenanceLogFindUniqueOrThrowArgs} args - Arguments to find a MaintenanceLog
+   * @param {maintenancelogFindUniqueOrThrowArgs} args - Arguments to find a Maintenancelog
    * @example
-   * // Get one MaintenanceLog
-   * const maintenanceLog = await prisma.maintenanceLog.findUniqueOrThrow({
+   * // Get one Maintenancelog
+   * const maintenancelog = await prisma.maintenancelog.findUniqueOrThrow({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findUniqueOrThrow<T extends MaintenanceLogFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, MaintenanceLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__MaintenanceLogClient<runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  findUniqueOrThrow<T extends maintenancelogFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, maintenancelogFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__maintenancelogClient<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find the first MaintenanceLog that matches the filter.
+   * Find the first Maintenancelog that matches the filter.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {MaintenanceLogFindFirstArgs} args - Arguments to find a MaintenanceLog
+   * @param {maintenancelogFindFirstArgs} args - Arguments to find a Maintenancelog
    * @example
-   * // Get one MaintenanceLog
-   * const maintenanceLog = await prisma.maintenanceLog.findFirst({
+   * // Get one Maintenancelog
+   * const maintenancelog = await prisma.maintenancelog.findFirst({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findFirst<T extends MaintenanceLogFindFirstArgs>(args?: Prisma.SelectSubset<T, MaintenanceLogFindFirstArgs<ExtArgs>>): Prisma.Prisma__MaintenanceLogClient<runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  findFirst<T extends maintenancelogFindFirstArgs>(args?: Prisma.SelectSubset<T, maintenancelogFindFirstArgs<ExtArgs>>): Prisma.Prisma__maintenancelogClient<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find the first MaintenanceLog that matches the filter or
+   * Find the first Maintenancelog that matches the filter or
    * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {MaintenanceLogFindFirstOrThrowArgs} args - Arguments to find a MaintenanceLog
+   * @param {maintenancelogFindFirstOrThrowArgs} args - Arguments to find a Maintenancelog
    * @example
-   * // Get one MaintenanceLog
-   * const maintenanceLog = await prisma.maintenanceLog.findFirstOrThrow({
+   * // Get one Maintenancelog
+   * const maintenancelog = await prisma.maintenancelog.findFirstOrThrow({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    */
-  findFirstOrThrow<T extends MaintenanceLogFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, MaintenanceLogFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__MaintenanceLogClient<runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  findFirstOrThrow<T extends maintenancelogFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, maintenancelogFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__maintenancelogClient<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Find zero or more MaintenanceLogs that matches the filter.
+   * Find zero or more Maintenancelogs that matches the filter.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {MaintenanceLogFindManyArgs} args - Arguments to filter and select certain fields only.
+   * @param {maintenancelogFindManyArgs} args - Arguments to filter and select certain fields only.
    * @example
-   * // Get all MaintenanceLogs
-   * const maintenanceLogs = await prisma.maintenanceLog.findMany()
+   * // Get all Maintenancelogs
+   * const maintenancelogs = await prisma.maintenancelog.findMany()
    * 
-   * // Get first 10 MaintenanceLogs
-   * const maintenanceLogs = await prisma.maintenanceLog.findMany({ take: 10 })
+   * // Get first 10 Maintenancelogs
+   * const maintenancelogs = await prisma.maintenancelog.findMany({ take: 10 })
    * 
    * // Only select the `id`
-   * const maintenanceLogWithIdOnly = await prisma.maintenanceLog.findMany({ select: { id: true } })
+   * const maintenancelogWithIdOnly = await prisma.maintenancelog.findMany({ select: { id: true } })
    * 
    */
-  findMany<T extends MaintenanceLogFindManyArgs>(args?: Prisma.SelectSubset<T, MaintenanceLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+  findMany<T extends maintenancelogFindManyArgs>(args?: Prisma.SelectSubset<T, maintenancelogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
   /**
-   * Create a MaintenanceLog.
-   * @param {MaintenanceLogCreateArgs} args - Arguments to create a MaintenanceLog.
+   * Create a Maintenancelog.
+   * @param {maintenancelogCreateArgs} args - Arguments to create a Maintenancelog.
    * @example
-   * // Create one MaintenanceLog
-   * const MaintenanceLog = await prisma.maintenanceLog.create({
+   * // Create one Maintenancelog
+   * const Maintenancelog = await prisma.maintenancelog.create({
    *   data: {
-   *     // ... data to create a MaintenanceLog
+   *     // ... data to create a Maintenancelog
    *   }
    * })
    * 
    */
-  create<T extends MaintenanceLogCreateArgs>(args: Prisma.SelectSubset<T, MaintenanceLogCreateArgs<ExtArgs>>): Prisma.Prisma__MaintenanceLogClient<runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  create<T extends maintenancelogCreateArgs>(args: Prisma.SelectSubset<T, maintenancelogCreateArgs<ExtArgs>>): Prisma.Prisma__maintenancelogClient<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Create many MaintenanceLogs.
-   * @param {MaintenanceLogCreateManyArgs} args - Arguments to create many MaintenanceLogs.
+   * Create many Maintenancelogs.
+   * @param {maintenancelogCreateManyArgs} args - Arguments to create many Maintenancelogs.
    * @example
-   * // Create many MaintenanceLogs
-   * const maintenanceLog = await prisma.maintenanceLog.createMany({
+   * // Create many Maintenancelogs
+   * const maintenancelog = await prisma.maintenancelog.createMany({
    *   data: [
    *     // ... provide data here
    *   ]
    * })
    *     
    */
-  createMany<T extends MaintenanceLogCreateManyArgs>(args?: Prisma.SelectSubset<T, MaintenanceLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  createMany<T extends maintenancelogCreateManyArgs>(args?: Prisma.SelectSubset<T, maintenancelogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Delete a MaintenanceLog.
-   * @param {MaintenanceLogDeleteArgs} args - Arguments to delete one MaintenanceLog.
+   * Delete a Maintenancelog.
+   * @param {maintenancelogDeleteArgs} args - Arguments to delete one Maintenancelog.
    * @example
-   * // Delete one MaintenanceLog
-   * const MaintenanceLog = await prisma.maintenanceLog.delete({
+   * // Delete one Maintenancelog
+   * const Maintenancelog = await prisma.maintenancelog.delete({
    *   where: {
-   *     // ... filter to delete one MaintenanceLog
+   *     // ... filter to delete one Maintenancelog
    *   }
    * })
    * 
    */
-  delete<T extends MaintenanceLogDeleteArgs>(args: Prisma.SelectSubset<T, MaintenanceLogDeleteArgs<ExtArgs>>): Prisma.Prisma__MaintenanceLogClient<runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  delete<T extends maintenancelogDeleteArgs>(args: Prisma.SelectSubset<T, maintenancelogDeleteArgs<ExtArgs>>): Prisma.Prisma__maintenancelogClient<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Update one MaintenanceLog.
-   * @param {MaintenanceLogUpdateArgs} args - Arguments to update one MaintenanceLog.
+   * Update one Maintenancelog.
+   * @param {maintenancelogUpdateArgs} args - Arguments to update one Maintenancelog.
    * @example
-   * // Update one MaintenanceLog
-   * const maintenanceLog = await prisma.maintenanceLog.update({
+   * // Update one Maintenancelog
+   * const maintenancelog = await prisma.maintenancelog.update({
    *   where: {
    *     // ... provide filter here
    *   },
@@ -758,30 +754,30 @@ export interface MaintenanceLogDelegate<ExtArgs extends runtime.Types.Extensions
    * })
    * 
    */
-  update<T extends MaintenanceLogUpdateArgs>(args: Prisma.SelectSubset<T, MaintenanceLogUpdateArgs<ExtArgs>>): Prisma.Prisma__MaintenanceLogClient<runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  update<T extends maintenancelogUpdateArgs>(args: Prisma.SelectSubset<T, maintenancelogUpdateArgs<ExtArgs>>): Prisma.Prisma__maintenancelogClient<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
   /**
-   * Delete zero or more MaintenanceLogs.
-   * @param {MaintenanceLogDeleteManyArgs} args - Arguments to filter MaintenanceLogs to delete.
+   * Delete zero or more Maintenancelogs.
+   * @param {maintenancelogDeleteManyArgs} args - Arguments to filter Maintenancelogs to delete.
    * @example
-   * // Delete a few MaintenanceLogs
-   * const { count } = await prisma.maintenanceLog.deleteMany({
+   * // Delete a few Maintenancelogs
+   * const { count } = await prisma.maintenancelog.deleteMany({
    *   where: {
    *     // ... provide filter here
    *   }
    * })
    * 
    */
-  deleteMany<T extends MaintenanceLogDeleteManyArgs>(args?: Prisma.SelectSubset<T, MaintenanceLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  deleteMany<T extends maintenancelogDeleteManyArgs>(args?: Prisma.SelectSubset<T, maintenancelogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Update zero or more MaintenanceLogs.
+   * Update zero or more Maintenancelogs.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {MaintenanceLogUpdateManyArgs} args - Arguments to update one or more rows.
+   * @param {maintenancelogUpdateManyArgs} args - Arguments to update one or more rows.
    * @example
-   * // Update many MaintenanceLogs
-   * const maintenanceLog = await prisma.maintenanceLog.updateMany({
+   * // Update many Maintenancelogs
+   * const maintenancelog = await prisma.maintenancelog.updateMany({
    *   where: {
    *     // ... provide filter here
    *   },
@@ -791,56 +787,56 @@ export interface MaintenanceLogDelegate<ExtArgs extends runtime.Types.Extensions
    * })
    * 
    */
-  updateMany<T extends MaintenanceLogUpdateManyArgs>(args: Prisma.SelectSubset<T, MaintenanceLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+  updateMany<T extends maintenancelogUpdateManyArgs>(args: Prisma.SelectSubset<T, maintenancelogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create or update one MaintenanceLog.
-   * @param {MaintenanceLogUpsertArgs} args - Arguments to update or create a MaintenanceLog.
+   * Create or update one Maintenancelog.
+   * @param {maintenancelogUpsertArgs} args - Arguments to update or create a Maintenancelog.
    * @example
-   * // Update or create a MaintenanceLog
-   * const maintenanceLog = await prisma.maintenanceLog.upsert({
+   * // Update or create a Maintenancelog
+   * const maintenancelog = await prisma.maintenancelog.upsert({
    *   create: {
-   *     // ... data to create a MaintenanceLog
+   *     // ... data to create a Maintenancelog
    *   },
    *   update: {
    *     // ... in case it already exists, update
    *   },
    *   where: {
-   *     // ... the filter for the MaintenanceLog we want to update
+   *     // ... the filter for the Maintenancelog we want to update
    *   }
    * })
    */
-  upsert<T extends MaintenanceLogUpsertArgs>(args: Prisma.SelectSubset<T, MaintenanceLogUpsertArgs<ExtArgs>>): Prisma.Prisma__MaintenanceLogClient<runtime.Types.Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+  upsert<T extends maintenancelogUpsertArgs>(args: Prisma.SelectSubset<T, maintenancelogUpsertArgs<ExtArgs>>): Prisma.Prisma__maintenancelogClient<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
   /**
-   * Count the number of MaintenanceLogs.
+   * Count the number of Maintenancelogs.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {MaintenanceLogCountArgs} args - Arguments to filter MaintenanceLogs to count.
+   * @param {maintenancelogCountArgs} args - Arguments to filter Maintenancelogs to count.
    * @example
-   * // Count the number of MaintenanceLogs
-   * const count = await prisma.maintenanceLog.count({
+   * // Count the number of Maintenancelogs
+   * const count = await prisma.maintenancelog.count({
    *   where: {
-   *     // ... the filter for the MaintenanceLogs we want to count
+   *     // ... the filter for the Maintenancelogs we want to count
    *   }
    * })
   **/
-  count<T extends MaintenanceLogCountArgs>(
-    args?: Prisma.Subset<T, MaintenanceLogCountArgs>,
+  count<T extends maintenancelogCountArgs>(
+    args?: Prisma.Subset<T, maintenancelogCountArgs>,
   ): Prisma.PrismaPromise<
     T extends runtime.Types.Utils.Record<'select', any>
       ? T['select'] extends true
         ? number
-        : Prisma.GetScalarType<T['select'], MaintenanceLogCountAggregateOutputType>
+        : Prisma.GetScalarType<T['select'], MaintenancelogCountAggregateOutputType>
       : number
   >
 
   /**
-   * Allows you to perform aggregations operations on a MaintenanceLog.
+   * Allows you to perform aggregations operations on a Maintenancelog.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {MaintenanceLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+   * @param {MaintenancelogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
    * @example
    * // Ordered by age ascending
    * // Where email contains prisma.io
@@ -860,13 +856,13 @@ export interface MaintenanceLogDelegate<ExtArgs extends runtime.Types.Extensions
    *   take: 10,
    * })
   **/
-  aggregate<T extends MaintenanceLogAggregateArgs>(args: Prisma.Subset<T, MaintenanceLogAggregateArgs>): Prisma.PrismaPromise<GetMaintenanceLogAggregateType<T>>
+  aggregate<T extends MaintenancelogAggregateArgs>(args: Prisma.Subset<T, MaintenancelogAggregateArgs>): Prisma.PrismaPromise<GetMaintenancelogAggregateType<T>>
 
   /**
-   * Group by MaintenanceLog.
+   * Group by Maintenancelog.
    * Note, that providing `undefined` is treated as the value not being there.
    * Read more here: https://pris.ly/d/null-undefined
-   * @param {MaintenanceLogGroupByArgs} args - Group by arguments.
+   * @param {maintenancelogGroupByArgs} args - Group by arguments.
    * @example
    * // Group by city, order by createdAt, get count
    * const result = await prisma.user.groupBy({
@@ -881,14 +877,14 @@ export interface MaintenanceLogDelegate<ExtArgs extends runtime.Types.Extensions
    * 
   **/
   groupBy<
-    T extends MaintenanceLogGroupByArgs,
+    T extends maintenancelogGroupByArgs,
     HasSelectOrTake extends Prisma.Or<
       Prisma.Extends<'skip', Prisma.Keys<T>>,
       Prisma.Extends<'take', Prisma.Keys<T>>
     >,
     OrderByArg extends Prisma.True extends HasSelectOrTake
-      ? { orderBy: MaintenanceLogGroupByArgs['orderBy'] }
-      : { orderBy?: MaintenanceLogGroupByArgs['orderBy'] },
+      ? { orderBy: maintenancelogGroupByArgs['orderBy'] }
+      : { orderBy?: maintenancelogGroupByArgs['orderBy'] },
     OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
     ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
@@ -937,22 +933,22 @@ export interface MaintenanceLogDelegate<ExtArgs extends runtime.Types.Extensions
           ? never
           : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
       }[OrderFields]
-  >(args: Prisma.SubsetIntersection<T, MaintenanceLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenanceLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  >(args: Prisma.SubsetIntersection<T, maintenancelogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenancelogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
 /**
- * Fields of the MaintenanceLog model
+ * Fields of the maintenancelog model
  */
-readonly fields: MaintenanceLogFieldRefs;
+readonly fields: maintenancelogFieldRefs;
 }
 
 /**
- * The delegate class that acts as a "Promise-like" for MaintenanceLog.
+ * The delegate class that acts as a "Promise-like" for maintenancelog.
  * Why is this prefixed with `Prisma__`?
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
-export interface Prisma__MaintenanceLogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+export interface Prisma__maintenancelogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  truck<T extends Prisma.TruckDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TruckDefaultArgs<ExtArgs>>): Prisma.Prisma__TruckClient<runtime.Types.Result.GetResult<Prisma.$TruckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  license_plates<T extends Prisma.TruckDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TruckDefaultArgs<ExtArgs>>): Prisma.Prisma__TruckClient<runtime.Types.Result.GetResult<Prisma.$TruckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -979,377 +975,377 @@ export interface Prisma__MaintenanceLogClient<T, Null = never, ExtArgs extends r
 
 
 /**
- * Fields of the MaintenanceLog model
+ * Fields of the maintenancelog model
  */
-export interface MaintenanceLogFieldRefs {
-  readonly id: Prisma.FieldRef<"MaintenanceLog", 'BigInt'>
-  readonly truck_id: Prisma.FieldRef<"MaintenanceLog", 'BigInt'>
-  readonly type: Prisma.FieldRef<"MaintenanceLog", 'String'>
-  readonly service_mileage: Prisma.FieldRef<"MaintenanceLog", 'Int'>
-  readonly next_service_at: Prisma.FieldRef<"MaintenanceLog", 'Int'>
-  readonly description: Prisma.FieldRef<"MaintenanceLog", 'String'>
-  readonly created_at: Prisma.FieldRef<"MaintenanceLog", 'DateTime'>
+export interface maintenancelogFieldRefs {
+  readonly id: Prisma.FieldRef<"maintenancelog", 'BigInt'>
+  readonly truck_id: Prisma.FieldRef<"maintenancelog", 'BigInt'>
+  readonly type: Prisma.FieldRef<"maintenancelog", 'String'>
+  readonly service_mileage: Prisma.FieldRef<"maintenancelog", 'Int'>
+  readonly next_service_at: Prisma.FieldRef<"maintenancelog", 'Int'>
+  readonly description: Prisma.FieldRef<"maintenancelog", 'String'>
+  readonly created_at: Prisma.FieldRef<"maintenancelog", 'DateTime'>
 }
     
 
 // Custom InputTypes
 /**
- * MaintenanceLog findUnique
+ * maintenancelog findUnique
  */
-export type MaintenanceLogFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
   /**
-   * Filter, which MaintenanceLog to fetch.
+   * Filter, which maintenancelog to fetch.
    */
-  where: Prisma.MaintenanceLogWhereUniqueInput
+  where: Prisma.maintenancelogWhereUniqueInput
 }
 
 /**
- * MaintenanceLog findUniqueOrThrow
+ * maintenancelog findUniqueOrThrow
  */
-export type MaintenanceLogFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
   /**
-   * Filter, which MaintenanceLog to fetch.
+   * Filter, which maintenancelog to fetch.
    */
-  where: Prisma.MaintenanceLogWhereUniqueInput
+  where: Prisma.maintenancelogWhereUniqueInput
 }
 
 /**
- * MaintenanceLog findFirst
+ * maintenancelog findFirst
  */
-export type MaintenanceLogFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
   /**
-   * Filter, which MaintenanceLog to fetch.
+   * Filter, which maintenancelog to fetch.
    */
-  where?: Prisma.MaintenanceLogWhereInput
+  where?: Prisma.maintenancelogWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of MaintenanceLogs to fetch.
+   * Determine the order of maintenancelogs to fetch.
    */
-  orderBy?: Prisma.MaintenanceLogOrderByWithRelationInput | Prisma.MaintenanceLogOrderByWithRelationInput[]
+  orderBy?: Prisma.maintenancelogOrderByWithRelationInput | Prisma.maintenancelogOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for searching for MaintenanceLogs.
+   * Sets the position for searching for maintenancelogs.
    */
-  cursor?: Prisma.MaintenanceLogWhereUniqueInput
+  cursor?: Prisma.maintenancelogWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` MaintenanceLogs from the position of the cursor.
+   * Take `±n` maintenancelogs from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` MaintenanceLogs.
+   * Skip the first `n` maintenancelogs.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of MaintenanceLogs.
+   * Filter by unique combinations of maintenancelogs.
    */
-  distinct?: Prisma.MaintenanceLogScalarFieldEnum | Prisma.MaintenanceLogScalarFieldEnum[]
+  distinct?: Prisma.MaintenancelogScalarFieldEnum | Prisma.MaintenancelogScalarFieldEnum[]
 }
 
 /**
- * MaintenanceLog findFirstOrThrow
+ * maintenancelog findFirstOrThrow
  */
-export type MaintenanceLogFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
   /**
-   * Filter, which MaintenanceLog to fetch.
+   * Filter, which maintenancelog to fetch.
    */
-  where?: Prisma.MaintenanceLogWhereInput
+  where?: Prisma.maintenancelogWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of MaintenanceLogs to fetch.
+   * Determine the order of maintenancelogs to fetch.
    */
-  orderBy?: Prisma.MaintenanceLogOrderByWithRelationInput | Prisma.MaintenanceLogOrderByWithRelationInput[]
+  orderBy?: Prisma.maintenancelogOrderByWithRelationInput | Prisma.maintenancelogOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for searching for MaintenanceLogs.
+   * Sets the position for searching for maintenancelogs.
    */
-  cursor?: Prisma.MaintenanceLogWhereUniqueInput
+  cursor?: Prisma.maintenancelogWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` MaintenanceLogs from the position of the cursor.
+   * Take `±n` maintenancelogs from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` MaintenanceLogs.
+   * Skip the first `n` maintenancelogs.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of MaintenanceLogs.
+   * Filter by unique combinations of maintenancelogs.
    */
-  distinct?: Prisma.MaintenanceLogScalarFieldEnum | Prisma.MaintenanceLogScalarFieldEnum[]
+  distinct?: Prisma.MaintenancelogScalarFieldEnum | Prisma.MaintenancelogScalarFieldEnum[]
 }
 
 /**
- * MaintenanceLog findMany
+ * maintenancelog findMany
  */
-export type MaintenanceLogFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
   /**
-   * Filter, which MaintenanceLogs to fetch.
+   * Filter, which maintenancelogs to fetch.
    */
-  where?: Prisma.MaintenanceLogWhereInput
+  where?: Prisma.maintenancelogWhereInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
    * 
-   * Determine the order of MaintenanceLogs to fetch.
+   * Determine the order of maintenancelogs to fetch.
    */
-  orderBy?: Prisma.MaintenanceLogOrderByWithRelationInput | Prisma.MaintenanceLogOrderByWithRelationInput[]
+  orderBy?: Prisma.maintenancelogOrderByWithRelationInput | Prisma.maintenancelogOrderByWithRelationInput[]
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    * 
-   * Sets the position for listing MaintenanceLogs.
+   * Sets the position for listing maintenancelogs.
    */
-  cursor?: Prisma.MaintenanceLogWhereUniqueInput
+  cursor?: Prisma.maintenancelogWhereUniqueInput
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Take `±n` MaintenanceLogs from the position of the cursor.
+   * Take `±n` maintenancelogs from the position of the cursor.
    */
   take?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
    * 
-   * Skip the first `n` MaintenanceLogs.
+   * Skip the first `n` maintenancelogs.
    */
   skip?: number
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
    * 
-   * Filter by unique combinations of MaintenanceLogs.
+   * Filter by unique combinations of maintenancelogs.
    */
-  distinct?: Prisma.MaintenanceLogScalarFieldEnum | Prisma.MaintenanceLogScalarFieldEnum[]
+  distinct?: Prisma.MaintenancelogScalarFieldEnum | Prisma.MaintenancelogScalarFieldEnum[]
 }
 
 /**
- * MaintenanceLog create
+ * maintenancelog create
  */
-export type MaintenanceLogCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
   /**
-   * The data needed to create a MaintenanceLog.
+   * The data needed to create a maintenancelog.
    */
-  data: Prisma.XOR<Prisma.MaintenanceLogCreateInput, Prisma.MaintenanceLogUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.maintenancelogCreateInput, Prisma.maintenancelogUncheckedCreateInput>
 }
 
 /**
- * MaintenanceLog createMany
+ * maintenancelog createMany
  */
-export type MaintenanceLogCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * The data used to create many MaintenanceLogs.
+   * The data used to create many maintenancelogs.
    */
-  data: Prisma.MaintenanceLogCreateManyInput | Prisma.MaintenanceLogCreateManyInput[]
+  data: Prisma.maintenancelogCreateManyInput | Prisma.maintenancelogCreateManyInput[]
   skipDuplicates?: boolean
 }
 
 /**
- * MaintenanceLog update
+ * maintenancelog update
  */
-export type MaintenanceLogUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
   /**
-   * The data needed to update a MaintenanceLog.
+   * The data needed to update a maintenancelog.
    */
-  data: Prisma.XOR<Prisma.MaintenanceLogUpdateInput, Prisma.MaintenanceLogUncheckedUpdateInput>
+  data: Prisma.XOR<Prisma.maintenancelogUpdateInput, Prisma.maintenancelogUncheckedUpdateInput>
   /**
-   * Choose, which MaintenanceLog to update.
+   * Choose, which maintenancelog to update.
    */
-  where: Prisma.MaintenanceLogWhereUniqueInput
+  where: Prisma.maintenancelogWhereUniqueInput
 }
 
 /**
- * MaintenanceLog updateMany
+ * maintenancelog updateMany
  */
-export type MaintenanceLogUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * The data used to update MaintenanceLogs.
+   * The data used to update maintenancelogs.
    */
-  data: Prisma.XOR<Prisma.MaintenanceLogUpdateManyMutationInput, Prisma.MaintenanceLogUncheckedUpdateManyInput>
+  data: Prisma.XOR<Prisma.maintenancelogUpdateManyMutationInput, Prisma.maintenancelogUncheckedUpdateManyInput>
   /**
-   * Filter which MaintenanceLogs to update
+   * Filter which maintenancelogs to update
    */
-  where?: Prisma.MaintenanceLogWhereInput
+  where?: Prisma.maintenancelogWhereInput
   /**
-   * Limit how many MaintenanceLogs to update.
+   * Limit how many maintenancelogs to update.
    */
   limit?: number
 }
 
 /**
- * MaintenanceLog upsert
+ * maintenancelog upsert
  */
-export type MaintenanceLogUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
   /**
-   * The filter to search for the MaintenanceLog to update in case it exists.
+   * The filter to search for the maintenancelog to update in case it exists.
    */
-  where: Prisma.MaintenanceLogWhereUniqueInput
+  where: Prisma.maintenancelogWhereUniqueInput
   /**
-   * In case the MaintenanceLog found by the `where` argument doesn't exist, create a new MaintenanceLog with this data.
+   * In case the maintenancelog found by the `where` argument doesn't exist, create a new maintenancelog with this data.
    */
-  create: Prisma.XOR<Prisma.MaintenanceLogCreateInput, Prisma.MaintenanceLogUncheckedCreateInput>
+  create: Prisma.XOR<Prisma.maintenancelogCreateInput, Prisma.maintenancelogUncheckedCreateInput>
   /**
-   * In case the MaintenanceLog was found with the provided `where` argument, update it with this data.
+   * In case the maintenancelog was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<Prisma.MaintenanceLogUpdateInput, Prisma.MaintenanceLogUncheckedUpdateInput>
+  update: Prisma.XOR<Prisma.maintenancelogUpdateInput, Prisma.maintenancelogUncheckedUpdateInput>
 }
 
 /**
- * MaintenanceLog delete
+ * maintenancelog delete
  */
-export type MaintenanceLogDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
   /**
-   * Filter which MaintenanceLog to delete.
+   * Filter which maintenancelog to delete.
    */
-  where: Prisma.MaintenanceLogWhereUniqueInput
+  where: Prisma.maintenancelogWhereUniqueInput
 }
 
 /**
- * MaintenanceLog deleteMany
+ * maintenancelog deleteMany
  */
-export type MaintenanceLogDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Filter which MaintenanceLogs to delete
+   * Filter which maintenancelogs to delete
    */
-  where?: Prisma.MaintenanceLogWhereInput
+  where?: Prisma.maintenancelogWhereInput
   /**
-   * Limit how many MaintenanceLogs to delete.
+   * Limit how many maintenancelogs to delete.
    */
   limit?: number
 }
 
 /**
- * MaintenanceLog without action
+ * maintenancelog without action
  */
-export type MaintenanceLogDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type maintenancelogDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the MaintenanceLog
+   * Select specific fields to fetch from the maintenancelog
    */
-  select?: Prisma.MaintenanceLogSelect<ExtArgs> | null
+  select?: Prisma.maintenancelogSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the MaintenanceLog
+   * Omit specific fields from the maintenancelog
    */
-  omit?: Prisma.MaintenanceLogOmit<ExtArgs> | null
+  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.MaintenanceLogInclude<ExtArgs> | null
+  include?: Prisma.maintenancelogInclude<ExtArgs> | null
 }

@@ -77,11 +77,6 @@ export type personal_access_tokens = Prisma.personal_access_tokensModel
  */
 export type users = Prisma.usersModel
 /**
- * Model MaintenanceLog
- * 
- */
-export type MaintenanceLog = Prisma.MaintenanceLogModel
-/**
  * Model TireChangeHistory
  * 
  */
@@ -96,3 +91,8 @@ export type TireBrand = Prisma.TireBrandModel
  * 
  */
 export type TireItem = Prisma.TireItemModel
+/**
+ * Model maintenancelog
+ * 
+ */
+export type maintenancelog = Prisma.maintenancelogModel
