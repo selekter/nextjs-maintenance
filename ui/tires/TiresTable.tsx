@@ -3,7 +3,7 @@
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import { useModal } from "@/hooks/useModal";
-import { TiresProps } from "@/types";
+import { TireGrouped, TiresProps } from "@/types";
 import Link from "next/link";
 import TireChangeForm from "../tirehistory/TireChangeForm";
 import AddBrandForm from "./AddBrandForm";
@@ -33,7 +33,7 @@ export default function TiresTable({
   trucks,
   brands,
 }: {
-  tires: TiresProps[];
+  tires: TireGrouped[];
   trucks: Truck[];
   brands: Brand[];
 }) {
@@ -80,24 +80,30 @@ export default function TiresTable({
             <tr>
               <th className="px-6 py-4">วันที่</th>
               <th>ทะเบียน</th>
-              <th>หมายเลขยาง</th>
-              <th>ยี่ห้อ</th>
+              <th>หมายเลขยาง/ยี่ห้อ</th>
               <th>ตำแหน่ง</th>
               <th>เลขไมล์ที่เปลี่ยน</th>
               <th className="px-6 py-4 text-right">จัดการ</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {tires.map((tires) => (
-              <tr key={tires.id}>
-                <td className="px-6 py-4">
-                  {formatDateThai(tires.history.change_date)}
+            {tires.map((tire, index) => (
+              <tr key={index}>
+                <td className="px-6 py-4">{formatDateThai(tire.date)}</td>
+                <td>{tire.plate_number}</td>
+                <td className="p-2">
+                  {tire.tires.map((t, i) => (
+                    <div key={i}>
+                      {t.tire_code} ({t.brand})
+                    </div>
+                  ))}
                 </td>
-                <td>{tires.history.truck.number_plate}</td>
-                <td>{tires.tire_code}</td>
-                <td>{tires.brand.name}</td>
-                <td>{tires.position}</td>
-                <td>{tires.history.mileage_at_change}</td>
+                <td>
+                  {tire.tires.map((t, i) => (
+                    <div key={i}>{t.position}</div>
+                  ))}
+                </td>
+                <td>{tire.mileage}</td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3 md:justify-end">
                     <Link

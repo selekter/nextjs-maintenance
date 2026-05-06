@@ -18,7 +18,6 @@ export async function getTires() {
       },
     },
   });
-  console.log(tires);
 
   return tires;
 }

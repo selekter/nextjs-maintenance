@@ -23,8 +23,23 @@ export interface GroupedReport {
   repairs: RepairItem[];
 }
 
+export interface TireGrouped {
+  date: string;
+  plate_number: string;
+  mileage: number;
+  tires: TireItem[];
+}
+
+export interface TireItem {
+  tire_code: string;
+  brand: string;
+  position: number;
+}
+
 export interface TiresProps {
   id: bigint;
+  date: string;
+  plate_number: string;
   tire_change_id: bigint;
   brand_id: number;
   tire_code: string;
@@ -32,9 +47,10 @@ export interface TiresProps {
   brand: {
     name: string;
   };
-  history: {
-    change_date: Date;
-    mileage_at_change: number;
+  tires: {
+    tire_code: string;
+    brand: string;
+    position: number;
 
     truck: {
       number_plate: string;
