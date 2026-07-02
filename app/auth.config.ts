@@ -1,5 +1,5 @@
 import type { NextAuthOptions } from "next-auth";
-import { db } from "@/libs/db";
+import { db } from "@/lib/db";
 
 export const authConfig: NextAuthOptions = {
   pages: {
@@ -16,9 +16,9 @@ export const authConfig: NextAuthOptions = {
       try {
         const [rows]: any = await db.execute(
           "SELECT id, email, name FROM users WHERE email = ? LIMIT 1",
-          [user.email]
+          [user.email],
         );
-        
+
         if (!rows || rows.length === 0) {
           return false; // ไม่พบ user ในระบบ
         }

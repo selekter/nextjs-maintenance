@@ -58,7 +58,7 @@ export default function MaintenanceModal({ truckid }: { truckid: any }) {
           )}
           <div>
             <label className="block text-sm font-medium mb-1">
-              เลขทะเบียนรถ
+              เลขทะเบียนรถ <span className="text-red-500">*</span>
             </label>
             <select name="truckId">
               <option value="">เลือกเลขทะเบียนรถ</option>
@@ -68,6 +68,9 @@ export default function MaintenanceModal({ truckid }: { truckid: any }) {
                 </option>
               ))}
             </select>
+            {state?.errors?.truckId && (
+              <p className="text-red-500 text-sm">{state.errors.truckId}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">
@@ -83,6 +86,11 @@ export default function MaintenanceModal({ truckid }: { truckid: any }) {
               disabled={isPending}
             />
           </div>
+          {state?.errors?.currentMileage && (
+            <p className="text-red-500 text-sm">
+              {state.errors.currentMileage}
+            </p>
+          )}
         </form>
       </Modal>
     </>

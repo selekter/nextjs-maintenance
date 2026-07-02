@@ -1,12 +1,12 @@
 "use client"; // เปลี่ยนเป็น Client Component
 
-import { signIn } from "next-auth/react";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "@/lib/auth-client";
 
 export default function LoginPage() {
-  const [error, setError] = useState("");
-  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, setIsPending] = useState<boolean>(false);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -14,16 +14,15 @@ export default function LoginPage() {
     e.preventDefault();
 
     setIsPending(true);
-    setError("");
+    setError(null);
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("email");
-    const password = formData.get("password");
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
-    const result = await signIn("credentials", {
+    const result = await signIn.email({
       email,
       password,
-      redirect: false, // สำคัญ: ปิด redirect เพื่อเช็ค error เอง
     });
 
     if (result?.error) {
@@ -31,11 +30,11 @@ export default function LoginPage() {
       if (passwordRef.current) {
         passwordRef.current.value = "";
       }
-    } else {
-      router.push("/dashboard");
-      router.refresh();
+      setIsPending(false);
+      return;
     }
-    setIsPending(false);
+    router.push("/dashboard");
+    router.refresh();
   };
 
   return (

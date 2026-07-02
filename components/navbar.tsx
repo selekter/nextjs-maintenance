@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "@/lib/auth-client";
 import {
   ClipboardClock,
   Gauge,
@@ -9,11 +10,11 @@ import {
   Truck,
   Wrench,
 } from "lucide-react";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navbar({ session }: { session: any }) {
+  const router = useRouter();
   const pathname = usePathname();
   const NavLink = [
     { name: "dashboard", path: "/dashboard", icon: <Gauge size={20} /> },
@@ -43,6 +44,17 @@ export default function Navbar({ session }: { session: any }) {
       icon: <Truck size={20} />,
     },
   ];
+
+  const handleSignOut = async () => {
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login");
+          router.refresh();
+        },
+      },
+    });
+  };
   return (
     <nav className="bg-neutral-900 text-white sm:min-h-screen sm:w-xs">
       <div className="sticky top-0 flex flex-col justify-between md:h-screen p-2">
@@ -67,7 +79,7 @@ export default function Navbar({ session }: { session: any }) {
         {session && (
           <button
             className="p-1 bg-red-500 hover:bg-red-700 transition w-full md:rounded-md cursor-pointer flex gap-1"
-            onClick={() => signOut()}
+            onClick={handleSignOut}
           >
             <PowerOff size={20} />
             ออกจากระบบ

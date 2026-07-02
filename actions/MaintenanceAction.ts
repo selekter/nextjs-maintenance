@@ -1,7 +1,9 @@
 // actions/MaintenanceAction.ts
 "use server";
-import { prisma } from "@/libs/prisma";
+import { prisma } from "@/lib/prisma";
+import { createLicenseMaintenanceSchema } from "@/lib/zod";
 import { revalidatePath } from "next/cache";
+import z from "zod";
 
 export async function getMaintenanceStatus() {
   const reports = await prisma.maintenancelog.findMany({
@@ -90,13 +92,18 @@ export async function createLicenseMaintenance(
   prevState: any,
   formData: FormData,
 ) {
-  const truckId = formData.get("truckId") as string;
-  const currentMileage =
-    parseInt(formData.get("current_mileage") as string) || 0;
+  const row = {
+    truckId: formData.get("truckId"),
+    currentMileage: Number(formData.get("current_mileage")),
+  };
 
-  if (!truckId || truckId.trim() === "") {
-    return { success: false, message: "กรุณากรอกเลขทะเบียนรถ" };
+  const validation = createLicenseMaintenanceSchema.safeParse(row);
+
+  if (!validation.success) {
+    return { errors: z.flattenError(validation.error).fieldErrors };
   }
+
+  const { truckId, currentMileage } = validation.data;
 
   try {
     const existing = await prisma.maintenancelog.findFirst({

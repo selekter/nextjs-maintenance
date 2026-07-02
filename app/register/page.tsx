@@ -6,13 +6,7 @@ import { useActionState, useRef, useState } from "react";
 
 export default function RegisterPage() {
   const passwordRef = useRef<HTMLInputElement>(null);
-  const [state, formAction, isPending] = useActionState(
-    async (prevState: any, formData: FormData) => {
-      const values = Object.fromEntries(formData);
-      return await Register(values as any);
-    },
-    null,
-  );
+  const [state, formAction, isPending] = useActionState(Register, null);
 
   return (
     <div className="flex h-screen items-center justify-center bg-gray-50">

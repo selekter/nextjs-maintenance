@@ -1,8 +1,8 @@
 "use server";
 
-import { db } from "@/libs/db";
-import { prisma } from "@/libs/prisma";
-import { truckSchema } from "@/libs/zod";
+import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
+import { truckSchema } from "@/lib/zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import z from "zod";

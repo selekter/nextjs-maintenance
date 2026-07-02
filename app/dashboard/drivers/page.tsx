@@ -1,13 +1,13 @@
 import { getDrivers } from "@/actions/DriverAction";
-import { authOptions } from "@/auth";
 import TableSkeleton from "@/components/tableSkeleton";
+import { auth } from "@/lib/auth";
 import DriverTable from "@/ui/drivers/DriverTable";
-import { getServerSession } from "next-auth";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export default async function DriverPage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth.api.getSession({ headers: await headers() });
   const drivers = await getDrivers();
 
   return (

@@ -1,11 +1,18 @@
-import { getReports } from "@/actions/ReportAction";
-import { getServerSession } from "next-auth";
+"use client";
+
+import { useModal } from "@/hooks/useModal";
+import { auth } from "@/lib/auth";
+import { ReportProps } from "@/types";
 import Link from "next/link";
 
-export default async function ReportTable() {
-  const reports = await getReports();
-
-  const session = await getServerSession();
+export default function ReportTable({
+  reports,
+  session,
+}: {
+  reports: ReportProps[];
+  session: any;
+}) {
+  const { isOpen, data, openModal, closeModal } = useModal();
 
   return (
     <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-y-hidden overflow-x-auto">
@@ -20,8 +27,8 @@ export default async function ReportTable() {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {reports?.map((report, index) => (
-            <tr key={index} className="hover:bg-gray-200 transition-colors">
+          {reports?.map((report) => (
+            <tr key={report.id} className="hover:bg-gray-200 transition-colors">
               <td className="px-6 py-4 font-medium">{report.license_plate}</td>
               <td className="px-6 py-4">
                 <span className="flex flex-col gap-2">

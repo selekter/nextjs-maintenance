@@ -1,7 +1,6 @@
 "use server";
 
-import { prisma } from "@/libs/prisma";
-import bcrypt from "bcryptjs";
+import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import z from "zod";
 
@@ -17,7 +16,8 @@ const RegisterSchema = z
     path: ["confirmPassword"],
   });
 
-export const Register = async (values: z.infer<typeof RegisterSchema>) => {
+export async function Register(prevState: any, formData: FormData) {
+  const values = Object.fromEntries(formData);
   const validatedFields = RegisterSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -25,23 +25,19 @@ export const Register = async (values: z.infer<typeof RegisterSchema>) => {
   }
 
   const { email, name, password } = validatedFields.data;
-  const hashedPassword = await bcrypt.hash(password, 10);
 
-  const existingUser = await prisma.users.findUnique({
-    where: { email },
-  });
-
-  if (existingUser) {
-    return { error: "Email นี้ถูกใช้งานแล้ว" };
+  try {
+    await auth.api.signUpEmail({
+      body: {
+        email,
+        password,
+        name,
+      },
+    });
+  } catch (error: any) {
+    return {
+      error: error.message || "เกิดข้อผิดพลาดในการสมัครสมาชิก",
+    };
   }
-
-  await prisma.users.create({
-    data: {
-      email,
-      name,
-      password: hashedPassword,
-    },
-  });
-
   redirect("/login");
-};
+}

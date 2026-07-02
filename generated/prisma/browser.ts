@@ -33,26 +33,6 @@ export type Driver = Prisma.DriverModel
  */
 export type Report = Prisma.ReportModel
 /**
- * Model migrations
- * 
- */
-export type migrations = Prisma.migrationsModel
-/**
- * Model password_reset_tokens
- * 
- */
-export type password_reset_tokens = Prisma.password_reset_tokensModel
-/**
- * Model personal_access_tokens
- * 
- */
-export type personal_access_tokens = Prisma.personal_access_tokensModel
-/**
- * Model users
- * 
- */
-export type users = Prisma.usersModel
-/**
  * Model TireChangeHistory
  * 
  */
@@ -72,3 +52,23 @@ export type TireItem = Prisma.TireItemModel
  * 
  */
 export type maintenancelog = Prisma.maintenancelogModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
+/**
+ * Model Account
+ * 
+ */
+export type Account = Prisma.AccountModel
+/**
+ * Model Verification
+ * 
+ */
+export type Verification = Prisma.VerificationModel

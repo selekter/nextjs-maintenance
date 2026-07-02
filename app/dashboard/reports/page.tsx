@@ -1,12 +1,16 @@
+import { getReports } from "@/actions/ReportAction";
 import TableSkeleton from "@/components/tableSkeleton";
+import { auth } from "@/lib/auth";
 import ReportTable from "@/ui/reports/ReportTable";
 import { Plus } from "lucide-react";
-import { getServerSession } from "next-auth";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
 
 export default async function ReportPage() {
-  const session = await getServerSession();
+  const session = await auth.api.getSession({ headers: await headers() });
+  const reports = await getReports();
+
   return (
     <>
       {session && (
@@ -21,7 +25,7 @@ export default async function ReportPage() {
         </div>
       )}
       <Suspense fallback={<TableSkeleton />}>
-        <ReportTable />
+        <ReportTable reports={reports} session={session} />
       </Suspense>
     </>
   );

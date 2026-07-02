@@ -1,9 +1,7 @@
-import { RowDataPacket } from "mysql2";
-
-export interface ReportProps extends RowDataPacket {
-  id: number;
+export interface ReportProps {
+  id: number | string;
   license_plate: string;
-  repairs: string;
+  repairs: RepairItem[];
 }
 
 export interface TruckProps {

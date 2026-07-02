@@ -2,7 +2,7 @@ import z from "zod";
 
 // ✅ Login validation schema
 export const loginSchema = z.object({
-  email: z.email({ message: "รูปแบบอีเมลไม่ถูกต้อง" }).min(1, "กรุณากรองอีเมล"),
+  email: z.email({ message: "รูปแบบอีเมลไม่ถูกต้อง" }).min(1, "กรุณากรอกอีเมล"),
   password: z
     .string()
     .min(6, "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร")
@@ -39,4 +39,12 @@ export const reportEditSchema = z.object({
     .refine((val) => val.length > 0 && val.some((v) => v.trim() !== ""), {
       message: "กรุณาเลือกรายการซ่อมอย่างน้อย 1 รายการ",
     }),
+});
+
+export const createLicenseMaintenanceSchema = z.object({
+  truckId: z.string().min(1, "กรุณาเลือกทะเบียนรถ"),
+  currentMileage: z
+    .number()
+    .min(0, "เลขไมล์ต้องไม่ต่ำกว่า 0")
+    .max(999999, "เลขไมล์ต้องไม่เกิน 999999"),
 });

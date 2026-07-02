@@ -1,7 +1,7 @@
 "use server";
 
-import { prisma } from "@/libs/prisma";
-import { driverSchema } from "@/libs/zod";
+import { prisma } from "@/lib/prisma";
+import { driverSchema } from "@/lib/zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import z from "zod";
