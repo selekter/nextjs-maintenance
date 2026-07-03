@@ -7,6 +7,7 @@ import { TireGrouped, TiresProps } from "@/types";
 import Link from "next/link";
 import TireChangeForm from "../tirehistory/TireChangeForm";
 import AddBrandForm from "./AddBrandForm";
+import { useSession } from "@/lib/auth-client";
 
 const formatDateThai = (date: any) => {
   const dateThai = new Date(date).toLocaleDateString("th-TH", {
@@ -40,17 +41,25 @@ export default function TiresTable({
   const changeTireModal = useModal();
   const addBrandModal = useModal();
 
+  const { data: session } = useSession();
+
+  console.log(session);
+
   return (
     <>
-      <div className="flex justify-end mb-2 gap-2">
-        <button
-          onClick={addBrandModal.openModal}
-          className="bg-gray-100 text-gray-700 px-4 py-2 rounded-xl font-semibold hover:bg-gray-200 transition-colors border border-gray-300 cursor-pointer"
-        >
-          + เพิ่มยี่ห้อยาง
-        </button>
-        <Button onClick={changeTireModal.openModal}>บันทึกการเปลี่ยนยาง</Button>
-      </div>
+      {session && (
+        <div className="flex justify-end mb-2 gap-2">
+          <button
+            onClick={addBrandModal.openModal}
+            className="bg-gray-100 text-gray-700 px-4 py-2 rounded-xl font-semibold hover:bg-gray-200 transition-colors border border-gray-300 cursor-pointer"
+          >
+            + เพิ่มยี่ห้อยาง
+          </button>
+          <Button onClick={changeTireModal.openModal}>
+            บันทึกการเปลี่ยนยาง
+          </Button>
+        </div>
+      )}
 
       {/* Modal บันทึกการเปลี่ยนยาง */}
       <Modal

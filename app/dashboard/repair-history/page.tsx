@@ -1,7 +1,7 @@
 import { getGroupedRepairHistory } from "@/actions/ReportAction";
 import { GroupedReport } from "@/types";
 import HistoryTable from "@/ui/history/HistoryTable";
-import Pagination from "@/ui/history/Pagination";
+import Pagination from "@/components/Pagination";
 import Search from "@/ui/history/Search";
 
 export default async function repairHistoryPage({
