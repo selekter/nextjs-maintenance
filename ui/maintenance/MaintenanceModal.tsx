@@ -38,16 +38,7 @@ export default function MaintenanceModal({ truckid }: { truckid: any }) {
           เพิ่มทะเบียน
         </button>
       </div>
-      <Modal
-        isOpen={isOpen}
-        onClose={closeModal}
-        title="เพิ่มทะเบียนรถ"
-        onConfirm={handleConfirm}
-        confirmText={isPending ? "กำลังบันทึก..." : "บันทึก"}
-        cancelText="ยกเลิก"
-        showFooter={true}
-        closeOnConfirm={false}
-      >
+      <Modal isOpen={isOpen} onClose={closeModal} title="เพิ่มทะเบียนรถ">
         <form ref={formRef} action={formAction} className="space-y-4">
           {state?.message && (
             <div

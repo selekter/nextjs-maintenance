@@ -33,14 +33,14 @@ export type ReportAvgAggregateOutputType = {
 }
 
 export type ReportSumAggregateOutputType = {
-  id: bigint | null
-  license_plate_id: bigint | null
+  id: number | null
+  license_plate_id: number | null
   status: number | null
 }
 
 export type ReportMinAggregateOutputType = {
-  id: bigint | null
-  license_plate_id: bigint | null
+  id: number | null
+  license_plate_id: number | null
   repair: string | null
   status: number | null
   description: string | null
@@ -49,8 +49,8 @@ export type ReportMinAggregateOutputType = {
 }
 
 export type ReportMaxAggregateOutputType = {
-  id: bigint | null
-  license_plate_id: bigint | null
+  id: number | null
+  license_plate_id: number | null
   repair: string | null
   status: number | null
   description: string | null
@@ -200,13 +200,13 @@ export type ReportGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 export type ReportGroupByOutputType = {
-  id: bigint
-  license_plate_id: bigint
+  id: number
+  license_plate_id: number
   repair: string
   status: number
   description: string | null
-  created_at: Date | null
-  updated_at: Date | null
+  created_at: Date
+  updated_at: Date
   _count: ReportCountAggregateOutputType | null
   _avg: ReportAvgAggregateOutputType | null
   _sum: ReportSumAggregateOutputType | null
@@ -233,13 +233,13 @@ export type ReportWhereInput = {
   AND?: Prisma.ReportWhereInput | Prisma.ReportWhereInput[]
   OR?: Prisma.ReportWhereInput[]
   NOT?: Prisma.ReportWhereInput | Prisma.ReportWhereInput[]
-  id?: Prisma.BigIntFilter<"Report"> | bigint | number
-  license_plate_id?: Prisma.BigIntFilter<"Report"> | bigint | number
+  id?: Prisma.IntFilter<"Report"> | number
+  license_plate_id?: Prisma.IntFilter<"Report"> | number
   repair?: Prisma.StringFilter<"Report"> | string
   status?: Prisma.IntFilter<"Report"> | number
   description?: Prisma.StringNullableFilter<"Report"> | string | null
-  created_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
-  updated_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"Report"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Report"> | Date | string
   truck?: Prisma.XOR<Prisma.TruckScalarRelationFilter, Prisma.TruckWhereInput>
 }
 
@@ -249,23 +249,23 @@ export type ReportOrderByWithRelationInput = {
   repair?: Prisma.SortOrder
   status?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   truck?: Prisma.TruckOrderByWithRelationInput
   _relevance?: Prisma.ReportOrderByRelevanceInput
 }
 
 export type ReportWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: number
   AND?: Prisma.ReportWhereInput | Prisma.ReportWhereInput[]
   OR?: Prisma.ReportWhereInput[]
   NOT?: Prisma.ReportWhereInput | Prisma.ReportWhereInput[]
-  license_plate_id?: Prisma.BigIntFilter<"Report"> | bigint | number
+  license_plate_id?: Prisma.IntFilter<"Report"> | number
   repair?: Prisma.StringFilter<"Report"> | string
   status?: Prisma.IntFilter<"Report"> | number
   description?: Prisma.StringNullableFilter<"Report"> | string | null
-  created_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
-  updated_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"Report"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Report"> | Date | string
   truck?: Prisma.XOR<Prisma.TruckScalarRelationFilter, Prisma.TruckWhereInput>
 }, "id">
 
@@ -275,8 +275,8 @@ export type ReportOrderByWithAggregationInput = {
   repair?: Prisma.SortOrder
   status?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   _count?: Prisma.ReportCountOrderByAggregateInput
   _avg?: Prisma.ReportAvgOrderByAggregateInput
   _max?: Prisma.ReportMaxOrderByAggregateInput
@@ -288,82 +288,79 @@ export type ReportScalarWhereWithAggregatesInput = {
   AND?: Prisma.ReportScalarWhereWithAggregatesInput | Prisma.ReportScalarWhereWithAggregatesInput[]
   OR?: Prisma.ReportScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ReportScalarWhereWithAggregatesInput | Prisma.ReportScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"Report"> | bigint | number
-  license_plate_id?: Prisma.BigIntWithAggregatesFilter<"Report"> | bigint | number
+  id?: Prisma.IntWithAggregatesFilter<"Report"> | number
+  license_plate_id?: Prisma.IntWithAggregatesFilter<"Report"> | number
   repair?: Prisma.StringWithAggregatesFilter<"Report"> | string
   status?: Prisma.IntWithAggregatesFilter<"Report"> | number
   description?: Prisma.StringNullableWithAggregatesFilter<"Report"> | string | null
-  created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Report"> | Date | string | null
-  updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Report"> | Date | string | null
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"Report"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"Report"> | Date | string
 }
 
 export type ReportCreateInput = {
-  id?: bigint | number
   repair: string
   status?: number
   description?: string | null
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
   truck: Prisma.TruckCreateNestedOneWithoutReportsInput
 }
 
 export type ReportUncheckedCreateInput = {
-  id?: bigint | number
-  license_plate_id: bigint | number
+  id?: number
+  license_plate_id: number
   repair: string
   status?: number
   description?: string | null
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type ReportUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   repair?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   truck?: Prisma.TruckUpdateOneRequiredWithoutReportsNestedInput
 }
 
 export type ReportUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  license_plate_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  license_plate_id?: Prisma.IntFieldUpdateOperationsInput | number
   repair?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReportCreateManyInput = {
-  id?: bigint | number
-  license_plate_id: bigint | number
+  id?: number
+  license_plate_id: number
   repair: string
   status?: number
   description?: string | null
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type ReportUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   repair?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReportUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  license_plate_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  license_plate_id?: Prisma.IntFieldUpdateOperationsInput | number
   repair?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReportListRelationFilter = {
@@ -471,21 +468,20 @@ export type NullableStringFieldUpdateOperationsInput = {
 }
 
 export type ReportCreateWithoutTruckInput = {
-  id?: bigint | number
   repair: string
   status?: number
   description?: string | null
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type ReportUncheckedCreateWithoutTruckInput = {
-  id?: bigint | number
+  id?: number
   repair: string
   status?: number
   description?: string | null
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type ReportCreateOrConnectWithoutTruckInput = {
@@ -518,49 +514,48 @@ export type ReportScalarWhereInput = {
   AND?: Prisma.ReportScalarWhereInput | Prisma.ReportScalarWhereInput[]
   OR?: Prisma.ReportScalarWhereInput[]
   NOT?: Prisma.ReportScalarWhereInput | Prisma.ReportScalarWhereInput[]
-  id?: Prisma.BigIntFilter<"Report"> | bigint | number
-  license_plate_id?: Prisma.BigIntFilter<"Report"> | bigint | number
+  id?: Prisma.IntFilter<"Report"> | number
+  license_plate_id?: Prisma.IntFilter<"Report"> | number
   repair?: Prisma.StringFilter<"Report"> | string
   status?: Prisma.IntFilter<"Report"> | number
   description?: Prisma.StringNullableFilter<"Report"> | string | null
-  created_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
-  updated_at?: Prisma.DateTimeNullableFilter<"Report"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"Report"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Report"> | Date | string
 }
 
 export type ReportCreateManyTruckInput = {
-  id?: bigint | number
+  id?: number
   repair: string
   status?: number
   description?: string | null
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type ReportUpdateWithoutTruckInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   repair?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReportUncheckedUpdateWithoutTruckInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   repair?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReportUncheckedUpdateManyWithoutTruckInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   repair?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -599,13 +594,13 @@ export type $ReportPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     truck: Prisma.$TruckPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
-    license_plate_id: bigint
+    id: number
+    license_plate_id: number
     repair: string
     status: number
     description: string | null
-    created_at: Date | null
-    updated_at: Date | null
+    created_at: Date
+    updated_at: Date
   }, ExtArgs["result"]["report"]>
   composites: {}
 }
@@ -976,8 +971,8 @@ export interface Prisma__ReportClient<T, Null = never, ExtArgs extends runtime.T
  * Fields of the Report model
  */
 export interface ReportFieldRefs {
-  readonly id: Prisma.FieldRef<"Report", 'BigInt'>
-  readonly license_plate_id: Prisma.FieldRef<"Report", 'BigInt'>
+  readonly id: Prisma.FieldRef<"Report", 'Int'>
+  readonly license_plate_id: Prisma.FieldRef<"Report", 'Int'>
   readonly repair: Prisma.FieldRef<"Report", 'String'>
   readonly status: Prisma.FieldRef<"Report", 'Int'>
   readonly description: Prisma.FieldRef<"Report", 'String'>

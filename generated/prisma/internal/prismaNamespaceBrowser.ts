@@ -84,9 +84,9 @@ export const TruckScalarFieldEnum = {
   id: 'id',
   number_plate: 'number_plate',
   current_mileage: 'current_mileage',
-  driver_id: 'driver_id',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  driver_id: 'driver_id'
 } as const
 
 export type TruckScalarFieldEnum = (typeof TruckScalarFieldEnum)[keyof typeof TruckScalarFieldEnum]

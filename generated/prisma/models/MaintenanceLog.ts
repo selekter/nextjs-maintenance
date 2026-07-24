@@ -34,15 +34,15 @@ export type MaintenancelogAvgAggregateOutputType = {
 }
 
 export type MaintenancelogSumAggregateOutputType = {
-  id: bigint | null
-  truck_id: bigint | null
+  id: number | null
+  truck_id: number | null
   service_mileage: number | null
   next_service_at: number | null
 }
 
 export type MaintenancelogMinAggregateOutputType = {
-  id: bigint | null
-  truck_id: bigint | null
+  id: number | null
+  truck_id: number | null
   type: string | null
   service_mileage: number | null
   next_service_at: number | null
@@ -51,8 +51,8 @@ export type MaintenancelogMinAggregateOutputType = {
 }
 
 export type MaintenancelogMaxAggregateOutputType = {
-  id: bigint | null
-  truck_id: bigint | null
+  id: number | null
+  truck_id: number | null
   type: string | null
   service_mileage: number | null
   next_service_at: number | null
@@ -204,8 +204,8 @@ export type maintenancelogGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 export type MaintenancelogGroupByOutputType = {
-  id: bigint
-  truck_id: bigint
+  id: number
+  truck_id: number
   type: string
   service_mileage: number
   next_service_at: number
@@ -237,8 +237,8 @@ export type maintenancelogWhereInput = {
   AND?: Prisma.maintenancelogWhereInput | Prisma.maintenancelogWhereInput[]
   OR?: Prisma.maintenancelogWhereInput[]
   NOT?: Prisma.maintenancelogWhereInput | Prisma.maintenancelogWhereInput[]
-  id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
-  truck_id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
+  id?: Prisma.IntFilter<"maintenancelog"> | number
+  truck_id?: Prisma.IntFilter<"maintenancelog"> | number
   type?: Prisma.StringFilter<"maintenancelog"> | string
   service_mileage?: Prisma.IntFilter<"maintenancelog"> | number
   next_service_at?: Prisma.IntFilter<"maintenancelog"> | number
@@ -260,11 +260,11 @@ export type maintenancelogOrderByWithRelationInput = {
 }
 
 export type maintenancelogWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: number
   AND?: Prisma.maintenancelogWhereInput | Prisma.maintenancelogWhereInput[]
   OR?: Prisma.maintenancelogWhereInput[]
   NOT?: Prisma.maintenancelogWhereInput | Prisma.maintenancelogWhereInput[]
-  truck_id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
+  truck_id?: Prisma.IntFilter<"maintenancelog"> | number
   type?: Prisma.StringFilter<"maintenancelog"> | string
   service_mileage?: Prisma.IntFilter<"maintenancelog"> | number
   next_service_at?: Prisma.IntFilter<"maintenancelog"> | number
@@ -292,8 +292,8 @@ export type maintenancelogScalarWhereWithAggregatesInput = {
   AND?: Prisma.maintenancelogScalarWhereWithAggregatesInput | Prisma.maintenancelogScalarWhereWithAggregatesInput[]
   OR?: Prisma.maintenancelogScalarWhereWithAggregatesInput[]
   NOT?: Prisma.maintenancelogScalarWhereWithAggregatesInput | Prisma.maintenancelogScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"maintenancelog"> | bigint | number
-  truck_id?: Prisma.BigIntWithAggregatesFilter<"maintenancelog"> | bigint | number
+  id?: Prisma.IntWithAggregatesFilter<"maintenancelog"> | number
+  truck_id?: Prisma.IntWithAggregatesFilter<"maintenancelog"> | number
   type?: Prisma.StringWithAggregatesFilter<"maintenancelog"> | string
   service_mileage?: Prisma.IntWithAggregatesFilter<"maintenancelog"> | number
   next_service_at?: Prisma.IntWithAggregatesFilter<"maintenancelog"> | number
@@ -302,7 +302,6 @@ export type maintenancelogScalarWhereWithAggregatesInput = {
 }
 
 export type maintenancelogCreateInput = {
-  id?: bigint | number
   type: string
   service_mileage: number
   next_service_at: number
@@ -312,8 +311,8 @@ export type maintenancelogCreateInput = {
 }
 
 export type maintenancelogUncheckedCreateInput = {
-  id?: bigint | number
-  truck_id: bigint | number
+  id?: number
+  truck_id: number
   type: string
   service_mileage: number
   next_service_at: number
@@ -322,7 +321,6 @@ export type maintenancelogUncheckedCreateInput = {
 }
 
 export type maintenancelogUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
@@ -332,8 +330,8 @@ export type maintenancelogUpdateInput = {
 }
 
 export type maintenancelogUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  truck_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  truck_id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
@@ -342,8 +340,8 @@ export type maintenancelogUncheckedUpdateInput = {
 }
 
 export type maintenancelogCreateManyInput = {
-  id?: bigint | number
-  truck_id: bigint | number
+  id?: number
+  truck_id: number
   type: string
   service_mileage: number
   next_service_at: number
@@ -352,7 +350,6 @@ export type maintenancelogCreateManyInput = {
 }
 
 export type maintenancelogUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
@@ -361,8 +358,8 @@ export type maintenancelogUpdateManyMutationInput = {
 }
 
 export type maintenancelogUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  truck_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  truck_id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
@@ -473,7 +470,6 @@ export type maintenancelogUncheckedUpdateManyWithoutLicense_platesNestedInput = 
 }
 
 export type maintenancelogCreateWithoutLicense_platesInput = {
-  id?: bigint | number
   type: string
   service_mileage: number
   next_service_at: number
@@ -482,7 +478,7 @@ export type maintenancelogCreateWithoutLicense_platesInput = {
 }
 
 export type maintenancelogUncheckedCreateWithoutLicense_platesInput = {
-  id?: bigint | number
+  id?: number
   type: string
   service_mileage: number
   next_service_at: number
@@ -520,8 +516,8 @@ export type maintenancelogScalarWhereInput = {
   AND?: Prisma.maintenancelogScalarWhereInput | Prisma.maintenancelogScalarWhereInput[]
   OR?: Prisma.maintenancelogScalarWhereInput[]
   NOT?: Prisma.maintenancelogScalarWhereInput | Prisma.maintenancelogScalarWhereInput[]
-  id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
-  truck_id?: Prisma.BigIntFilter<"maintenancelog"> | bigint | number
+  id?: Prisma.IntFilter<"maintenancelog"> | number
+  truck_id?: Prisma.IntFilter<"maintenancelog"> | number
   type?: Prisma.StringFilter<"maintenancelog"> | string
   service_mileage?: Prisma.IntFilter<"maintenancelog"> | number
   next_service_at?: Prisma.IntFilter<"maintenancelog"> | number
@@ -530,7 +526,7 @@ export type maintenancelogScalarWhereInput = {
 }
 
 export type maintenancelogCreateManyLicense_platesInput = {
-  id?: bigint | number
+  id?: number
   type: string
   service_mileage: number
   next_service_at: number
@@ -539,7 +535,6 @@ export type maintenancelogCreateManyLicense_platesInput = {
 }
 
 export type maintenancelogUpdateWithoutLicense_platesInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
@@ -548,7 +543,7 @@ export type maintenancelogUpdateWithoutLicense_platesInput = {
 }
 
 export type maintenancelogUncheckedUpdateWithoutLicense_platesInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
@@ -557,7 +552,7 @@ export type maintenancelogUncheckedUpdateWithoutLicense_platesInput = {
 }
 
 export type maintenancelogUncheckedUpdateManyWithoutLicense_platesInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.StringFieldUpdateOperationsInput | string
   service_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   next_service_at?: Prisma.IntFieldUpdateOperationsInput | number
@@ -601,8 +596,8 @@ export type $maintenancelogPayload<ExtArgs extends runtime.Types.Extensions.Inte
     license_plates: Prisma.$TruckPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
-    truck_id: bigint
+    id: number
+    truck_id: number
     type: string
     service_mileage: number
     next_service_at: number
@@ -978,8 +973,8 @@ export interface Prisma__maintenancelogClient<T, Null = never, ExtArgs extends r
  * Fields of the maintenancelog model
  */
 export interface maintenancelogFieldRefs {
-  readonly id: Prisma.FieldRef<"maintenancelog", 'BigInt'>
-  readonly truck_id: Prisma.FieldRef<"maintenancelog", 'BigInt'>
+  readonly id: Prisma.FieldRef<"maintenancelog", 'Int'>
+  readonly truck_id: Prisma.FieldRef<"maintenancelog", 'Int'>
   readonly type: Prisma.FieldRef<"maintenancelog", 'String'>
   readonly service_mileage: Prisma.FieldRef<"maintenancelog", 'Int'>
   readonly next_service_at: Prisma.FieldRef<"maintenancelog", 'Int'>

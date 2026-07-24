@@ -143,12 +143,7 @@ export default function ReportEditForm({
         </div>
       </form>
 
-      <Modal
-        isOpen={isOpen}
-        onClose={closeModal}
-        title="เพิ่มรายการแจ้งซ่อม"
-        showFooter={false}
-      >
+      <Modal isOpen={isOpen} onClose={closeModal} title="เพิ่มรายการแจ้งซ่อม">
         <form action={addFormAction} className="space-y-4">
           <input
             type="hidden"

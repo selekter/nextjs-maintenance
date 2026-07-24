@@ -1,6 +1,5 @@
 "use server";
 
-import { db } from "@/lib/db";
 import { prisma } from "@/lib/prisma";
 import { truckSchema } from "@/lib/zod";
 import { revalidatePath } from "next/cache";
@@ -79,17 +78,17 @@ export async function createTruck(prevState: any, formData: FormData) {
         });
       }
     });
+    revalidatePath("/dashboard/drivers");
   } catch (error) {
     console.error(error);
     return { messages: "เกิดข้อผิดพลาดบางประการ" };
   }
 
-  revalidatePath("/dashboard/drivers");
   redirect("/dashboard/drivers");
 }
 
 export async function updateTruckMileage(prevState: any, formData: FormData) {
-  const truckId = BigInt(formData.get("truckId") as string);
+  const truckId = parseInt(formData.get("truckId") as string);
   const newMileage = parseInt(formData.get("mileage") as string);
 
   try {
@@ -160,7 +159,7 @@ export async function updateTruckMileage(prevState: any, formData: FormData) {
 }
 
 export async function deleteTruck(prevState: any, formData: FormData) {
-  const truckId = BigInt(formData.get("truckId") as string);
+  const truckId = parseInt(formData.get("truckId") as string);
 
   try {
     await prisma.truck.delete({

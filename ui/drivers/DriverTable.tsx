@@ -4,7 +4,7 @@ import Modal from "@/components/Modal";
 import { useModal } from "@/hooks/useModal";
 
 interface DriverProp {
-  id: bigint;
+  id: number;
   number_plate: string;
   current_mileage: number;
   drivers: {

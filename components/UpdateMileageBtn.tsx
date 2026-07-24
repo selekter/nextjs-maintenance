@@ -29,9 +29,7 @@ function MileageForm({ truck, onClose }: { truck: any; onClose: () => void }) {
       <div>
         <p className="text-sm text-gray-500 mb-2">
           ทะเบียน:{" "}
-          <span className="font-bold text-gray-800">
-            {truck.number_plate}
-          </span>
+          <span className="font-bold text-gray-800">{truck.number_plate}</span>
         </p>
         <label className="block text-sm font-medium text-gray-700 mb-1">
           เลขไมล์ล่าสุด (กม.)
@@ -96,7 +94,6 @@ export default function UpdateMileageBtn({ truck }: { truck: any }) {
         onClose={closeModal}
         title="อัปเดตเลขไมล์ปัจจุบัน"
         size="sm"
-        showFooter={false}
       >
         <MileageForm key={formKey} truck={truck} onClose={closeModal} />
       </Modal>

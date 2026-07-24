@@ -1,19 +1,23 @@
 "use client";
 
 import { signOut } from "@/lib/auth-client";
+import { cn } from "@/lib/utility";
 import {
   ClipboardClock,
   Gauge,
   IdCard,
   LifeBuoy,
+  Menu,
   PowerOff,
   Truck,
   Wrench,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Navbar({ session }: { session: any }) {
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const NavLink = [
@@ -56,16 +60,38 @@ export default function Navbar({ session }: { session: any }) {
     });
   };
   return (
-    <nav className="bg-neutral-900 text-white sm:min-h-screen sm:w-xs">
-      <div className="sticky top-0 flex flex-col justify-between md:h-screen p-2">
+    <>
+      {/* ปุ่ม Hamburger - แสดงเฉพาะจอเล็ก */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="fixed top-4 left-4 z-30 flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-md md:hidden"
+        aria-label="เปิดเมนู"
+      >
+        <Menu className="h-5 w-5" />
+      </button>
+
+      {/* Overlay - แสดงเฉพาะตอนเปิดในจอเล็ก */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40"
+          onClick={() => setIsOpen(false)}
+        ></div>
+      )}
+      <aside
+        className={cn(
+          "fixed top-0 left-0 z-50 bg-neutral-900 h-screen text-white w-64 transform transition-transform ease-in-out md:static md:translate-x-0 md:z-0",
+          isOpen ? "translate-x-0" : "-translate-x-full",
+        )}
+      >
         <ul className="flex flex-col gap-1 my-2">
           {NavLink.map((link) => (
             <li key={link.name}>
               <Link
                 href={link.path}
-                className={`
-                ${pathname === link.path ? "bg-neutral-600" : ""}
-                block transition hover:bg-neutral-700 p-2 rounded-md`}
+                className={cn(
+                  "block transition hover:bg-neutral-700 p-2 rounded-md",
+                  pathname === link.path ? "bg-neutral-600" : "",
+                )}
               >
                 <div className="flex gap-1">
                   {link.icon}
@@ -85,7 +111,8 @@ export default function Navbar({ session }: { session: any }) {
             ออกจากระบบ
           </button>
         )}
-      </div>
-    </nav>
+        {/* </div> */}
+      </aside>
+    </>
   );
 }

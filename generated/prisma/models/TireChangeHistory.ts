@@ -33,22 +33,22 @@ export type TireChangeHistoryAvgAggregateOutputType = {
 }
 
 export type TireChangeHistorySumAggregateOutputType = {
-  id: bigint | null
-  truck_id: bigint | null
+  id: number | null
+  truck_id: number | null
   mileage_at_change: number | null
 }
 
 export type TireChangeHistoryMinAggregateOutputType = {
-  id: bigint | null
-  truck_id: bigint | null
+  id: number | null
+  truck_id: number | null
   change_date: Date | null
   mileage_at_change: number | null
   notes: string | null
 }
 
 export type TireChangeHistoryMaxAggregateOutputType = {
-  id: bigint | null
-  truck_id: bigint | null
+  id: number | null
+  truck_id: number | null
   change_date: Date | null
   mileage_at_change: number | null
   notes: string | null
@@ -188,8 +188,8 @@ export type TireChangeHistoryGroupByArgs<ExtArgs extends runtime.Types.Extension
 }
 
 export type TireChangeHistoryGroupByOutputType = {
-  id: bigint
-  truck_id: bigint
+  id: number
+  truck_id: number
   change_date: Date
   mileage_at_change: number
   notes: string | null
@@ -219,8 +219,8 @@ export type TireChangeHistoryWhereInput = {
   AND?: Prisma.TireChangeHistoryWhereInput | Prisma.TireChangeHistoryWhereInput[]
   OR?: Prisma.TireChangeHistoryWhereInput[]
   NOT?: Prisma.TireChangeHistoryWhereInput | Prisma.TireChangeHistoryWhereInput[]
-  id?: Prisma.BigIntFilter<"TireChangeHistory"> | bigint | number
-  truck_id?: Prisma.BigIntFilter<"TireChangeHistory"> | bigint | number
+  id?: Prisma.IntFilter<"TireChangeHistory"> | number
+  truck_id?: Prisma.IntFilter<"TireChangeHistory"> | number
   change_date?: Prisma.DateTimeFilter<"TireChangeHistory"> | Date | string
   mileage_at_change?: Prisma.IntFilter<"TireChangeHistory"> | number
   notes?: Prisma.StringNullableFilter<"TireChangeHistory"> | string | null
@@ -240,11 +240,11 @@ export type TireChangeHistoryOrderByWithRelationInput = {
 }
 
 export type TireChangeHistoryWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: number
   AND?: Prisma.TireChangeHistoryWhereInput | Prisma.TireChangeHistoryWhereInput[]
   OR?: Prisma.TireChangeHistoryWhereInput[]
   NOT?: Prisma.TireChangeHistoryWhereInput | Prisma.TireChangeHistoryWhereInput[]
-  truck_id?: Prisma.BigIntFilter<"TireChangeHistory"> | bigint | number
+  truck_id?: Prisma.IntFilter<"TireChangeHistory"> | number
   change_date?: Prisma.DateTimeFilter<"TireChangeHistory"> | Date | string
   mileage_at_change?: Prisma.IntFilter<"TireChangeHistory"> | number
   notes?: Prisma.StringNullableFilter<"TireChangeHistory"> | string | null
@@ -269,15 +269,14 @@ export type TireChangeHistoryScalarWhereWithAggregatesInput = {
   AND?: Prisma.TireChangeHistoryScalarWhereWithAggregatesInput | Prisma.TireChangeHistoryScalarWhereWithAggregatesInput[]
   OR?: Prisma.TireChangeHistoryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TireChangeHistoryScalarWhereWithAggregatesInput | Prisma.TireChangeHistoryScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"TireChangeHistory"> | bigint | number
-  truck_id?: Prisma.BigIntWithAggregatesFilter<"TireChangeHistory"> | bigint | number
+  id?: Prisma.IntWithAggregatesFilter<"TireChangeHistory"> | number
+  truck_id?: Prisma.IntWithAggregatesFilter<"TireChangeHistory"> | number
   change_date?: Prisma.DateTimeWithAggregatesFilter<"TireChangeHistory"> | Date | string
   mileage_at_change?: Prisma.IntWithAggregatesFilter<"TireChangeHistory"> | number
   notes?: Prisma.StringNullableWithAggregatesFilter<"TireChangeHistory"> | string | null
 }
 
 export type TireChangeHistoryCreateInput = {
-  id?: bigint | number
   change_date?: Date | string
   mileage_at_change: number
   notes?: string | null
@@ -286,8 +285,8 @@ export type TireChangeHistoryCreateInput = {
 }
 
 export type TireChangeHistoryUncheckedCreateInput = {
-  id?: bigint | number
-  truck_id: bigint | number
+  id?: number
+  truck_id: number
   change_date?: Date | string
   mileage_at_change: number
   notes?: string | null
@@ -295,7 +294,6 @@ export type TireChangeHistoryUncheckedCreateInput = {
 }
 
 export type TireChangeHistoryUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   change_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mileage_at_change?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -304,8 +302,8 @@ export type TireChangeHistoryUpdateInput = {
 }
 
 export type TireChangeHistoryUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  truck_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  truck_id?: Prisma.IntFieldUpdateOperationsInput | number
   change_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mileage_at_change?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -313,23 +311,22 @@ export type TireChangeHistoryUncheckedUpdateInput = {
 }
 
 export type TireChangeHistoryCreateManyInput = {
-  id?: bigint | number
-  truck_id: bigint | number
+  id?: number
+  truck_id: number
   change_date?: Date | string
   mileage_at_change: number
   notes?: string | null
 }
 
 export type TireChangeHistoryUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   change_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mileage_at_change?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TireChangeHistoryUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  truck_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  truck_id?: Prisma.IntFieldUpdateOperationsInput | number
   change_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mileage_at_change?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -434,10 +431,6 @@ export type TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput = {
   deleteMany?: Prisma.TireChangeHistoryScalarWhereInput | Prisma.TireChangeHistoryScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type TireChangeHistoryCreateNestedOneWithoutTireItemsInput = {
   create?: Prisma.XOR<Prisma.TireChangeHistoryCreateWithoutTireItemsInput, Prisma.TireChangeHistoryUncheckedCreateWithoutTireItemsInput>
   connectOrCreate?: Prisma.TireChangeHistoryCreateOrConnectWithoutTireItemsInput
@@ -453,7 +446,6 @@ export type TireChangeHistoryUpdateOneRequiredWithoutTireItemsNestedInput = {
 }
 
 export type TireChangeHistoryCreateWithoutTruckInput = {
-  id?: bigint | number
   change_date?: Date | string
   mileage_at_change: number
   notes?: string | null
@@ -461,7 +453,7 @@ export type TireChangeHistoryCreateWithoutTruckInput = {
 }
 
 export type TireChangeHistoryUncheckedCreateWithoutTruckInput = {
-  id?: bigint | number
+  id?: number
   change_date?: Date | string
   mileage_at_change: number
   notes?: string | null
@@ -498,15 +490,14 @@ export type TireChangeHistoryScalarWhereInput = {
   AND?: Prisma.TireChangeHistoryScalarWhereInput | Prisma.TireChangeHistoryScalarWhereInput[]
   OR?: Prisma.TireChangeHistoryScalarWhereInput[]
   NOT?: Prisma.TireChangeHistoryScalarWhereInput | Prisma.TireChangeHistoryScalarWhereInput[]
-  id?: Prisma.BigIntFilter<"TireChangeHistory"> | bigint | number
-  truck_id?: Prisma.BigIntFilter<"TireChangeHistory"> | bigint | number
+  id?: Prisma.IntFilter<"TireChangeHistory"> | number
+  truck_id?: Prisma.IntFilter<"TireChangeHistory"> | number
   change_date?: Prisma.DateTimeFilter<"TireChangeHistory"> | Date | string
   mileage_at_change?: Prisma.IntFilter<"TireChangeHistory"> | number
   notes?: Prisma.StringNullableFilter<"TireChangeHistory"> | string | null
 }
 
 export type TireChangeHistoryCreateWithoutTireItemsInput = {
-  id?: bigint | number
   change_date?: Date | string
   mileage_at_change: number
   notes?: string | null
@@ -514,8 +505,8 @@ export type TireChangeHistoryCreateWithoutTireItemsInput = {
 }
 
 export type TireChangeHistoryUncheckedCreateWithoutTireItemsInput = {
-  id?: bigint | number
-  truck_id: bigint | number
+  id?: number
+  truck_id: number
   change_date?: Date | string
   mileage_at_change: number
   notes?: string | null
@@ -538,7 +529,6 @@ export type TireChangeHistoryUpdateToOneWithWhereWithoutTireItemsInput = {
 }
 
 export type TireChangeHistoryUpdateWithoutTireItemsInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   change_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mileage_at_change?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -546,22 +536,21 @@ export type TireChangeHistoryUpdateWithoutTireItemsInput = {
 }
 
 export type TireChangeHistoryUncheckedUpdateWithoutTireItemsInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  truck_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  truck_id?: Prisma.IntFieldUpdateOperationsInput | number
   change_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mileage_at_change?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TireChangeHistoryCreateManyTruckInput = {
-  id?: bigint | number
+  id?: number
   change_date?: Date | string
   mileage_at_change: number
   notes?: string | null
 }
 
 export type TireChangeHistoryUpdateWithoutTruckInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   change_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mileage_at_change?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -569,7 +558,7 @@ export type TireChangeHistoryUpdateWithoutTruckInput = {
 }
 
 export type TireChangeHistoryUncheckedUpdateWithoutTruckInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   change_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mileage_at_change?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -577,7 +566,7 @@ export type TireChangeHistoryUncheckedUpdateWithoutTruckInput = {
 }
 
 export type TireChangeHistoryUncheckedUpdateManyWithoutTruckInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   change_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mileage_at_change?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -649,8 +638,8 @@ export type $TireChangeHistoryPayload<ExtArgs extends runtime.Types.Extensions.I
     tireItems: Prisma.$TireItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
-    truck_id: bigint
+    id: number
+    truck_id: number
     change_date: Date
     mileage_at_change: number
     notes: string | null
@@ -1025,8 +1014,8 @@ export interface Prisma__TireChangeHistoryClient<T, Null = never, ExtArgs extend
  * Fields of the TireChangeHistory model
  */
 export interface TireChangeHistoryFieldRefs {
-  readonly id: Prisma.FieldRef<"TireChangeHistory", 'BigInt'>
-  readonly truck_id: Prisma.FieldRef<"TireChangeHistory", 'BigInt'>
+  readonly id: Prisma.FieldRef<"TireChangeHistory", 'Int'>
+  readonly truck_id: Prisma.FieldRef<"TireChangeHistory", 'Int'>
   readonly change_date: Prisma.FieldRef<"TireChangeHistory", 'DateTime'>
   readonly mileage_at_change: Prisma.FieldRef<"TireChangeHistory", 'Int'>
   readonly notes: Prisma.FieldRef<"TireChangeHistory", 'String'>

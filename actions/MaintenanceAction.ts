@@ -67,7 +67,7 @@ export async function updateMaintenance(prevState: any, formData: FormData) {
       // 1. บันทึกประวัติการเปลี่ยน
       prisma.maintenancelog.create({
         data: {
-          truck_id: BigInt(truckId),
+          truck_id: parseInt(truckId),
           type: type,
           service_mileage: serviceMileage,
           next_service_at: serviceMileage + interval,
@@ -75,7 +75,7 @@ export async function updateMaintenance(prevState: any, formData: FormData) {
       }),
       // 2. อัปเดตเลขไมล์ปัจจุบันของรถให้เป็นค่าล่าสุด
       prisma.truck.update({
-        where: { id: BigInt(truckId) },
+        where: { id: parseInt(truckId) },
         data: { current_mileage: serviceMileage },
       }),
     ]);
@@ -107,7 +107,7 @@ export async function createLicenseMaintenance(
 
   try {
     const existing = await prisma.maintenancelog.findFirst({
-      where: { truck_id: BigInt(truckId) },
+      where: { truck_id: parseInt(truckId) },
     });
 
     if (existing) {
@@ -116,7 +116,7 @@ export async function createLicenseMaintenance(
 
     await prisma.$transaction(async (tx) => {
       await tx.truck.update({
-        where: { id: BigInt(truckId) },
+        where: { id: parseInt(truckId) },
         data: {
           current_mileage: currentMileage,
         },
@@ -131,7 +131,7 @@ export async function createLicenseMaintenance(
       for (const item of maintenanceDefaults) {
         await tx.maintenancelog.create({
           data: {
-            truck_id: BigInt(truckId),
+            truck_id: parseInt(truckId),
             type: item.type,
             service_mileage: currentMileage,
             next_service_at: currentMileage + item.interval,

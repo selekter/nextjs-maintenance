@@ -59,7 +59,7 @@ export async function createTireChange(data: {
     await prisma.$transaction(async (tx) => {
       await tx.tireChangeHistory.create({
         data: {
-          truck_id: BigInt(data.truck_id),
+          truck_id: parseInt(data.truck_id),
           mileage_at_change: data.mileage_at_change,
           notes: data.notes,
           tireItems: {

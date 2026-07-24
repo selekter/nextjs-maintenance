@@ -34,23 +34,23 @@ export type TireItemAvgAggregateOutputType = {
 }
 
 export type TireItemSumAggregateOutputType = {
-  id: bigint | null
-  tire_change_id: bigint | null
+  id: number | null
+  tire_change_id: number | null
   brand_id: number | null
   position: number | null
 }
 
 export type TireItemMinAggregateOutputType = {
-  id: bigint | null
-  tire_change_id: bigint | null
+  id: number | null
+  tire_change_id: number | null
   brand_id: number | null
   tire_code: string | null
   position: number | null
 }
 
 export type TireItemMaxAggregateOutputType = {
-  id: bigint | null
-  tire_change_id: bigint | null
+  id: number | null
+  tire_change_id: number | null
   brand_id: number | null
   tire_code: string | null
   position: number | null
@@ -192,8 +192,8 @@ export type TireItemGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 export type TireItemGroupByOutputType = {
-  id: bigint
-  tire_change_id: bigint
+  id: number
+  tire_change_id: number
   brand_id: number
   tire_code: string
   position: number
@@ -223,8 +223,8 @@ export type TireItemWhereInput = {
   AND?: Prisma.TireItemWhereInput | Prisma.TireItemWhereInput[]
   OR?: Prisma.TireItemWhereInput[]
   NOT?: Prisma.TireItemWhereInput | Prisma.TireItemWhereInput[]
-  id?: Prisma.BigIntFilter<"TireItem"> | bigint | number
-  tire_change_id?: Prisma.BigIntFilter<"TireItem"> | bigint | number
+  id?: Prisma.IntFilter<"TireItem"> | number
+  tire_change_id?: Prisma.IntFilter<"TireItem"> | number
   brand_id?: Prisma.IntFilter<"TireItem"> | number
   tire_code?: Prisma.StringFilter<"TireItem"> | string
   position?: Prisma.IntFilter<"TireItem"> | number
@@ -244,11 +244,11 @@ export type TireItemOrderByWithRelationInput = {
 }
 
 export type TireItemWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: number
   AND?: Prisma.TireItemWhereInput | Prisma.TireItemWhereInput[]
   OR?: Prisma.TireItemWhereInput[]
   NOT?: Prisma.TireItemWhereInput | Prisma.TireItemWhereInput[]
-  tire_change_id?: Prisma.BigIntFilter<"TireItem"> | bigint | number
+  tire_change_id?: Prisma.IntFilter<"TireItem"> | number
   brand_id?: Prisma.IntFilter<"TireItem"> | number
   tire_code?: Prisma.StringFilter<"TireItem"> | string
   position?: Prisma.IntFilter<"TireItem"> | number
@@ -273,15 +273,14 @@ export type TireItemScalarWhereWithAggregatesInput = {
   AND?: Prisma.TireItemScalarWhereWithAggregatesInput | Prisma.TireItemScalarWhereWithAggregatesInput[]
   OR?: Prisma.TireItemScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TireItemScalarWhereWithAggregatesInput | Prisma.TireItemScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"TireItem"> | bigint | number
-  tire_change_id?: Prisma.BigIntWithAggregatesFilter<"TireItem"> | bigint | number
+  id?: Prisma.IntWithAggregatesFilter<"TireItem"> | number
+  tire_change_id?: Prisma.IntWithAggregatesFilter<"TireItem"> | number
   brand_id?: Prisma.IntWithAggregatesFilter<"TireItem"> | number
   tire_code?: Prisma.StringWithAggregatesFilter<"TireItem"> | string
   position?: Prisma.IntWithAggregatesFilter<"TireItem"> | number
 }
 
 export type TireItemCreateInput = {
-  id?: bigint | number
   tire_code: string
   position: number
   brand: Prisma.TireBrandCreateNestedOneWithoutItemsInput
@@ -289,15 +288,14 @@ export type TireItemCreateInput = {
 }
 
 export type TireItemUncheckedCreateInput = {
-  id?: bigint | number
-  tire_change_id: bigint | number
+  id?: number
+  tire_change_id: number
   brand_id: number
   tire_code: string
   position: number
 }
 
 export type TireItemUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   brand?: Prisma.TireBrandUpdateOneRequiredWithoutItemsNestedInput
@@ -305,30 +303,29 @@ export type TireItemUpdateInput = {
 }
 
 export type TireItemUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  tire_change_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  tire_change_id?: Prisma.IntFieldUpdateOperationsInput | number
   brand_id?: Prisma.IntFieldUpdateOperationsInput | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TireItemCreateManyInput = {
-  id?: bigint | number
-  tire_change_id: bigint | number
+  id?: number
+  tire_change_id: number
   brand_id: number
   tire_code: string
   position: number
 }
 
 export type TireItemUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TireItemUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  tire_change_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  tire_change_id?: Prisma.IntFieldUpdateOperationsInput | number
   brand_id?: Prisma.IntFieldUpdateOperationsInput | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
@@ -473,14 +470,13 @@ export type TireItemUncheckedUpdateManyWithoutBrandNestedInput = {
 }
 
 export type TireItemCreateWithoutHistoryInput = {
-  id?: bigint | number
   tire_code: string
   position: number
   brand: Prisma.TireBrandCreateNestedOneWithoutItemsInput
 }
 
 export type TireItemUncheckedCreateWithoutHistoryInput = {
-  id?: bigint | number
+  id?: number
   brand_id: number
   tire_code: string
   position: number
@@ -516,23 +512,22 @@ export type TireItemScalarWhereInput = {
   AND?: Prisma.TireItemScalarWhereInput | Prisma.TireItemScalarWhereInput[]
   OR?: Prisma.TireItemScalarWhereInput[]
   NOT?: Prisma.TireItemScalarWhereInput | Prisma.TireItemScalarWhereInput[]
-  id?: Prisma.BigIntFilter<"TireItem"> | bigint | number
-  tire_change_id?: Prisma.BigIntFilter<"TireItem"> | bigint | number
+  id?: Prisma.IntFilter<"TireItem"> | number
+  tire_change_id?: Prisma.IntFilter<"TireItem"> | number
   brand_id?: Prisma.IntFilter<"TireItem"> | number
   tire_code?: Prisma.StringFilter<"TireItem"> | string
   position?: Prisma.IntFilter<"TireItem"> | number
 }
 
 export type TireItemCreateWithoutBrandInput = {
-  id?: bigint | number
   tire_code: string
   position: number
   history: Prisma.TireChangeHistoryCreateNestedOneWithoutTireItemsInput
 }
 
 export type TireItemUncheckedCreateWithoutBrandInput = {
-  id?: bigint | number
-  tire_change_id: bigint | number
+  id?: number
+  tire_change_id: number
   tire_code: string
   position: number
 }
@@ -564,57 +559,55 @@ export type TireItemUpdateManyWithWhereWithoutBrandInput = {
 }
 
 export type TireItemCreateManyHistoryInput = {
-  id?: bigint | number
+  id?: number
   brand_id: number
   tire_code: string
   position: number
 }
 
 export type TireItemUpdateWithoutHistoryInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   brand?: Prisma.TireBrandUpdateOneRequiredWithoutItemsNestedInput
 }
 
 export type TireItemUncheckedUpdateWithoutHistoryInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   brand_id?: Prisma.IntFieldUpdateOperationsInput | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TireItemUncheckedUpdateManyWithoutHistoryInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   brand_id?: Prisma.IntFieldUpdateOperationsInput | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TireItemCreateManyBrandInput = {
-  id?: bigint | number
-  tire_change_id: bigint | number
+  id?: number
+  tire_change_id: number
   tire_code: string
   position: number
 }
 
 export type TireItemUpdateWithoutBrandInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   history?: Prisma.TireChangeHistoryUpdateOneRequiredWithoutTireItemsNestedInput
 }
 
 export type TireItemUncheckedUpdateWithoutBrandInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  tire_change_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  tire_change_id?: Prisma.IntFieldUpdateOperationsInput | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type TireItemUncheckedUpdateManyWithoutBrandInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  tire_change_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  tire_change_id?: Prisma.IntFieldUpdateOperationsInput | number
   tire_code?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -654,8 +647,8 @@ export type $TireItemPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     history: Prisma.$TireChangeHistoryPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
-    tire_change_id: bigint
+    id: number
+    tire_change_id: number
     brand_id: number
     tire_code: string
     position: number
@@ -1030,8 +1023,8 @@ export interface Prisma__TireItemClient<T, Null = never, ExtArgs extends runtime
  * Fields of the TireItem model
  */
 export interface TireItemFieldRefs {
-  readonly id: Prisma.FieldRef<"TireItem", 'BigInt'>
-  readonly tire_change_id: Prisma.FieldRef<"TireItem", 'BigInt'>
+  readonly id: Prisma.FieldRef<"TireItem", 'Int'>
+  readonly tire_change_id: Prisma.FieldRef<"TireItem", 'Int'>
   readonly brand_id: Prisma.FieldRef<"TireItem", 'Int'>
   readonly tire_code: Prisma.FieldRef<"TireItem", 'String'>
   readonly position: Prisma.FieldRef<"TireItem", 'Int'>

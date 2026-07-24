@@ -67,7 +67,6 @@ export default function TiresTable({
         onClose={changeTireModal.closeModal}
         title="แบบฟอร์มบันทึกการเปลี่ยนยาง"
         size="3xl"
-        showFooter={false}
       >
         <TireChangeForm trucks={trucks} brands={brands} />
       </Modal>
@@ -78,7 +77,6 @@ export default function TiresTable({
         onClose={addBrandModal.closeModal}
         title="เพิ่มยี่ห้อยางใหม่"
         size="md"
-        showFooter={false}
       >
         <AddBrandForm onSuccess={addBrandModal.closeModal} />
       </Modal>

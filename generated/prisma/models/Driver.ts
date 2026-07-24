@@ -31,18 +31,18 @@ export type DriverAvgAggregateOutputType = {
 }
 
 export type DriverSumAggregateOutputType = {
-  id: bigint | null
+  id: number | null
 }
 
 export type DriverMinAggregateOutputType = {
-  id: bigint | null
+  id: number | null
   name: string | null
   created_at: Date | null
   updated_at: Date | null
 }
 
 export type DriverMaxAggregateOutputType = {
-  id: bigint | null
+  id: number | null
   name: string | null
   created_at: Date | null
   updated_at: Date | null
@@ -174,10 +174,10 @@ export type DriverGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 export type DriverGroupByOutputType = {
-  id: bigint
+  id: number
   name: string
-  created_at: Date | null
-  updated_at: Date | null
+  created_at: Date
+  updated_at: Date
   _count: DriverCountAggregateOutputType | null
   _avg: DriverAvgAggregateOutputType | null
   _sum: DriverSumAggregateOutputType | null
@@ -204,38 +204,38 @@ export type DriverWhereInput = {
   AND?: Prisma.DriverWhereInput | Prisma.DriverWhereInput[]
   OR?: Prisma.DriverWhereInput[]
   NOT?: Prisma.DriverWhereInput | Prisma.DriverWhereInput[]
-  id?: Prisma.BigIntFilter<"Driver"> | bigint | number
+  id?: Prisma.IntFilter<"Driver"> | number
   name?: Prisma.StringFilter<"Driver"> | string
-  created_at?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
-  updated_at?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"Driver"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Driver"> | Date | string
   trucks?: Prisma.XOR<Prisma.TruckNullableScalarRelationFilter, Prisma.TruckWhereInput> | null
 }
 
 export type DriverOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   trucks?: Prisma.TruckOrderByWithRelationInput
   _relevance?: Prisma.DriverOrderByRelevanceInput
 }
 
 export type DriverWhereUniqueInput = Prisma.AtLeast<{
-  id?: bigint | number
+  id?: number
   name?: string
   AND?: Prisma.DriverWhereInput | Prisma.DriverWhereInput[]
   OR?: Prisma.DriverWhereInput[]
   NOT?: Prisma.DriverWhereInput | Prisma.DriverWhereInput[]
-  created_at?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
-  updated_at?: Prisma.DateTimeNullableFilter<"Driver"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"Driver"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Driver"> | Date | string
   trucks?: Prisma.XOR<Prisma.TruckNullableScalarRelationFilter, Prisma.TruckWhereInput> | null
 }, "id" | "name">
 
 export type DriverOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  created_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   _count?: Prisma.DriverCountOrderByAggregateInput
   _avg?: Prisma.DriverAvgOrderByAggregateInput
   _max?: Prisma.DriverMaxOrderByAggregateInput
@@ -247,63 +247,60 @@ export type DriverScalarWhereWithAggregatesInput = {
   AND?: Prisma.DriverScalarWhereWithAggregatesInput | Prisma.DriverScalarWhereWithAggregatesInput[]
   OR?: Prisma.DriverScalarWhereWithAggregatesInput[]
   NOT?: Prisma.DriverScalarWhereWithAggregatesInput | Prisma.DriverScalarWhereWithAggregatesInput[]
-  id?: Prisma.BigIntWithAggregatesFilter<"Driver"> | bigint | number
+  id?: Prisma.IntWithAggregatesFilter<"Driver"> | number
   name?: Prisma.StringWithAggregatesFilter<"Driver"> | string
-  created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Driver"> | Date | string | null
-  updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Driver"> | Date | string | null
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"Driver"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"Driver"> | Date | string
 }
 
 export type DriverCreateInput = {
-  id?: bigint | number
   name: string
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
   trucks?: Prisma.TruckCreateNestedOneWithoutDriversInput
 }
 
 export type DriverUncheckedCreateInput = {
-  id?: bigint | number
+  id?: number
   name: string
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
   trucks?: Prisma.TruckUncheckedCreateNestedOneWithoutDriversInput
 }
 
 export type DriverUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trucks?: Prisma.TruckUpdateOneWithoutDriversNestedInput
 }
 
 export type DriverUncheckedUpdateInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trucks?: Prisma.TruckUncheckedUpdateOneWithoutDriversNestedInput
 }
 
 export type DriverCreateManyInput = {
-  id?: bigint | number
+  id?: number
   name: string
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type DriverUpdateManyMutationInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DriverUncheckedUpdateManyInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DriverNullableScalarRelationFilter = {
@@ -362,18 +359,21 @@ export type DriverUpdateOneWithoutTrucksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DriverUpdateToOneWithWhereWithoutTrucksInput, Prisma.DriverUpdateWithoutTrucksInput>, Prisma.DriverUncheckedUpdateWithoutTrucksInput>
 }
 
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
 export type DriverCreateWithoutTrucksInput = {
-  id?: bigint | number
   name: string
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type DriverUncheckedCreateWithoutTrucksInput = {
-  id?: bigint | number
+  id?: number
   name: string
-  created_at?: Date | string | null
-  updated_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
 }
 
 export type DriverCreateOrConnectWithoutTrucksInput = {
@@ -393,17 +393,16 @@ export type DriverUpdateToOneWithWhereWithoutTrucksInput = {
 }
 
 export type DriverUpdateWithoutTrucksInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DriverUncheckedUpdateWithoutTrucksInput = {
-  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -436,10 +435,10 @@ export type $DriverPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     trucks: Prisma.$TruckPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: bigint
+    id: number
     name: string
-    created_at: Date | null
-    updated_at: Date | null
+    created_at: Date
+    updated_at: Date
   }, ExtArgs["result"]["driver"]>
   composites: {}
 }
@@ -810,7 +809,7 @@ export interface Prisma__DriverClient<T, Null = never, ExtArgs extends runtime.T
  * Fields of the Driver model
  */
 export interface DriverFieldRefs {
-  readonly id: Prisma.FieldRef<"Driver", 'BigInt'>
+  readonly id: Prisma.FieldRef<"Driver", 'Int'>
   readonly name: Prisma.FieldRef<"Driver", 'String'>
   readonly created_at: Prisma.FieldRef<"Driver", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Driver", 'DateTime'>

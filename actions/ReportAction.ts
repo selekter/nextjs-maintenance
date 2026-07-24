@@ -162,7 +162,7 @@ export async function createReport(prevState: any, formData: FormData) {
   try {
     await prisma.report.createMany({
       data: repairs.map((repair) => ({
-        license_plate_id: BigInt(truckId),
+        license_plate_id: parseInt(truckId),
         repair: repair,
         status: 0,
       })),
@@ -179,7 +179,7 @@ export async function createReport(prevState: any, formData: FormData) {
 export async function getReportsById(id: string) {
   const report = await prisma.report.findMany({
     where: {
-      license_plate_id: BigInt(id),
+      license_plate_id: parseInt(id),
       status: 0,
     },
   });
@@ -216,13 +216,13 @@ export async function updateReport(prevState: any, formData: FormData) {
   }
 
   const { selectedRepairIds } = validated.data;
-  const idsAsBigInt = selectedRepairIds.map((id) => BigInt(id));
+  const idsAsInt = selectedRepairIds.map((id) => parseInt(id));
 
   try {
     await prisma.$transaction(async (tx) => {
       // 1. ดึงข้อมูลรายการซ่อมที่กำลังจะปิดงานมาดูว่ามีอะไรบ้าง
       const reportToUpdate = await tx.report.findMany({
-        where: { id: { in: idsAsBigInt } },
+        where: { id: { in: idsAsInt } },
         select: { id: true, repair: true, license_plate_id: true },
       });
 
@@ -331,7 +331,7 @@ export async function addRepairAction(prevState: any, formData: FormData) {
   try {
     await prisma.report.createMany({
       data: repairsToAdd.map((r) => ({
-        license_plate_id: BigInt(license_plate_id),
+        license_plate_id: parseInt(license_plate_id),
         repair: r,
         status: 0,
       })),
@@ -352,7 +352,7 @@ export async function deleteReport(ids: string[]) {
     await prisma.report.deleteMany({
       where: {
         id: {
-          in: ids.map((id) => BigInt(id)),
+          in: ids.map((id) => parseInt(id)),
         },
       },
     });

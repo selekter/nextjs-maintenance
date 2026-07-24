@@ -57,7 +57,7 @@ export async function CreateDriver(
   const { driver_name, license_plate } = validationFields.data;
 
   try {
-    const result = await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx) => {
       // 1. หาหรือสร้าง Driver ในคำสั่งเดียว (Upsert)
       // หมายเหตุ: ชื่อ Driver ควรจะทำ Unique Constraint ใน Schema ไว้ด้วย
       const driver = await tx.driver.upsert({
@@ -73,6 +73,7 @@ export async function CreateDriver(
         },
       });
     });
+    revalidatePath("/dashboard/drivers");
   } catch (error) {
     console.error(error);
     return {
@@ -82,6 +83,5 @@ export async function CreateDriver(
     };
   }
 
-  revalidatePath("/dashboard/drivers");
   redirect("/dashboard/drivers");
 }
