@@ -42,8 +42,8 @@ export const reportEditSchema = z.object({
 });
 
 export const createLicenseMaintenanceSchema = z.object({
-  truckId: z.string().min(1, "กรุณาเลือกทะเบียนรถ"),
-  currentMileage: z
+  truckId: z.coerce.number().min(1, "กรุณาเลือกทะเบียนรถ"),
+  currentMileage: z.coerce
     .number()
     .min(0, "เลขไมล์ต้องไม่ต่ำกว่า 0")
     .max(999999, "เลขไมล์ต้องไม่เกิน 999999"),

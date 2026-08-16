@@ -8,19 +8,20 @@ datasource db {
 }
 
 model Truck {
-  id                  Int                 @id @default(autoincrement())
-  number_plate        String              @unique @db.VarChar(255)
-  current_mileage     Int                 @default(0)
-  created_at          DateTime?           @default(now()) @db.Timestamp(0)
-  updated_at          DateTime?           @updatedAt @db.Timestamp(0)
-  driver_id           Int?                @unique
-  drivers             Driver?             @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_license_plates_drivers")
-  maintenancelog      maintenancelog[]
+  id              Int       @id @default(autoincrement())
+  license_plate   String    @unique @db.VarChar(255)
+  current_mileage Int       @default(0)
+  created_at      DateTime? @default(now()) @db.Timestamp(0)
+  updated_at      DateTime? @updatedAt @db.Timestamp(0)
+  driver_id       Int?      @unique
+  driver          Driver?   @relation(fields: [driver_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
   reports             Report[]
   tireChangeHistories TireChangeHistory[]
+  MaintenanceStatuses TruckMaintenanceStatus[]
 
-  @@index([driver_id], map: "FK_license_plates_drivers")
-  @@map("license_plates")
+  @@index([driver_id])
+  @@map("trucks")
 }
 
 model Driver {
@@ -34,17 +35,18 @@ model Driver {
 }
 
 model Report {
-  id               Int      @id @default(autoincrement())
-  license_plate_id Int
-  repair           String   @db.VarChar(255)
-  status           Int      @default(0)
-  description      String?  @db.Text
-  created_at       DateTime @default(now())
-  updated_at       DateTime @updatedAt
-  truck            Truck    @relation(fields: [license_plate_id], references: [id])
+  id          Int      @id @default(autoincrement())
+  truck_id    Int
+  repair      String   @db.VarChar(255)
+  status      Int      @default(0)
+  mileage     Int      @default(0)
+  description String?  @db.Text
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  truck       Truck    @relation(fields: [truck_id], references: [id])
 
   @@index([status, updated_at(sort: Desc)])
-  @@index([license_plate_id], map: "report_repairs_license_plate_id_fkey")
+  @@index([truck_id])
   @@map("report_repairs")
 }
 
@@ -79,21 +81,23 @@ model TireItem {
   history        TireChangeHistory @relation(fields: [tire_change_id], references: [id])
 
   @@index([tire_change_id])
-  @@index([brand_id], map: "tire_item_brand_id_fkey")
+  @@index([brand_id])
   @@map("tire_item")
 }
 
-model maintenancelog {
+// ตารางเก็บ "สถานะล่าสุด" โดยเฉพาะ (1 รถ : 3 ประเภทน้ำมัน = มีสูงสุด 3 แถวต่อรถ 1 คัน)
+model TruckMaintenanceStatus {
   id              Int      @id @default(autoincrement())
   truck_id        Int
   type            String
-  service_mileage Int
-  next_service_at Int
-  description     String?
-  created_at      DateTime @default(now())
-  license_plates  Truck    @relation(fields: [truck_id], references: [id], map: "MaintenanceLog_truck_id_fkey")
+  service_mileage Int      @default(0)
+  next_service_at Int      @default(0)
+  service_date    DateTime @updatedAt
 
-  @@index([truck_id, created_at], map: "MaintenanceLog_truck_id_created_at_idx")
+  truck Truck @relation(fields: [truck_id], references: [id], onDelete: Cascade)
+
+  @@unique([truck_id, type])
+  @@map("truck_maintenance_statuses")
 }
 
 model User {

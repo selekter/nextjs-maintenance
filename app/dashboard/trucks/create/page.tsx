@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import CreateTruckForm from "@/ui/trucks/create/TruckCreate";
+import CreateTruckForm from "@/features/trucks/components/TruckCreate";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 

@@ -57,7 +57,7 @@ export const ModelName = {
   TireChangeHistory: 'TireChangeHistory',
   TireBrand: 'TireBrand',
   TireItem: 'TireItem',
-  maintenancelog: 'maintenancelog',
+  TruckMaintenanceStatus: 'TruckMaintenanceStatus',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -82,7 +82,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const TruckScalarFieldEnum = {
   id: 'id',
-  number_plate: 'number_plate',
+  license_plate: 'license_plate',
   current_mileage: 'current_mileage',
   created_at: 'created_at',
   updated_at: 'updated_at',
@@ -104,9 +104,10 @@ export type DriverScalarFieldEnum = (typeof DriverScalarFieldEnum)[keyof typeof 
 
 export const ReportScalarFieldEnum = {
   id: 'id',
-  license_plate_id: 'license_plate_id',
+  truck_id: 'truck_id',
   repair: 'repair',
   status: 'status',
+  mileage: 'mileage',
   description: 'description',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -145,17 +146,16 @@ export const TireItemScalarFieldEnum = {
 export type TireItemScalarFieldEnum = (typeof TireItemScalarFieldEnum)[keyof typeof TireItemScalarFieldEnum]
 
 
-export const MaintenancelogScalarFieldEnum = {
+export const TruckMaintenanceStatusScalarFieldEnum = {
   id: 'id',
   truck_id: 'truck_id',
   type: 'type',
   service_mileage: 'service_mileage',
   next_service_at: 'next_service_at',
-  description: 'description',
-  created_at: 'created_at'
+  service_date: 'service_date'
 } as const
 
-export type MaintenancelogScalarFieldEnum = (typeof MaintenancelogScalarFieldEnum)[keyof typeof MaintenancelogScalarFieldEnum]
+export type TruckMaintenanceStatusScalarFieldEnum = (typeof TruckMaintenanceStatusScalarFieldEnum)[keyof typeof TruckMaintenanceStatusScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -233,7 +233,7 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const TruckOrderByRelevanceFieldEnum = {
-  number_plate: 'number_plate'
+  license_plate: 'license_plate'
 } as const
 
 export type TruckOrderByRelevanceFieldEnum = (typeof TruckOrderByRelevanceFieldEnum)[keyof typeof TruckOrderByRelevanceFieldEnum]
@@ -275,12 +275,11 @@ export const TireItemOrderByRelevanceFieldEnum = {
 export type TireItemOrderByRelevanceFieldEnum = (typeof TireItemOrderByRelevanceFieldEnum)[keyof typeof TireItemOrderByRelevanceFieldEnum]
 
 
-export const maintenancelogOrderByRelevanceFieldEnum = {
-  type: 'type',
-  description: 'description'
+export const TruckMaintenanceStatusOrderByRelevanceFieldEnum = {
+  type: 'type'
 } as const
 
-export type maintenancelogOrderByRelevanceFieldEnum = (typeof maintenancelogOrderByRelevanceFieldEnum)[keyof typeof maintenancelogOrderByRelevanceFieldEnum]
+export type TruckMaintenanceStatusOrderByRelevanceFieldEnum = (typeof TruckMaintenanceStatusOrderByRelevanceFieldEnum)[keyof typeof TruckMaintenanceStatusOrderByRelevanceFieldEnum]
 
 
 export const UserOrderByRelevanceFieldEnum = {

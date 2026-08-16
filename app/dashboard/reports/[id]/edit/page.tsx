@@ -1,5 +1,5 @@
-import { getReportsById } from "@/actions/ReportAction";
-import ReportEditForm from "@/ui/reports/Edit/ReportEditForm";
+import { getReportsById } from "@/features/report/report.actions";
+import ReportEditForm from "@/features/report/components/ReportEditForm";
 import { redirect } from "next/navigation";
 
 export default async function EditReportPage({
@@ -11,12 +11,13 @@ export default async function EditReportPage({
 
   const report = await getReportsById(id);
 
-  if (!report) {
+  if (!report || report.length === 0) {
     redirect("/dashboard/reports");
   }
+
   return (
     <>
-      <ReportEditForm report={report} license_plate_id={id} />
+      <ReportEditForm report={report} truckId={id} />
     </>
   );
 }

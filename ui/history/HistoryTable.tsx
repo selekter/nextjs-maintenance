@@ -1,9 +1,11 @@
+import { TableCell, TableHead, TableRow } from "@/components/Table";
+import { GroupedRepairItem } from "@/features/report/report.schemas";
 import { GroupedReport } from "@/types";
 
 export default function HistoryTable({
   repairHistory,
 }: {
-  repairHistory: GroupedReport[];
+  repairHistory: GroupedRepairItem[];
 }) {
   const formatThaiDate = (date: any) => {
     const thaiDate = new Date(date).toLocaleDateString("th-TH", {
@@ -38,6 +40,7 @@ export default function HistoryTable({
             <th className="px-6 py-4 font-semibold text-gray-700">
               รายการซ่อม
             </th>
+            <TableHead>เลขไมล์ที่เปลี่ยน</TableHead>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
@@ -52,14 +55,13 @@ export default function HistoryTable({
                     </small>
                   </div>
                 </td>
-                <td className="px-6 py-4">{group.number_plate}</td>
+                <td className="px-6 py-4">{group.license_plate}</td>
                 <td className="flex flex-col gap-2 px-6 py-4">
                   {group.repairs.map((item: any, index: any) => (
                     <div key={index}>
                       <span className="bg-blue-200 text-blue-700 px-3 py-1 rounded-md">
                         {item.repair}
                       </span>
-                      <span></span>
                       {item.description && (
                         <p>
                           <span className="text-red-500 mr-2">หมายเหตุ</span>
@@ -69,6 +71,7 @@ export default function HistoryTable({
                     </div>
                   ))}
                 </td>
+                <TableCell>{group.mileage}</TableCell>
               </tr>
             ))
           ) : (

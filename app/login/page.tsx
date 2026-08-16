@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
+import LoadingPage from "@/components/LoadingPage";
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
@@ -39,6 +40,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex h-screen items-center justify-center bg-gray-50">
+      {isPending && <LoadingPage />}
       <form
         onSubmit={handleSubmit}
         className="p-10 bg-white shadow-lg rounded-xl w-full max-w-md"
@@ -55,6 +57,7 @@ export default function LoginPage() {
           placeholder="Email"
           required
           className="w-full p-2 border mb-4 rounded"
+          autoFocus
         />
         <input
           name="password"

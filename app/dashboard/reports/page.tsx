@@ -1,5 +1,5 @@
-import { getReports } from "@/actions/ReportAction";
 import TableSkeleton from "@/components/tableSkeleton";
+import { getReports } from "@/features/report/report.actions";
 import { auth } from "@/lib/auth";
 import ReportTable from "@/ui/reports/ReportTable";
 import { Plus } from "lucide-react";
@@ -9,6 +9,7 @@ import { Suspense } from "react";
 
 export default async function ReportPage() {
   const session = await auth.api.getSession({ headers: await headers() });
+
   const reports = await getReports();
 
   return (

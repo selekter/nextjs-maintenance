@@ -1,23 +1,70 @@
 "use client";
 
-import { Register } from "@/actions/Register";
 import Alert from "@/components/Alert";
+import { signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import { useActionState, useRef, useState } from "react";
+
+type ErrorState = {
+  confirmPassword: string;
+};
 
 export default function RegisterPage() {
   const passwordRef = useRef<HTMLInputElement>(null);
-  const [state, formAction, isPending] = useActionState(Register, null);
+  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<ErrorState>({
+    confirmPassword: "",
+  });
+  const [pending, setPending] = useState(false);
+  const router = useRouter();
+
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    setPending(true);
+
+    const formData = new FormData(e.currentTarget);
+
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+
+    if (password !== confirmPassword) {
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword: "รหัสไม่ตรงกัน",
+      }));
+      setPending(false);
+      return;
+    }
+
+    setErrors({ confirmPassword: "" });
+
+    const res = await signUp.email({
+      name: name,
+      email: email,
+      password: password,
+    });
+
+    if (res.error) {
+      setError(res.error.message || "Something went wrong.");
+      setPending(false);
+    } else {
+      router.push("/dashboard");
+    }
+  }
 
   return (
     <div className="flex h-screen items-center justify-center bg-gray-50">
       <form
-        action={formAction}
+        onSubmit={handleSubmit}
         className="p-10 bg-white shadow-lg rounded-xl w-full max-w-md flex flex-col gap-4"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">สมัครสมาชิก</h2>
 
-        {state?.error && (
-          <p className="text-red-500 text-sm mb-4 text-center">{state.error}</p>
+        {error && (
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
         )}
 
         <input
@@ -49,11 +96,11 @@ export default function RegisterPage() {
             name="confirmPassword"
             placeholder="Confirm Password"
             required
-            className={`w-full p-2 border-2 rounded outline-0 ${state?.errors?.confirmPassword ? "border-red-500" : "border-gray-200 focus:border-blue-300"}`}
+            className={`w-full p-2 border-2 rounded outline-0 ${errors?.confirmPassword ? "border-red-500" : "border-gray-200 focus:border-blue-300"}`}
           />
-          {state?.errors?.confirmPassword && (
+          {errors?.confirmPassword && (
             <span className="text-red-500 text-sm">
-              {state.errors.confirmPassword}
+              {errors.confirmPassword}
             </span>
           )}
         </div>
@@ -61,9 +108,9 @@ export default function RegisterPage() {
         <button
           type="submit"
           className={`w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed`}
-          disabled={isPending}
+          disabled={pending}
         >
-          {isPending ? "กำลังเข้าสู่ระบบ" : "เข้าสู่ระบบ"}
+          {pending ? "กำลังสมัครสมาชิก" : "สมัครสมาชิก"}
         </button>
       </form>
     </div>

@@ -1,8 +1,10 @@
-import { getTires, getTireBrands } from "@/actions/TiresAction";
-import { getTrucks } from "@/actions/TruckAction";
+// import { getTires, getTireBrands } from "@/actions/TiresAction";
+// import { getTrucks } from "@/actions/TruckAction";
 import TableSkeleton from "@/components/tableSkeleton";
+import TiresTable from "@/features/tire/components/TiresTable";
+import { getTireBrands, getTires } from "@/features/tire/tire.actions";
+import { getTrucks } from "@/features/trucks/truck.action";
 import { TireGrouped } from "@/types";
-import TiresTable from "@/ui/tires/TiresTable";
 import { Suspense } from "react";
 
 export default async function TiresPage() {
@@ -12,39 +14,39 @@ export default async function TiresPage() {
     getTireBrands(),
   ]);
 
-  const tireGrouped = Object.values(
-    tires.reduce<Record<string, TireGrouped>>((acc: any, item: any) => {
-      const date = new Date(item.history.change_date)
-        .toISOString()
-        .split("T")[0];
+  console.log(tires);
 
-      const plate = item.history.truck.number_plate;
+  // const tireGrouped = Object.values(
+  //   tires.reduce<Record<string, TireGrouped>>((acc: any, item: any) => {
+  //     const date = new Date(item.change_date).toISOString().split("T")[0];
 
-      const key = `${plate}-${date}`;
+  //     const plate = item.truck.license_plate;
 
-      if (!acc[key]) {
-        acc[key] = {
-          date,
-          plate_number: plate,
-          mileage: item.history.mileage_at_change,
-          tires: [],
-        };
-      }
+  //     const key = `${plate}-${date}`;
 
-      acc[key].tires.push({
-        position: item.position,
-        brand: item.brand.name,
-        tire_code: item.tire_code,
-      });
+  //     if (!acc[key]) {
+  //       acc[key] = {
+  //         date,
+  //         license_plate: plate,
+  //         mileage: item.mileage_at_change,
+  //         tires: [],
+  //       };
+  //     }
 
-      return acc;
-    }, {}),
-  );
+  //     acc[key].tires.push({
+  //       position: item.position,
+  //       brand: item.brand.name,
+  //       tire_code: item.tire_code,
+  //     });
+
+  //     return acc;
+  //   }, {}),
+  // );
 
   return (
     <>
       <Suspense fallback={<TableSkeleton />}>
-        <TiresTable tires={tireGrouped} trucks={trucks} brands={brands} />
+        <TiresTable tires={tires} trucks={trucks} brands={brands} />
       </Suspense>
     </>
   );

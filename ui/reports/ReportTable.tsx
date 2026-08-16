@@ -1,15 +1,21 @@
 "use client";
 
+import {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/Table";
+import { ReportPendingProps } from "@/features/report/report.schemas";
 import { useModal } from "@/hooks/useModal";
-import { auth } from "@/lib/auth";
-import { ReportProps } from "@/types";
 import Link from "next/link";
 
 export default function ReportTable({
   reports,
   session,
 }: {
-  reports: ReportProps[];
+  reports: ReportPendingProps[];
   session: any;
 }) {
   const { isOpen, data, openModal, closeModal } = useModal();
@@ -17,22 +23,20 @@ export default function ReportTable({
   return (
     <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-y-hidden overflow-x-auto">
       <table className="text-left w-full table-auto">
-        <thead className="bg-blue-200 border-b border-gray-100">
-          <tr>
-            <th className="px-6 py-4 font-semibold text-gray-700">ทะเบียน</th>
-            <th className="px-6 py-4 font-semibold text-gray-700">
-              รายการแจ้งซ่อม
-            </th>
-            {session && <th className="px-6 py-4 text-right">จัดการ</th>}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-100">
+        <TableHeader>
+          <TableRow>
+            <TableHead>ทะเบียน</TableHead>
+            <TableHead>รายการแจ้งซ่อม</TableHead>
+            {session && <TableHead className="text-right">จัดการ</TableHead>}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {reports?.map((report) => (
             <tr key={report.id} className="hover:bg-gray-200 transition-colors">
-              <td className="px-6 py-4 font-medium">{report.license_plate}</td>
+              <TableCell>{report.license_plate}</TableCell>
               <td className="px-6 py-4">
                 <span className="flex flex-col gap-2">
-                  {report.repairs.map((item, index) => (
+                  {report.reports.map((item, index) => (
                     <span
                       key={index}
                       className="bg-blue-100 text-blue-700 w-fit px-3 py-1 rounded-md"
@@ -59,7 +63,7 @@ export default function ReportTable({
               )}
             </tr>
           ))}
-        </tbody>
+        </TableBody>
       </table>
     </div>
   );

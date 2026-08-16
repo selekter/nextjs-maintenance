@@ -1,20 +1,22 @@
-import { getMaintenanceStatus } from "@/actions/MaintenanceAction";
-import { getTrucks } from "@/actions/TruckAction";
+import {
+  getMaintenanceStatus,
+  getTrucks,
+} from "@/features/trucks/truck.action";
 import { auth } from "@/lib/auth";
 import MaintenanceModal from "@/ui/maintenance/MaintenanceModal";
-import MaintenanceTable from "@/ui/maintenance/MaintenanceTable";
+import MaintenanceTable from "@/features/maintenanceStatus/components/MaintenanceTable";
 import { headers } from "next/headers";
 
 export default async function MainTenancePage() {
-  const maintenance = await getMaintenanceStatus();
-  const truckId = await getTrucks();
+  const maintenanceStatus = await getMaintenanceStatus();
+  const trucks = await getTrucks();
 
   const session = await auth.api.getSession({ headers: await headers() });
 
   return (
     <>
-      {session && <MaintenanceModal truckid={truckId} />}
-      <MaintenanceTable data={maintenance} />
+      {session && <MaintenanceModal trucks={trucks} />}
+      <MaintenanceTable data={maintenanceStatus} />
     </>
   );
 }

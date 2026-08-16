@@ -80,11 +80,11 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.9.0
+ * Prisma Client JS version: 7.9.1
  * Query Engine version: e922089b7d7502aff4249d5da3420f6fa55fc6ad
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.9.0",
+  client: "7.9.1",
   engine: "e922089b7d7502aff4249d5da3420f6fa55fc6ad"
 }
 
@@ -403,7 +403,7 @@ export const ModelName = {
   TireChangeHistory: 'TireChangeHistory',
   TireBrand: 'TireBrand',
   TireItem: 'TireItem',
-  maintenancelog: 'maintenancelog',
+  TruckMaintenanceStatus: 'TruckMaintenanceStatus',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -423,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "truck" | "driver" | "report" | "tireChangeHistory" | "tireBrand" | "tireItem" | "maintenancelog" | "user" | "session" | "account" | "verification"
+    modelProps: "truck" | "driver" | "report" | "tireChangeHistory" | "tireBrand" | "tireItem" | "truckMaintenanceStatus" | "user" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -823,69 +823,69 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    maintenancelog: {
-      payload: Prisma.$maintenancelogPayload<ExtArgs>
-      fields: Prisma.maintenancelogFieldRefs
+    TruckMaintenanceStatus: {
+      payload: Prisma.$TruckMaintenanceStatusPayload<ExtArgs>
+      fields: Prisma.TruckMaintenanceStatusFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.maintenancelogFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload> | null
+          args: Prisma.TruckMaintenanceStatusFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckMaintenanceStatusPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.maintenancelogFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+          args: Prisma.TruckMaintenanceStatusFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckMaintenanceStatusPayload>
         }
         findFirst: {
-          args: Prisma.maintenancelogFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload> | null
+          args: Prisma.TruckMaintenanceStatusFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckMaintenanceStatusPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.maintenancelogFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+          args: Prisma.TruckMaintenanceStatusFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckMaintenanceStatusPayload>
         }
         findMany: {
-          args: Prisma.maintenancelogFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>[]
+          args: Prisma.TruckMaintenanceStatusFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckMaintenanceStatusPayload>[]
         }
         create: {
-          args: Prisma.maintenancelogCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+          args: Prisma.TruckMaintenanceStatusCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckMaintenanceStatusPayload>
         }
         createMany: {
-          args: Prisma.maintenancelogCreateManyArgs<ExtArgs>
+          args: Prisma.TruckMaintenanceStatusCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         delete: {
-          args: Prisma.maintenancelogDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+          args: Prisma.TruckMaintenanceStatusDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckMaintenanceStatusPayload>
         }
         update: {
-          args: Prisma.maintenancelogUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+          args: Prisma.TruckMaintenanceStatusUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckMaintenanceStatusPayload>
         }
         deleteMany: {
-          args: Prisma.maintenancelogDeleteManyArgs<ExtArgs>
+          args: Prisma.TruckMaintenanceStatusDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.maintenancelogUpdateManyArgs<ExtArgs>
+          args: Prisma.TruckMaintenanceStatusUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         upsert: {
-          args: Prisma.maintenancelogUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$maintenancelogPayload>
+          args: Prisma.TruckMaintenanceStatusUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TruckMaintenanceStatusPayload>
         }
         aggregate: {
-          args: Prisma.MaintenancelogAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateMaintenancelog>
+          args: Prisma.TruckMaintenanceStatusAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTruckMaintenanceStatus>
         }
         groupBy: {
-          args: Prisma.maintenancelogGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MaintenancelogGroupByOutputType>[]
+          args: Prisma.TruckMaintenanceStatusGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TruckMaintenanceStatusGroupByOutputType>[]
         }
         count: {
-          args: Prisma.maintenancelogCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MaintenancelogCountAggregateOutputType> | number
+          args: Prisma.TruckMaintenanceStatusCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TruckMaintenanceStatusCountAggregateOutputType> | number
         }
       }
     }
@@ -1194,7 +1194,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const TruckScalarFieldEnum = {
   id: 'id',
-  number_plate: 'number_plate',
+  license_plate: 'license_plate',
   current_mileage: 'current_mileage',
   created_at: 'created_at',
   updated_at: 'updated_at',
@@ -1216,9 +1216,10 @@ export type DriverScalarFieldEnum = (typeof DriverScalarFieldEnum)[keyof typeof 
 
 export const ReportScalarFieldEnum = {
   id: 'id',
-  license_plate_id: 'license_plate_id',
+  truck_id: 'truck_id',
   repair: 'repair',
   status: 'status',
+  mileage: 'mileage',
   description: 'description',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -1257,17 +1258,16 @@ export const TireItemScalarFieldEnum = {
 export type TireItemScalarFieldEnum = (typeof TireItemScalarFieldEnum)[keyof typeof TireItemScalarFieldEnum]
 
 
-export const MaintenancelogScalarFieldEnum = {
+export const TruckMaintenanceStatusScalarFieldEnum = {
   id: 'id',
   truck_id: 'truck_id',
   type: 'type',
   service_mileage: 'service_mileage',
   next_service_at: 'next_service_at',
-  description: 'description',
-  created_at: 'created_at'
+  service_date: 'service_date'
 } as const
 
-export type MaintenancelogScalarFieldEnum = (typeof MaintenancelogScalarFieldEnum)[keyof typeof MaintenancelogScalarFieldEnum]
+export type TruckMaintenanceStatusScalarFieldEnum = (typeof TruckMaintenanceStatusScalarFieldEnum)[keyof typeof TruckMaintenanceStatusScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -1345,7 +1345,7 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const TruckOrderByRelevanceFieldEnum = {
-  number_plate: 'number_plate'
+  license_plate: 'license_plate'
 } as const
 
 export type TruckOrderByRelevanceFieldEnum = (typeof TruckOrderByRelevanceFieldEnum)[keyof typeof TruckOrderByRelevanceFieldEnum]
@@ -1387,12 +1387,11 @@ export const TireItemOrderByRelevanceFieldEnum = {
 export type TireItemOrderByRelevanceFieldEnum = (typeof TireItemOrderByRelevanceFieldEnum)[keyof typeof TireItemOrderByRelevanceFieldEnum]
 
 
-export const maintenancelogOrderByRelevanceFieldEnum = {
-  type: 'type',
-  description: 'description'
+export const TruckMaintenanceStatusOrderByRelevanceFieldEnum = {
+  type: 'type'
 } as const
 
-export type maintenancelogOrderByRelevanceFieldEnum = (typeof maintenancelogOrderByRelevanceFieldEnum)[keyof typeof maintenancelogOrderByRelevanceFieldEnum]
+export type TruckMaintenanceStatusOrderByRelevanceFieldEnum = (typeof TruckMaintenanceStatusOrderByRelevanceFieldEnum)[keyof typeof TruckMaintenanceStatusOrderByRelevanceFieldEnum]
 
 
 export const UserOrderByRelevanceFieldEnum = {
@@ -1637,7 +1636,7 @@ export type GlobalOmitConfig = {
   tireChangeHistory?: Prisma.TireChangeHistoryOmit
   tireBrand?: Prisma.TireBrandOmit
   tireItem?: Prisma.TireItemOmit
-  maintenancelog?: Prisma.maintenancelogOmit
+  truckMaintenanceStatus?: Prisma.TruckMaintenanceStatusOmit
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit

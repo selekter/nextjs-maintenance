@@ -72,10 +72,10 @@ export type TireBrand = Prisma.TireBrandModel
  */
 export type TireItem = Prisma.TireItemModel
 /**
- * Model maintenancelog
+ * Model TruckMaintenanceStatus
  * 
  */
-export type maintenancelog = Prisma.maintenancelogModel
+export type TruckMaintenanceStatus = Prisma.TruckMaintenanceStatusModel
 /**
  * Model User
  * 

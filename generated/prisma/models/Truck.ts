@@ -40,7 +40,7 @@ export type TruckSumAggregateOutputType = {
 
 export type TruckMinAggregateOutputType = {
   id: number | null
-  number_plate: string | null
+  license_plate: string | null
   current_mileage: number | null
   created_at: Date | null
   updated_at: Date | null
@@ -49,7 +49,7 @@ export type TruckMinAggregateOutputType = {
 
 export type TruckMaxAggregateOutputType = {
   id: number | null
-  number_plate: string | null
+  license_plate: string | null
   current_mileage: number | null
   created_at: Date | null
   updated_at: Date | null
@@ -58,7 +58,7 @@ export type TruckMaxAggregateOutputType = {
 
 export type TruckCountAggregateOutputType = {
   id: number
-  number_plate: number
+  license_plate: number
   current_mileage: number
   created_at: number
   updated_at: number
@@ -81,7 +81,7 @@ export type TruckSumAggregateInputType = {
 
 export type TruckMinAggregateInputType = {
   id?: true
-  number_plate?: true
+  license_plate?: true
   current_mileage?: true
   created_at?: true
   updated_at?: true
@@ -90,7 +90,7 @@ export type TruckMinAggregateInputType = {
 
 export type TruckMaxAggregateInputType = {
   id?: true
-  number_plate?: true
+  license_plate?: true
   current_mileage?: true
   created_at?: true
   updated_at?: true
@@ -99,7 +99,7 @@ export type TruckMaxAggregateInputType = {
 
 export type TruckCountAggregateInputType = {
   id?: true
-  number_plate?: true
+  license_plate?: true
   current_mileage?: true
   created_at?: true
   updated_at?: true
@@ -195,7 +195,7 @@ export type TruckGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type TruckGroupByOutputType = {
   id: number
-  number_plate: string
+  license_plate: string
   current_mileage: number
   created_at: Date | null
   updated_at: Date | null
@@ -227,34 +227,34 @@ export type TruckWhereInput = {
   OR?: Prisma.TruckWhereInput[]
   NOT?: Prisma.TruckWhereInput | Prisma.TruckWhereInput[]
   id?: Prisma.IntFilter<"Truck"> | number
-  number_plate?: Prisma.StringFilter<"Truck"> | string
+  license_plate?: Prisma.StringFilter<"Truck"> | string
   current_mileage?: Prisma.IntFilter<"Truck"> | number
   created_at?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
   driver_id?: Prisma.IntNullableFilter<"Truck"> | number | null
-  drivers?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
-  maintenancelog?: Prisma.MaintenancelogListRelationFilter
+  driver?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
   reports?: Prisma.ReportListRelationFilter
   tireChangeHistories?: Prisma.TireChangeHistoryListRelationFilter
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusListRelationFilter
 }
 
 export type TruckOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  number_plate?: Prisma.SortOrder
+  license_plate?: Prisma.SortOrder
   current_mileage?: Prisma.SortOrder
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   driver_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  drivers?: Prisma.DriverOrderByWithRelationInput
-  maintenancelog?: Prisma.maintenancelogOrderByRelationAggregateInput
+  driver?: Prisma.DriverOrderByWithRelationInput
   reports?: Prisma.ReportOrderByRelationAggregateInput
   tireChangeHistories?: Prisma.TireChangeHistoryOrderByRelationAggregateInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusOrderByRelationAggregateInput
   _relevance?: Prisma.TruckOrderByRelevanceInput
 }
 
 export type TruckWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  number_plate?: string
+  license_plate?: string
   driver_id?: number
   AND?: Prisma.TruckWhereInput | Prisma.TruckWhereInput[]
   OR?: Prisma.TruckWhereInput[]
@@ -262,15 +262,15 @@ export type TruckWhereUniqueInput = Prisma.AtLeast<{
   current_mileage?: Prisma.IntFilter<"Truck"> | number
   created_at?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"Truck"> | Date | string | null
-  drivers?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
-  maintenancelog?: Prisma.MaintenancelogListRelationFilter
+  driver?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
   reports?: Prisma.ReportListRelationFilter
   tireChangeHistories?: Prisma.TireChangeHistoryListRelationFilter
-}, "id" | "number_plate" | "driver_id">
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusListRelationFilter
+}, "id" | "license_plate" | "driver_id">
 
 export type TruckOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  number_plate?: Prisma.SortOrder
+  license_plate?: Prisma.SortOrder
   current_mileage?: Prisma.SortOrder
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -287,7 +287,7 @@ export type TruckScalarWhereWithAggregatesInput = {
   OR?: Prisma.TruckScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TruckScalarWhereWithAggregatesInput | Prisma.TruckScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Truck"> | number
-  number_plate?: Prisma.StringWithAggregatesFilter<"Truck"> | string
+  license_plate?: Prisma.StringWithAggregatesFilter<"Truck"> | string
   current_mileage?: Prisma.IntWithAggregatesFilter<"Truck"> | number
   created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Truck"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Truck"> | Date | string | null
@@ -295,54 +295,54 @@ export type TruckScalarWhereWithAggregatesInput = {
 }
 
 export type TruckCreateInput = {
-  number_plate: string
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
-  drivers?: Prisma.DriverCreateNestedOneWithoutTrucksInput
-  maintenancelog?: Prisma.maintenancelogCreateNestedManyWithoutLicense_platesInput
+  driver?: Prisma.DriverCreateNestedOneWithoutTrucksInput
   reports?: Prisma.ReportCreateNestedManyWithoutTruckInput
   tireChangeHistories?: Prisma.TireChangeHistoryCreateNestedManyWithoutTruckInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusCreateNestedManyWithoutTruckInput
 }
 
 export type TruckUncheckedCreateInput = {
   id?: number
-  number_plate: string
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
   driver_id?: number | null
-  maintenancelog?: Prisma.maintenancelogUncheckedCreateNestedManyWithoutLicense_platesInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutTruckInput
   tireChangeHistories?: Prisma.TireChangeHistoryUncheckedCreateNestedManyWithoutTruckInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUncheckedCreateNestedManyWithoutTruckInput
 }
 
 export type TruckUpdateInput = {
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  drivers?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
-  maintenancelog?: Prisma.maintenancelogUpdateManyWithoutLicense_platesNestedInput
+  driver?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
   reports?: Prisma.ReportUpdateManyWithoutTruckNestedInput
   tireChangeHistories?: Prisma.TireChangeHistoryUpdateManyWithoutTruckNestedInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUpdateManyWithoutTruckNestedInput
 }
 
 export type TruckUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driver_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  maintenancelog?: Prisma.maintenancelogUncheckedUpdateManyWithoutLicense_platesNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutTruckNestedInput
   tireChangeHistories?: Prisma.TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUncheckedUpdateManyWithoutTruckNestedInput
 }
 
 export type TruckCreateManyInput = {
   id?: number
-  number_plate: string
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
@@ -350,7 +350,7 @@ export type TruckCreateManyInput = {
 }
 
 export type TruckUpdateManyMutationInput = {
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -358,7 +358,7 @@ export type TruckUpdateManyMutationInput = {
 
 export type TruckUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -373,7 +373,7 @@ export type TruckOrderByRelevanceInput = {
 
 export type TruckCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  number_plate?: Prisma.SortOrder
+  license_plate?: Prisma.SortOrder
   current_mileage?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -388,7 +388,7 @@ export type TruckAvgOrderByAggregateInput = {
 
 export type TruckMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  number_plate?: Prisma.SortOrder
+  license_plate?: Prisma.SortOrder
   current_mileage?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -397,7 +397,7 @@ export type TruckMaxOrderByAggregateInput = {
 
 export type TruckMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  number_plate?: Prisma.SortOrder
+  license_plate?: Prisma.SortOrder
   current_mileage?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
@@ -444,36 +444,36 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type TruckCreateNestedOneWithoutDriversInput = {
-  create?: Prisma.XOR<Prisma.TruckCreateWithoutDriversInput, Prisma.TruckUncheckedCreateWithoutDriversInput>
-  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutDriversInput
+export type TruckCreateNestedOneWithoutDriverInput = {
+  create?: Prisma.XOR<Prisma.TruckCreateWithoutDriverInput, Prisma.TruckUncheckedCreateWithoutDriverInput>
+  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutDriverInput
   connect?: Prisma.TruckWhereUniqueInput
 }
 
-export type TruckUncheckedCreateNestedOneWithoutDriversInput = {
-  create?: Prisma.XOR<Prisma.TruckCreateWithoutDriversInput, Prisma.TruckUncheckedCreateWithoutDriversInput>
-  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutDriversInput
+export type TruckUncheckedCreateNestedOneWithoutDriverInput = {
+  create?: Prisma.XOR<Prisma.TruckCreateWithoutDriverInput, Prisma.TruckUncheckedCreateWithoutDriverInput>
+  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutDriverInput
   connect?: Prisma.TruckWhereUniqueInput
 }
 
-export type TruckUpdateOneWithoutDriversNestedInput = {
-  create?: Prisma.XOR<Prisma.TruckCreateWithoutDriversInput, Prisma.TruckUncheckedCreateWithoutDriversInput>
-  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutDriversInput
-  upsert?: Prisma.TruckUpsertWithoutDriversInput
+export type TruckUpdateOneWithoutDriverNestedInput = {
+  create?: Prisma.XOR<Prisma.TruckCreateWithoutDriverInput, Prisma.TruckUncheckedCreateWithoutDriverInput>
+  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutDriverInput
+  upsert?: Prisma.TruckUpsertWithoutDriverInput
   disconnect?: Prisma.TruckWhereInput | boolean
   delete?: Prisma.TruckWhereInput | boolean
   connect?: Prisma.TruckWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TruckUpdateToOneWithWhereWithoutDriversInput, Prisma.TruckUpdateWithoutDriversInput>, Prisma.TruckUncheckedUpdateWithoutDriversInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TruckUpdateToOneWithWhereWithoutDriverInput, Prisma.TruckUpdateWithoutDriverInput>, Prisma.TruckUncheckedUpdateWithoutDriverInput>
 }
 
-export type TruckUncheckedUpdateOneWithoutDriversNestedInput = {
-  create?: Prisma.XOR<Prisma.TruckCreateWithoutDriversInput, Prisma.TruckUncheckedCreateWithoutDriversInput>
-  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutDriversInput
-  upsert?: Prisma.TruckUpsertWithoutDriversInput
+export type TruckUncheckedUpdateOneWithoutDriverNestedInput = {
+  create?: Prisma.XOR<Prisma.TruckCreateWithoutDriverInput, Prisma.TruckUncheckedCreateWithoutDriverInput>
+  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutDriverInput
+  upsert?: Prisma.TruckUpsertWithoutDriverInput
   disconnect?: Prisma.TruckWhereInput | boolean
   delete?: Prisma.TruckWhereInput | boolean
   connect?: Prisma.TruckWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TruckUpdateToOneWithWhereWithoutDriversInput, Prisma.TruckUpdateWithoutDriversInput>, Prisma.TruckUncheckedUpdateWithoutDriversInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TruckUpdateToOneWithWhereWithoutDriverInput, Prisma.TruckUpdateWithoutDriverInput>, Prisma.TruckUncheckedUpdateWithoutDriverInput>
 }
 
 export type TruckCreateNestedOneWithoutReportsInput = {
@@ -504,97 +504,97 @@ export type TruckUpdateOneRequiredWithoutTireChangeHistoriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TruckUpdateToOneWithWhereWithoutTireChangeHistoriesInput, Prisma.TruckUpdateWithoutTireChangeHistoriesInput>, Prisma.TruckUncheckedUpdateWithoutTireChangeHistoriesInput>
 }
 
-export type TruckCreateNestedOneWithoutMaintenancelogInput = {
-  create?: Prisma.XOR<Prisma.TruckCreateWithoutMaintenancelogInput, Prisma.TruckUncheckedCreateWithoutMaintenancelogInput>
-  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutMaintenancelogInput
+export type TruckCreateNestedOneWithoutMaintenanceStatusesInput = {
+  create?: Prisma.XOR<Prisma.TruckCreateWithoutMaintenanceStatusesInput, Prisma.TruckUncheckedCreateWithoutMaintenanceStatusesInput>
+  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutMaintenanceStatusesInput
   connect?: Prisma.TruckWhereUniqueInput
 }
 
-export type TruckUpdateOneRequiredWithoutMaintenancelogNestedInput = {
-  create?: Prisma.XOR<Prisma.TruckCreateWithoutMaintenancelogInput, Prisma.TruckUncheckedCreateWithoutMaintenancelogInput>
-  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutMaintenancelogInput
-  upsert?: Prisma.TruckUpsertWithoutMaintenancelogInput
+export type TruckUpdateOneRequiredWithoutMaintenanceStatusesNestedInput = {
+  create?: Prisma.XOR<Prisma.TruckCreateWithoutMaintenanceStatusesInput, Prisma.TruckUncheckedCreateWithoutMaintenanceStatusesInput>
+  connectOrCreate?: Prisma.TruckCreateOrConnectWithoutMaintenanceStatusesInput
+  upsert?: Prisma.TruckUpsertWithoutMaintenanceStatusesInput
   connect?: Prisma.TruckWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TruckUpdateToOneWithWhereWithoutMaintenancelogInput, Prisma.TruckUpdateWithoutMaintenancelogInput>, Prisma.TruckUncheckedUpdateWithoutMaintenancelogInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TruckUpdateToOneWithWhereWithoutMaintenanceStatusesInput, Prisma.TruckUpdateWithoutMaintenanceStatusesInput>, Prisma.TruckUncheckedUpdateWithoutMaintenanceStatusesInput>
 }
 
-export type TruckCreateWithoutDriversInput = {
-  number_plate: string
+export type TruckCreateWithoutDriverInput = {
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
-  maintenancelog?: Prisma.maintenancelogCreateNestedManyWithoutLicense_platesInput
   reports?: Prisma.ReportCreateNestedManyWithoutTruckInput
   tireChangeHistories?: Prisma.TireChangeHistoryCreateNestedManyWithoutTruckInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusCreateNestedManyWithoutTruckInput
 }
 
-export type TruckUncheckedCreateWithoutDriversInput = {
+export type TruckUncheckedCreateWithoutDriverInput = {
   id?: number
-  number_plate: string
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
-  maintenancelog?: Prisma.maintenancelogUncheckedCreateNestedManyWithoutLicense_platesInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutTruckInput
   tireChangeHistories?: Prisma.TireChangeHistoryUncheckedCreateNestedManyWithoutTruckInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUncheckedCreateNestedManyWithoutTruckInput
 }
 
-export type TruckCreateOrConnectWithoutDriversInput = {
+export type TruckCreateOrConnectWithoutDriverInput = {
   where: Prisma.TruckWhereUniqueInput
-  create: Prisma.XOR<Prisma.TruckCreateWithoutDriversInput, Prisma.TruckUncheckedCreateWithoutDriversInput>
+  create: Prisma.XOR<Prisma.TruckCreateWithoutDriverInput, Prisma.TruckUncheckedCreateWithoutDriverInput>
 }
 
-export type TruckUpsertWithoutDriversInput = {
-  update: Prisma.XOR<Prisma.TruckUpdateWithoutDriversInput, Prisma.TruckUncheckedUpdateWithoutDriversInput>
-  create: Prisma.XOR<Prisma.TruckCreateWithoutDriversInput, Prisma.TruckUncheckedCreateWithoutDriversInput>
+export type TruckUpsertWithoutDriverInput = {
+  update: Prisma.XOR<Prisma.TruckUpdateWithoutDriverInput, Prisma.TruckUncheckedUpdateWithoutDriverInput>
+  create: Prisma.XOR<Prisma.TruckCreateWithoutDriverInput, Prisma.TruckUncheckedCreateWithoutDriverInput>
   where?: Prisma.TruckWhereInput
 }
 
-export type TruckUpdateToOneWithWhereWithoutDriversInput = {
+export type TruckUpdateToOneWithWhereWithoutDriverInput = {
   where?: Prisma.TruckWhereInput
-  data: Prisma.XOR<Prisma.TruckUpdateWithoutDriversInput, Prisma.TruckUncheckedUpdateWithoutDriversInput>
+  data: Prisma.XOR<Prisma.TruckUpdateWithoutDriverInput, Prisma.TruckUncheckedUpdateWithoutDriverInput>
 }
 
-export type TruckUpdateWithoutDriversInput = {
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+export type TruckUpdateWithoutDriverInput = {
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  maintenancelog?: Prisma.maintenancelogUpdateManyWithoutLicense_platesNestedInput
   reports?: Prisma.ReportUpdateManyWithoutTruckNestedInput
   tireChangeHistories?: Prisma.TireChangeHistoryUpdateManyWithoutTruckNestedInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUpdateManyWithoutTruckNestedInput
 }
 
-export type TruckUncheckedUpdateWithoutDriversInput = {
+export type TruckUncheckedUpdateWithoutDriverInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  maintenancelog?: Prisma.maintenancelogUncheckedUpdateManyWithoutLicense_platesNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutTruckNestedInput
   tireChangeHistories?: Prisma.TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUncheckedUpdateManyWithoutTruckNestedInput
 }
 
 export type TruckCreateWithoutReportsInput = {
-  number_plate: string
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
-  drivers?: Prisma.DriverCreateNestedOneWithoutTrucksInput
-  maintenancelog?: Prisma.maintenancelogCreateNestedManyWithoutLicense_platesInput
+  driver?: Prisma.DriverCreateNestedOneWithoutTrucksInput
   tireChangeHistories?: Prisma.TireChangeHistoryCreateNestedManyWithoutTruckInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusCreateNestedManyWithoutTruckInput
 }
 
 export type TruckUncheckedCreateWithoutReportsInput = {
   id?: number
-  number_plate: string
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
   driver_id?: number | null
-  maintenancelog?: Prisma.maintenancelogUncheckedCreateNestedManyWithoutLicense_platesInput
   tireChangeHistories?: Prisma.TireChangeHistoryUncheckedCreateNestedManyWithoutTruckInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUncheckedCreateNestedManyWithoutTruckInput
 }
 
 export type TruckCreateOrConnectWithoutReportsInput = {
@@ -614,45 +614,45 @@ export type TruckUpdateToOneWithWhereWithoutReportsInput = {
 }
 
 export type TruckUpdateWithoutReportsInput = {
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  drivers?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
-  maintenancelog?: Prisma.maintenancelogUpdateManyWithoutLicense_platesNestedInput
+  driver?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
   tireChangeHistories?: Prisma.TireChangeHistoryUpdateManyWithoutTruckNestedInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUpdateManyWithoutTruckNestedInput
 }
 
 export type TruckUncheckedUpdateWithoutReportsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driver_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  maintenancelog?: Prisma.maintenancelogUncheckedUpdateManyWithoutLicense_platesNestedInput
   tireChangeHistories?: Prisma.TireChangeHistoryUncheckedUpdateManyWithoutTruckNestedInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUncheckedUpdateManyWithoutTruckNestedInput
 }
 
 export type TruckCreateWithoutTireChangeHistoriesInput = {
-  number_plate: string
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
-  drivers?: Prisma.DriverCreateNestedOneWithoutTrucksInput
-  maintenancelog?: Prisma.maintenancelogCreateNestedManyWithoutLicense_platesInput
+  driver?: Prisma.DriverCreateNestedOneWithoutTrucksInput
   reports?: Prisma.ReportCreateNestedManyWithoutTruckInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusCreateNestedManyWithoutTruckInput
 }
 
 export type TruckUncheckedCreateWithoutTireChangeHistoriesInput = {
   id?: number
-  number_plate: string
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
   driver_id?: number | null
-  maintenancelog?: Prisma.maintenancelogUncheckedCreateNestedManyWithoutLicense_platesInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutTruckInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUncheckedCreateNestedManyWithoutTruckInput
 }
 
 export type TruckCreateOrConnectWithoutTireChangeHistoriesInput = {
@@ -672,39 +672,39 @@ export type TruckUpdateToOneWithWhereWithoutTireChangeHistoriesInput = {
 }
 
 export type TruckUpdateWithoutTireChangeHistoriesInput = {
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  drivers?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
-  maintenancelog?: Prisma.maintenancelogUpdateManyWithoutLicense_platesNestedInput
+  driver?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
   reports?: Prisma.ReportUpdateManyWithoutTruckNestedInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUpdateManyWithoutTruckNestedInput
 }
 
 export type TruckUncheckedUpdateWithoutTireChangeHistoriesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driver_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  maintenancelog?: Prisma.maintenancelogUncheckedUpdateManyWithoutLicense_platesNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutTruckNestedInput
+  MaintenanceStatuses?: Prisma.TruckMaintenanceStatusUncheckedUpdateManyWithoutTruckNestedInput
 }
 
-export type TruckCreateWithoutMaintenancelogInput = {
-  number_plate: string
+export type TruckCreateWithoutMaintenanceStatusesInput = {
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
-  drivers?: Prisma.DriverCreateNestedOneWithoutTrucksInput
+  driver?: Prisma.DriverCreateNestedOneWithoutTrucksInput
   reports?: Prisma.ReportCreateNestedManyWithoutTruckInput
   tireChangeHistories?: Prisma.TireChangeHistoryCreateNestedManyWithoutTruckInput
 }
 
-export type TruckUncheckedCreateWithoutMaintenancelogInput = {
+export type TruckUncheckedCreateWithoutMaintenanceStatusesInput = {
   id?: number
-  number_plate: string
+  license_plate: string
   current_mileage?: number
   created_at?: Date | string | null
   updated_at?: Date | string | null
@@ -713,35 +713,35 @@ export type TruckUncheckedCreateWithoutMaintenancelogInput = {
   tireChangeHistories?: Prisma.TireChangeHistoryUncheckedCreateNestedManyWithoutTruckInput
 }
 
-export type TruckCreateOrConnectWithoutMaintenancelogInput = {
+export type TruckCreateOrConnectWithoutMaintenanceStatusesInput = {
   where: Prisma.TruckWhereUniqueInput
-  create: Prisma.XOR<Prisma.TruckCreateWithoutMaintenancelogInput, Prisma.TruckUncheckedCreateWithoutMaintenancelogInput>
+  create: Prisma.XOR<Prisma.TruckCreateWithoutMaintenanceStatusesInput, Prisma.TruckUncheckedCreateWithoutMaintenanceStatusesInput>
 }
 
-export type TruckUpsertWithoutMaintenancelogInput = {
-  update: Prisma.XOR<Prisma.TruckUpdateWithoutMaintenancelogInput, Prisma.TruckUncheckedUpdateWithoutMaintenancelogInput>
-  create: Prisma.XOR<Prisma.TruckCreateWithoutMaintenancelogInput, Prisma.TruckUncheckedCreateWithoutMaintenancelogInput>
+export type TruckUpsertWithoutMaintenanceStatusesInput = {
+  update: Prisma.XOR<Prisma.TruckUpdateWithoutMaintenanceStatusesInput, Prisma.TruckUncheckedUpdateWithoutMaintenanceStatusesInput>
+  create: Prisma.XOR<Prisma.TruckCreateWithoutMaintenanceStatusesInput, Prisma.TruckUncheckedCreateWithoutMaintenanceStatusesInput>
   where?: Prisma.TruckWhereInput
 }
 
-export type TruckUpdateToOneWithWhereWithoutMaintenancelogInput = {
+export type TruckUpdateToOneWithWhereWithoutMaintenanceStatusesInput = {
   where?: Prisma.TruckWhereInput
-  data: Prisma.XOR<Prisma.TruckUpdateWithoutMaintenancelogInput, Prisma.TruckUncheckedUpdateWithoutMaintenancelogInput>
+  data: Prisma.XOR<Prisma.TruckUpdateWithoutMaintenanceStatusesInput, Prisma.TruckUncheckedUpdateWithoutMaintenanceStatusesInput>
 }
 
-export type TruckUpdateWithoutMaintenancelogInput = {
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+export type TruckUpdateWithoutMaintenanceStatusesInput = {
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  drivers?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
+  driver?: Prisma.DriverUpdateOneWithoutTrucksNestedInput
   reports?: Prisma.ReportUpdateManyWithoutTruckNestedInput
   tireChangeHistories?: Prisma.TireChangeHistoryUpdateManyWithoutTruckNestedInput
 }
 
-export type TruckUncheckedUpdateWithoutMaintenancelogInput = {
+export type TruckUncheckedUpdateWithoutMaintenanceStatusesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  number_plate?: Prisma.StringFieldUpdateOperationsInput | string
+  license_plate?: Prisma.StringFieldUpdateOperationsInput | string
   current_mileage?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -756,15 +756,15 @@ export type TruckUncheckedUpdateWithoutMaintenancelogInput = {
  */
 
 export type TruckCountOutputType = {
-  maintenancelog: number
   reports: number
   tireChangeHistories: number
+  MaintenanceStatuses: number
 }
 
 export type TruckCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  maintenancelog?: boolean | TruckCountOutputTypeCountMaintenancelogArgs
   reports?: boolean | TruckCountOutputTypeCountReportsArgs
   tireChangeHistories?: boolean | TruckCountOutputTypeCountTireChangeHistoriesArgs
+  MaintenanceStatuses?: boolean | TruckCountOutputTypeCountMaintenanceStatusesArgs
 }
 
 /**
@@ -775,13 +775,6 @@ export type TruckCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
    * Select specific fields to fetch from the TruckCountOutputType
    */
   select?: Prisma.TruckCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * TruckCountOutputType without action
- */
-export type TruckCountOutputTypeCountMaintenancelogArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.maintenancelogWhereInput
 }
 
 /**
@@ -798,18 +791,25 @@ export type TruckCountOutputTypeCountTireChangeHistoriesArgs<ExtArgs extends run
   where?: Prisma.TireChangeHistoryWhereInput
 }
 
+/**
+ * TruckCountOutputType without action
+ */
+export type TruckCountOutputTypeCountMaintenanceStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TruckMaintenanceStatusWhereInput
+}
+
 
 export type TruckSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  number_plate?: boolean
+  license_plate?: boolean
   current_mileage?: boolean
   created_at?: boolean
   updated_at?: boolean
   driver_id?: boolean
-  drivers?: boolean | Prisma.Truck$driversArgs<ExtArgs>
-  maintenancelog?: boolean | Prisma.Truck$maintenancelogArgs<ExtArgs>
+  driver?: boolean | Prisma.Truck$driverArgs<ExtArgs>
   reports?: boolean | Prisma.Truck$reportsArgs<ExtArgs>
   tireChangeHistories?: boolean | Prisma.Truck$tireChangeHistoriesArgs<ExtArgs>
+  MaintenanceStatuses?: boolean | Prisma.Truck$MaintenanceStatusesArgs<ExtArgs>
   _count?: boolean | Prisma.TruckCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["truck"]>
 
@@ -817,33 +817,33 @@ export type TruckSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 
 export type TruckSelectScalar = {
   id?: boolean
-  number_plate?: boolean
+  license_plate?: boolean
   current_mileage?: boolean
   created_at?: boolean
   updated_at?: boolean
   driver_id?: boolean
 }
 
-export type TruckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number_plate" | "current_mileage" | "created_at" | "updated_at" | "driver_id", ExtArgs["result"]["truck"]>
+export type TruckOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "license_plate" | "current_mileage" | "created_at" | "updated_at" | "driver_id", ExtArgs["result"]["truck"]>
 export type TruckInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  drivers?: boolean | Prisma.Truck$driversArgs<ExtArgs>
-  maintenancelog?: boolean | Prisma.Truck$maintenancelogArgs<ExtArgs>
+  driver?: boolean | Prisma.Truck$driverArgs<ExtArgs>
   reports?: boolean | Prisma.Truck$reportsArgs<ExtArgs>
   tireChangeHistories?: boolean | Prisma.Truck$tireChangeHistoriesArgs<ExtArgs>
+  MaintenanceStatuses?: boolean | Prisma.Truck$MaintenanceStatusesArgs<ExtArgs>
   _count?: boolean | Prisma.TruckCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $TruckPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Truck"
   objects: {
-    drivers: Prisma.$DriverPayload<ExtArgs> | null
-    maintenancelog: Prisma.$maintenancelogPayload<ExtArgs>[]
+    driver: Prisma.$DriverPayload<ExtArgs> | null
     reports: Prisma.$ReportPayload<ExtArgs>[]
     tireChangeHistories: Prisma.$TireChangeHistoryPayload<ExtArgs>[]
+    MaintenanceStatuses: Prisma.$TruckMaintenanceStatusPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    number_plate: string
+    license_plate: string
     current_mileage: number
     created_at: Date | null
     updated_at: Date | null
@@ -1188,10 +1188,10 @@ readonly fields: TruckFieldRefs;
  */
 export interface Prisma__TruckClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  drivers<T extends Prisma.Truck$driversArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Truck$driversArgs<ExtArgs>>): Prisma.Prisma__DriverClient<runtime.Types.Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  maintenancelog<T extends Prisma.Truck$maintenancelogArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Truck$maintenancelogArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$maintenancelogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  driver<T extends Prisma.Truck$driverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Truck$driverArgs<ExtArgs>>): Prisma.Prisma__DriverClient<runtime.Types.Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   reports<T extends Prisma.Truck$reportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Truck$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tireChangeHistories<T extends Prisma.Truck$tireChangeHistoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Truck$tireChangeHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TireChangeHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  MaintenanceStatuses<T extends Prisma.Truck$MaintenanceStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Truck$MaintenanceStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TruckMaintenanceStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1222,7 +1222,7 @@ export interface Prisma__TruckClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface TruckFieldRefs {
   readonly id: Prisma.FieldRef<"Truck", 'Int'>
-  readonly number_plate: Prisma.FieldRef<"Truck", 'String'>
+  readonly license_plate: Prisma.FieldRef<"Truck", 'String'>
   readonly current_mileage: Prisma.FieldRef<"Truck", 'Int'>
   readonly created_at: Prisma.FieldRef<"Truck", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Truck", 'DateTime'>
@@ -1575,9 +1575,9 @@ export type TruckDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Truck.drivers
+ * Truck.driver
  */
-export type Truck$driversArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Truck$driverArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Driver
    */
@@ -1591,30 +1591,6 @@ export type Truck$driversArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   include?: Prisma.DriverInclude<ExtArgs> | null
   where?: Prisma.DriverWhereInput
-}
-
-/**
- * Truck.maintenancelog
- */
-export type Truck$maintenancelogArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the maintenancelog
-   */
-  select?: Prisma.maintenancelogSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the maintenancelog
-   */
-  omit?: Prisma.maintenancelogOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.maintenancelogInclude<ExtArgs> | null
-  where?: Prisma.maintenancelogWhereInput
-  orderBy?: Prisma.maintenancelogOrderByWithRelationInput | Prisma.maintenancelogOrderByWithRelationInput[]
-  cursor?: Prisma.maintenancelogWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MaintenancelogScalarFieldEnum | Prisma.MaintenancelogScalarFieldEnum[]
 }
 
 /**
@@ -1663,6 +1639,30 @@ export type Truck$tireChangeHistoriesArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.TireChangeHistoryScalarFieldEnum | Prisma.TireChangeHistoryScalarFieldEnum[]
+}
+
+/**
+ * Truck.MaintenanceStatuses
+ */
+export type Truck$MaintenanceStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TruckMaintenanceStatus
+   */
+  select?: Prisma.TruckMaintenanceStatusSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TruckMaintenanceStatus
+   */
+  omit?: Prisma.TruckMaintenanceStatusOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TruckMaintenanceStatusInclude<ExtArgs> | null
+  where?: Prisma.TruckMaintenanceStatusWhereInput
+  orderBy?: Prisma.TruckMaintenanceStatusOrderByWithRelationInput | Prisma.TruckMaintenanceStatusOrderByWithRelationInput[]
+  cursor?: Prisma.TruckMaintenanceStatusWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TruckMaintenanceStatusScalarFieldEnum | Prisma.TruckMaintenanceStatusScalarFieldEnum[]
 }
 
 /**

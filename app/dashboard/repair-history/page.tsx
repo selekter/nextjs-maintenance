@@ -1,26 +1,25 @@
-import { getGroupedRepairHistory } from "@/actions/ReportAction";
-import { GroupedReport } from "@/types";
 import HistoryTable from "@/ui/history/HistoryTable";
 import Pagination from "@/components/Pagination";
 import Search from "@/ui/history/Search";
+import { getGroupedRepairHistory } from "@/features/report/report.actions";
 
-export default async function repairHistoryPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string; query?: string }>;
-}) {
-  const { page, query } = await searchParams;
-  const currentPage = Number(page) || 1;
-  const searchQuery = query || "";
+interface PageProps {
+  searchParams: Promise<{ page?: string; search?: string }>;
+}
 
-  const { data, totalPages } = (await getGroupedRepairHistory(
+export default async function repairHistoryPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const currentPage = Number(params.page) || 1;
+  const searchQuery = params.search || "";
+
+  // เรียกใช้ฟังก์ชันผ่าน Feature Queries Layer
+  const { data, totalPages } = await getGroupedRepairHistory(
     currentPage,
     10,
     searchQuery,
-  )) as {
-    data: GroupedReport[];
-    totalPages: number;
-  };
+  );
+
+  console.log(data);
 
   return (
     <div className="p-6 space-y-4">

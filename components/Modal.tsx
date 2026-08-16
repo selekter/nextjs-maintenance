@@ -70,15 +70,10 @@ const Modal: React.FC<ModalProps> = ({
         aria-labelledby="modal-title"
       >
         <div
-          // className={`bg-white rounded-2xl shadow-2xl ${
-          //   sizeClasses[size]
-          // } w-full max-h-[90vh] flex flex-col transform transition-all duration-300 pointer-events-auto ${
-          //   isAnimating ? "scale-100 opacity-100" : "scale-95 opacity-0"
-          // }`}
           className={cn(
             "bg-white rounded-2xl shadow-2xl w-full max-h-[90vh]",
             sizeClasses[size],
-            "flex flex-col transform transition-all duration-300 pointer-events-none",
+            "flex flex-col transform transition-all duration-300 pointer-events-auto",
             isAnimating ? "scale-100 opacity-100" : "scale-95 opacity-0",
           )}
           style={{

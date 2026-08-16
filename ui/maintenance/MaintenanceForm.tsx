@@ -1,7 +1,7 @@
 // components/MaintenanceForm.tsx
 "use client";
 
-import { updateMaintenance } from "@/actions/MaintenanceAction";
+import { updateMaintenance } from "@/actions__/MaintenanceAction";
 import { useActionState, useState } from "react";
 
 export default function MaintenanceForm({ trucks }: { trucks: any[] }) {

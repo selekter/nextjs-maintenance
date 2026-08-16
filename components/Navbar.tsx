@@ -5,11 +5,11 @@ import { cn } from "@/lib/utility";
 import {
   ClipboardClock,
   Gauge,
-  IdCard,
   LifeBuoy,
   Menu,
   PowerOff,
   Truck,
+  TruckIcon,
   Wrench,
 } from "lucide-react";
 import Link from "next/link";
@@ -23,9 +23,9 @@ export default function Navbar({ session }: { session: any }) {
   const NavLink = [
     { name: "dashboard", path: "/dashboard", icon: <Gauge size={20} /> },
     {
-      name: "พนักงานขับรถ",
-      path: "/dashboard/drivers",
-      icon: <IdCard size={20} />,
+      name: "จัดการรถบรรทุก",
+      path: "/dashboard/trucks",
+      icon: <TruckIcon size={20} />,
     },
     {
       name: "แจ้งซ่อม",
@@ -79,11 +79,11 @@ export default function Navbar({ session }: { session: any }) {
       )}
       <aside
         className={cn(
-          "fixed top-0 left-0 z-50 bg-neutral-900 h-screen text-white w-64 transform transition-transform ease-in-out md:static md:translate-x-0 md:z-0",
+          "fixed top-0 left-0 p-2 z-50 bg-neutral-900 h-screen flex flex-col justify-between text-white w-64 transform transition-transform ease-in-out md:static md:translate-x-0 md:z-0",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <ul className="flex flex-col gap-1 my-2">
+        <ul className="flex flex-col gap-1">
           {NavLink.map((link) => (
             <li key={link.name}>
               <Link
@@ -102,7 +102,7 @@ export default function Navbar({ session }: { session: any }) {
           ))}
         </ul>
 
-        {session && (
+        {session ? (
           <button
             className="p-1 bg-red-500 hover:bg-red-700 transition w-full md:rounded-md cursor-pointer flex gap-1"
             onClick={handleSignOut}
@@ -110,8 +110,14 @@ export default function Navbar({ session }: { session: any }) {
             <PowerOff size={20} />
             ออกจากระบบ
           </button>
+        ) : (
+          <Link
+            className="text-center transition bg-gray-500 hover:bg-gray-700 rounded-md"
+            href="/login"
+          >
+            Login
+          </Link>
         )}
-        {/* </div> */}
       </aside>
     </>
   );

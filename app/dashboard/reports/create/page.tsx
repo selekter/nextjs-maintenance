@@ -1,6 +1,6 @@
-import { getTrucks } from "@/actions/TruckAction";
+import { getTrucks } from "@/features/trucks/truck.action";
 import { auth } from "@/lib/auth";
-import ReportForm from "@/ui/reports/create/ReportForm";
+import ReportForm from "@/features/report/components/ReportForm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 

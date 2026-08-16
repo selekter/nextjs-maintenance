@@ -1,11 +1,12 @@
 "use client";
 
-import { createLicenseMaintenance } from "@/actions/MaintenanceAction";
+import { createLicenseMaintenance } from "@/actions__/MaintenanceAction";
 import Modal from "@/components/Modal";
+import { TruckProp } from "@/features/trucks/truck.type";
 import { useModal } from "@/hooks/useModal";
 import { useActionState, useRef } from "react";
 
-export default function MaintenanceModal({ truckid }: { truckid: any }) {
+export default function MaintenanceModal({ trucks }: { trucks: TruckProp[] }) {
   const { isOpen, openModal, closeModal } = useModal();
   const [state, formAction, isPending] = useActionState(
     async (prevState: any, formData: FormData) => {
@@ -19,13 +20,6 @@ export default function MaintenanceModal({ truckid }: { truckid: any }) {
     null,
   );
   const formRef = useRef<HTMLFormElement>(null);
-
-  // เมื่อกดปุ่มยืนยันใน Modal ให้ submit ฟอร์ม
-  const handleConfirm = () => {
-    if (formRef.current) {
-      formRef.current.requestSubmit();
-    }
-  };
 
   return (
     <>
@@ -53,9 +47,9 @@ export default function MaintenanceModal({ truckid }: { truckid: any }) {
             </label>
             <select name="truckId">
               <option value="">เลือกเลขทะเบียนรถ</option>
-              {truckid?.map((truck: any) => (
+              {trucks?.map((truck) => (
                 <option key={truck.id} value={truck.id}>
-                  {truck.number_plate}
+                  {truck.license_plate}
                 </option>
               ))}
             </select>

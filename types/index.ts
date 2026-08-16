@@ -1,14 +1,4 @@
-export interface ReportProps {
-  id: number | string;
-  license_plate: string;
-  repairs: RepairItem[];
-}
-
-export interface TruckProps {
-  id: number;
-  number_plate: string;
-  drivers_name: string;
-}
+import { Prisma, Truck, TireBrand } from "@/generated/prisma/client";
 
 type RepairItem = {
   repair: string;
@@ -18,40 +8,39 @@ type RepairItem = {
 export interface GroupedReport {
   id: number;
   license_plate: string;
+  mileage: number;
   repairs: RepairItem[];
 }
 
 export interface TireGrouped {
   date: string;
-  plate_number: string;
+  license_plate: string;
   mileage: number;
-  tires: TireItem[];
 }
 
-export interface TireItem {
-  tire_code: string;
-  brand: string;
-  position: number;
-}
-
-export interface TiresProps {
-  id: bigint;
-  date: string;
-  plate_number: string;
-  tire_change_id: bigint;
-  brand_id: number;
-  tire_code: string;
-  position: number;
-  brand: {
-    name: string;
-  };
-  tires: {
-    tire_code: string;
-    brand: string;
-    position: number;
-
-    truck: {
-      number_plate: string;
+export type ReportProps = Prisma.TruckGetPayload<{
+  select: {
+    id: true;
+    license_plate: true;
+    reports: {
+      select: {
+        repair: true;
+      };
     };
   };
-}
+}>;
+
+export type TruckProps = Prisma.TruckGetPayload<{
+  select: {
+    id: true;
+    license_plate: true;
+    current_mileage: true;
+    driver: {
+      select: {
+        name: true;
+      };
+    };
+  };
+}>;
+
+export type TireBrandProps = TireBrand;

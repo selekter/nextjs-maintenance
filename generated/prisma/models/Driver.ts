@@ -257,7 +257,7 @@ export type DriverCreateInput = {
   name: string
   created_at?: Date | string
   updated_at?: Date | string
-  trucks?: Prisma.TruckCreateNestedOneWithoutDriversInput
+  trucks?: Prisma.TruckCreateNestedOneWithoutDriverInput
 }
 
 export type DriverUncheckedCreateInput = {
@@ -265,14 +265,14 @@ export type DriverUncheckedCreateInput = {
   name: string
   created_at?: Date | string
   updated_at?: Date | string
-  trucks?: Prisma.TruckUncheckedCreateNestedOneWithoutDriversInput
+  trucks?: Prisma.TruckUncheckedCreateNestedOneWithoutDriverInput
 }
 
 export type DriverUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  trucks?: Prisma.TruckUpdateOneWithoutDriversNestedInput
+  trucks?: Prisma.TruckUpdateOneWithoutDriverNestedInput
 }
 
 export type DriverUncheckedUpdateInput = {
@@ -280,7 +280,7 @@ export type DriverUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  trucks?: Prisma.TruckUncheckedUpdateOneWithoutDriversNestedInput
+  trucks?: Prisma.TruckUncheckedUpdateOneWithoutDriverNestedInput
 }
 
 export type DriverCreateManyInput = {

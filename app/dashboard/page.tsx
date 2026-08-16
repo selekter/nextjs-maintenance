@@ -1,10 +1,12 @@
-import { countReports } from "@/actions/ReportAction";
+// import { countReports } from "@/actions/ReportAction";
 import StatCard from "@/components/StatCard";
+import { countReports } from "@/features/dashboard/dashboard.actions";
 import { Wrench } from "lucide-react";
 import Link from "next/link";
 
 export default async function DashboardPage() {
   const pendingCount = await countReports();
+  // const pendingCount = await countReports();
 
   return (
     <>

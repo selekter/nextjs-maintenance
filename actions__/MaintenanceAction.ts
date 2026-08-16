@@ -1,0 +1,150 @@
+// actions/MaintenanceAction.ts
+"use server";
+import { ActionState } from "@/components/Type";
+import { prisma } from "@/lib/prisma";
+import { createLicenseMaintenanceSchema } from "@/lib/zod";
+import { revalidatePath } from "next/cache";
+import z from "zod";
+
+export async function getMaintenanceStatus() {
+  const reports = await prisma.truckMaintenanceStatus.findMany({
+    include: {
+      truck: {
+        select: {
+          id: true,
+          license_plate: true,
+          current_mileage: true,
+          updated_at: true,
+        },
+      },
+    },
+    orderBy: { service_date: "desc" },
+  });
+
+  // จัดกลุ่มด้วย Reduce
+  const grouped = reports.reduce((acc, log) => {
+    const plate = log.truck.license_plate;
+    if (!acc[plate]) {
+      acc[plate] = {
+        id: log.truck.id,
+        number_plate: plate,
+        current_mileage: log.truck.current_mileage,
+        updated_at: log.truck.updated_at,
+        items: [],
+      };
+    }
+
+    // ตรวจสอบว่าในคันนี้ มีประเภทนี้ไปหรือยัง (เอาเฉพาะรายการล่าสุดของประเภทนั้น)
+    const hasType = acc[plate].items.find((i: any) => i.type === log.type);
+    if (!hasType) {
+      acc[plate].items.push({
+        type: log.type,
+        next_service_at: log.next_service_at,
+        last_service_at: log.service_mileage,
+      });
+    }
+    return acc;
+  }, {} as any);
+
+  const result = Object.values(grouped).sort((a: any, b: any) => {
+    return a.number_plate.localeCompare(b.number_plate, undefined, {
+      numeric: true,
+      sensitiveity: "base",
+    });
+  });
+
+  return result;
+}
+
+export async function updateMaintenance(prevState: any, formData: FormData) {
+  const truckId = formData.get("truckId") as string;
+  const type = formData.get("type") as string;
+  const serviceMileage = parseInt(formData.get("serviceMileage") as string);
+  const interval = parseInt(formData.get("interval") as string);
+
+  try {
+    // ใช้ Transaction เพื่อความปลอดภัยของข้อมูล
+    await prisma.$transaction([
+      // 1. บันทึกประวัติการเปลี่ยน
+      prisma.truckMaintenanceStatus.create({
+        data: {
+          truck_id: parseInt(truckId),
+          type: type,
+          service_mileage: serviceMileage,
+          next_service_at: serviceMileage + interval,
+        },
+      }),
+      // 2. อัปเดตเลขไมล์ปัจจุบันของรถให้เป็นค่าล่าสุด
+      prisma.truck.update({
+        where: { id: parseInt(truckId) },
+        data: { current_mileage: serviceMileage },
+      }),
+    ]);
+
+    revalidatePath("/dashboard/maintenance");
+
+    return { success: true, message: "บันทึกข้อมูลเรียบร้อย" };
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function createLicenseMaintenance(
+  prevState: any,
+  formData: FormData,
+): Promise<ActionState> {
+  const rawData = {
+    truckId: formData.get("truckId"),
+    currentMileage: formData.get("current_mileage"),
+  };
+
+  const validation = createLicenseMaintenanceSchema.safeParse(rawData);
+
+  if (!validation.success) {
+    return { errors: z.flattenError(validation.error).fieldErrors };
+  }
+
+  const { truckId, currentMileage } = validation.data;
+
+  try {
+    const existing = await prisma.truckMaintenanceStatus.findFirst({
+      where: { truck_id: truckId },
+    });
+
+    if (existing) {
+      return { success: false, message: "เลขทะเบียนนี้มีในระบบแล้ว" };
+    }
+
+    await prisma.$transaction(async (tx) => {
+      await tx.truck.update({
+        where: { id: truckId },
+        data: {
+          current_mileage: currentMileage,
+        },
+      });
+      // สร้างรายการบำรุงรักษาพื้นฐาน
+      const maintenanceDefaults = [
+        { type: "น้ำมันเครื่อง", interval: 20000 },
+        { type: "น้ำมันเกียร์", interval: 70000 },
+        { type: "น้ำมันเฟืองท้าย", interval: 60000 },
+      ];
+
+      for (const item of maintenanceDefaults) {
+        await tx.truckMaintenanceStatus.create({
+          data: {
+            truck_id: truckId,
+            type: item.type,
+            service_mileage: currentMileage,
+            next_service_at: currentMileage + item.interval,
+          },
+        });
+      }
+    });
+
+    revalidatePath("/dashboard/maintenance");
+    return { success: true, message: "เพิ่มทะเบียนรถเรียบร้อยแล้ว" };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: "เกิดข้อผิดพลาดในการเพิ่มทะเบียนรถ" };
+  }
+}
