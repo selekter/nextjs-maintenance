@@ -1,13 +1,20 @@
-import { cn } from "@/lib/utility";
+﻿import { cn } from "@/lib/utility";
 
-export function Table({ children }: { children: React.ReactNode }) {
+export function Table({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-y-hidden overflow-x-auto">
-      <table className="text-left w-full table-auto">{children}</table>
+    <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <table className={cn("w-full table-auto text-left", className)}>
+        {children}
+      </table>
     </div>
   );
 }
-
 export function TableHeader({
   className = "",
   children,
@@ -16,12 +23,11 @@ export function TableHeader({
   children: React.ReactNode;
 }) {
   return (
-    <thead className={cn("bg-blue-200 border-b border-gray-100", className)}>
+    <thead className={cn("border-b border-slate-200 bg-slate-50", className)}>
       {children}
     </thead>
   );
 }
-
 export function TableBody({
   className = "",
   children,
@@ -30,12 +36,11 @@ export function TableBody({
   children: React.ReactNode;
 }) {
   return (
-    <tbody className={cn("divide-y divide-gray-100", className)}>
+    <tbody className={cn("divide-y divide-slate-100", className)}>
       {children}
     </tbody>
   );
 }
-
 export function TableHead({
   className = "",
   children,
@@ -44,12 +49,11 @@ export function TableHead({
   children: React.ReactNode;
 }) {
   return (
-    <th className={cn("px-6 py-4 font-semibold text-gray-700", className)}>
+    <th className={cn("px-6 py-4 font-semibold text-slate-700", className)}>
       {children}
     </th>
   );
 }
-
 export function TableRow({
   className = "",
   children,
@@ -59,7 +63,6 @@ export function TableRow({
 }) {
   return <tr className={cn("", className)}>{children}</tr>;
 }
-
 export function TableCell({
   className = "",
   children,
@@ -68,7 +71,7 @@ export function TableCell({
   children: React.ReactNode;
 }) {
   return (
-    <td className={cn("px-6 py-4 font-medium text-gray-700", className)}>
+    <td className={cn("px-6 py-4 font-medium text-slate-700", className)}>
       {children}
     </td>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -21,9 +22,9 @@ export default function ReportTable({
   const { isOpen, data, openModal, closeModal } = useModal();
 
   return (
-    <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-y-hidden overflow-x-auto">
-      <table className="text-left w-full table-auto">
-        <TableHeader>
+    <>
+      <Table>
+        <TableHeader className="bg-blue-200">
           <TableRow>
             <TableHead>ทะเบียน</TableHead>
             <TableHead>รายการแจ้งซ่อม</TableHead>
@@ -64,7 +65,7 @@ export default function ReportTable({
             </tr>
           ))}
         </TableBody>
-      </table>
-    </div>
+      </Table>
+    </>
   );
 }

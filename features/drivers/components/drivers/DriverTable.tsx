@@ -1,6 +1,7 @@
 "use client";
 
 import Modal from "@/components/Modal";
+import { Table, TableHead, TableHeader, TableRow } from "@/components/Table";
 import { TruckProp } from "@/features/trucks/truck.type";
 import { useModal } from "@/hooks/useModal";
 
@@ -13,17 +14,15 @@ export default function DriverTable({
 }) {
   const { isOpen, data, openModal, closeModal } = useModal();
   return (
-    <div className="rounded-xl overflow-x-auto overflow-y-hidden shadow-md">
-      <table className="w-full text-left bg-white table-auto">
-        <thead className="bg-blue-200">
-          <tr className="">
-            <th className="px-6 py-4 font-semibold text-gray-700">ทะเบียน</th>
-            <th className="px-6 py-4 font-semibold text-gray-700">
-              พนักงานขับรถ
-            </th>
+    <>
+      <Table>
+        <TableHeader className="bg-blue-200">
+          <TableRow>
+            <TableHead>ทะเบียน</TableHead>
+            <TableHead>พนักงานขับรถ</TableHead>
             {session && <th className="px-6 py-4 text-right">จัดการ</th>}
-          </tr>
-        </thead>
+          </TableRow>
+        </TableHeader>
         <tbody className="divide-y divide-gray-100">
           {trucks.map((truck, index) => (
             <tr key={index} className="transition hover:bg-blue-100">
@@ -55,7 +54,7 @@ export default function DriverTable({
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
       <Modal
         isOpen={isOpen}
         onClose={closeModal}
@@ -64,6 +63,6 @@ export default function DriverTable({
         <p>Modal</p>
         {data?.license_plate}
       </Modal>
-    </div>
+    </>
   );
 }
