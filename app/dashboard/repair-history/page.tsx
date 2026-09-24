@@ -19,8 +19,6 @@ export default async function repairHistoryPage({ searchParams }: PageProps) {
     searchQuery,
   );
 
-  console.log(data);
-
   return (
     <div className="p-6 space-y-4">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

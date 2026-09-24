@@ -157,7 +157,7 @@ export async function createReport(prevState: any, formData: FormData) {
   try {
     await prisma.report.createMany({
       data: repairs.map((repair) => ({
-        truck_id: parseInt(truckId),
+        truck_id: truckId,
         repair: repair,
         status: 0,
       })),

@@ -14,35 +14,6 @@ export default async function TiresPage() {
     getTireBrands(),
   ]);
 
-  console.log(tires);
-
-  // const tireGrouped = Object.values(
-  //   tires.reduce<Record<string, TireGrouped>>((acc: any, item: any) => {
-  //     const date = new Date(item.change_date).toISOString().split("T")[0];
-
-  //     const plate = item.truck.license_plate;
-
-  //     const key = `${plate}-${date}`;
-
-  //     if (!acc[key]) {
-  //       acc[key] = {
-  //         date,
-  //         license_plate: plate,
-  //         mileage: item.mileage_at_change,
-  //         tires: [],
-  //       };
-  //     }
-
-  //     acc[key].tires.push({
-  //       position: item.position,
-  //       brand: item.brand.name,
-  //       tire_code: item.tire_code,
-  //     });
-
-  //     return acc;
-  //   }, {}),
-  // );
-
   return (
     <>
       <Suspense fallback={<TableSkeleton />}>

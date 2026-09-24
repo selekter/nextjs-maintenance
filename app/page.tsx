@@ -29,7 +29,7 @@ export default function Home() {
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#147a8a] text-white shadow-lg shadow-teal-900/20">
               <Truck size={23} />
             </span>
-            <span className="text-lg">FleetCare</span>
+            <span className="text-lg">TruckCare</span>
           </div>
           <Link
             href="/login"

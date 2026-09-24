@@ -64,8 +64,7 @@ export const reportService = {
     return { data: Object.values(grouped), totalPages };
   },
 
-  async createNewReport(rawTruckId: string, rawMaintenances: unknown[]) {
-    const truckId = parseInt(rawTruckId);
+  async createNewReport(truckId: number, rawMaintenances: unknown[]) {
     if (isNaN(truckId)) {
       throw new Error("INVALID_TRUCK_ID");
     }

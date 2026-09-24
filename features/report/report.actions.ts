@@ -32,7 +32,7 @@ export async function getGroupedRepairHistory(
 //! สร้าง Report
 export async function createReport(prevState: any, formData: FormData) {
   const rawData = {
-    truckId: parseInt(formData.get("truckId") as string),
+    truckId: formData.get("truckId"),
     maintenaces: formData.getAll("maintenance"),
   };
 

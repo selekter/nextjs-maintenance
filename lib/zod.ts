@@ -25,7 +25,7 @@ export const truckSchema = z.object({
 });
 
 export const reportSchema = z.object({
-  truckId: z.string().min(1, "กรุณาเลือกทะเบียนรถ"),
+  truckId: z.coerce.number().min(1, "กรุณาเลือกทะเบียนรถ"),
   maintenaces: z
     .array(z.string())
     .refine((val) => val.length > 0 && val.some((v) => v.trim() !== ""), {

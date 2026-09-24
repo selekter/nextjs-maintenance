@@ -1,10 +1,59 @@
 ﻿import StatCard from "@/components/StatCard";
 import { countReports } from "@/features/dashboard/dashboard.actions";
-import { ArrowRight, ClipboardCheck, Wrench } from "lucide-react";
+import {
+  ArrowRight,
+  ClipboardCheck,
+  FileText,
+  GitCompareArrows,
+  Wrench,
+} from "lucide-react";
 import Link from "next/link";
+import { ReactNode } from "react";
+
+type DashboardLink = {
+  href: string;
+  title: string;
+  className: string;
+  value: number | string;
+  icon: ReactNode;
+};
 
 export default async function DashboardPage() {
   const pendingCount = await countReports();
+
+  const dashboardLinks: DashboardLink[] = [
+    {
+      href: "/dashboard/reports",
+      title: "รายการรอซ่อม",
+      className: "border-teal-100 bg-teal-50 text-teal-800 hover:bg-teal-100",
+      value: pendingCount,
+      icon: <Wrench size={24} />,
+    },
+    {
+      href: "/dashboard/repair-history",
+      title: "ประวัติการซ่อม",
+      className:
+        "border-amber-100 bg-amber-50 text-amber-800 hover:bg-amber-100",
+      value: "ดูประวัติการซ่อมทั้งหมด",
+      icon: <FileText size={24} />,
+    },
+    {
+      href: "/dashboard/maintenance",
+      title: "ตรวจสอบรอบบำรุงรักษา",
+      className: "border-blue-100 bg-blue-50 text-blue-800 hover:bg-blue-100",
+      value: "ดูรายการ",
+      icon: <ClipboardCheck size={24} />,
+    },
+    {
+      href: "/dashboard/tires",
+      title: "ประวัติเปลี่ยนยาง",
+      className:
+        "border-olive-100 bg-olive-50 text-olive-800 hover:bg-olive-100",
+      value: "ดูประวัติเปลี่ยนยาง",
+      icon: <GitCompareArrows size={24} />,
+    },
+  ];
+
   return (
     <div className="mx-auto max-w-7xl">
       <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -26,23 +75,17 @@ export default async function DashboardPage() {
           แจ้งซ่อมใหม่ <ArrowRight size={17} />
         </Link>
       </div>
-      <div className="grid max-w-2xl grid-cols-1 gap-5 sm:grid-cols-2">
-        <Link href="/dashboard/reports">
-          <StatCard
-            title="รายการรอซ่อม"
-            className="border-teal-100 bg-teal-50 text-teal-800 hover:bg-teal-100"
-            value={pendingCount}
-            icon={<Wrench size={24} />}
-          />
-        </Link>
-        <Link href="/dashboard/maintenance">
-          <StatCard
-            title="ตรวจสอบรอบบำรุงรักษา"
-            className="border-blue-100 bg-blue-50 text-blue-800 hover:bg-blue-100"
-            value="ดูรายการ"
-            icon={<ClipboardCheck size={24} />}
-          />
-        </Link>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+        {dashboardLinks.map(({ href, title, className, value, icon }) => (
+          <Link href={href} key={href}>
+            <StatCard
+              title={title}
+              className={className}
+              value={value}
+              icon={icon}
+            />
+          </Link>
+        ))}
       </div>
       <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="font-bold text-[#102a43]">เริ่มต้นอย่างรวดเร็ว</h2>
